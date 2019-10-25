@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "488038246568",
+    "firebase_url": "https://healthoduct-4f393.firebaseio.com",
+    "project_id": "healthoduct-4f393",
+    "storage_bucket": "healthoduct-4f393.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:488038246568:android:8687010031ab176f62ba9d",
+        "android_client_info": {
+          "package_name": "com.healthoduct"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "488038246568-ul8lbtrnfk5vk2qr63rnr2t362eu9nhn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.healthoduct",
+            "certificate_hash": "b583ee261195fe38e604e410e4345cb038b7b4d5"
+          }
+        },
+        {
+          "client_id": "488038246568-aimho25uljsj9s9st588rahff0pce6kv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsdj2Dogn2Y1GMpRECkoeABRSkRP_KMz4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "488038246568-aimho25uljsj9s9st588rahff0pce6kv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

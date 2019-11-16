@@ -175,10 +175,7 @@ export class PhoneAuthTest extends React.Component {
 
 
 
-
-
-  onLoginOrRegister = async () => {
-
+  onLoginOrRegister = () => {
     GoogleSignin.signIn()
         .then((data) => {
           // Create a new Firebase credential with the token
@@ -241,48 +238,45 @@ export class PhoneAuthTest extends React.Component {
 
 
           <ScrollView>
-              <View style={{justifyContent:'center',height:'100%',width:'100%',alignSelf:'center',alignItems:'center',}}>
+              <View style={{justifyContent:'center',height:'100%',width:'100%',alignSelf:'center',alignItems:'center',backgroundColor:'#353535'}}>
 
 
-
-
+<View style={{justifyContent:'center',marginTop:25,margin:15,height:'40%',width:'100%',alignSelf:'center',alignItems:'center',backgroundColor:'#353535'}}>
 
           <AppIntroSlider
               slides={slides1}
-
-
-
-
+              style={{backgroundColor:'#353535',borderRadius:15,margin:1,marginTop:15}}
           />
 
+</View>
 
-
-
-          <Collapse style={{padding:15,justifyContent:'center',alignSelf:'center',alignItems:'center',}}>
-            <CollapseHeader style={{width:300,height:50,}}>
+<View style={{height:700,borderColor:'#fff',}}>
+          <Collapse style={{padding:25,justifyContent:'center',alignSelf:'center',alignItems:'center',width:'100%',}}>
+            <CollapseHeader style={{width:350,height:50,}}>
               <View>
-                <Text style={{justifyContent:'center',textAlign: 'center',borderWidth:2,borderColor:'grey',borderRadius:30,padding:15,fontSize: 15,fontFamily:'algerian',color: '#000'}}>PHONE ACTIVATION</Text>
+                <Text style={{justifyContent:'center',textAlign: 'center',borderWidth:2,borderColor:'grey',borderRadius:20,padding:15,fontSize: 15,fontFamily:'algerian',color: '#fff'}}>PHONE ACTIVATION</Text>
               </View>
             </CollapseHeader>
             <CollapseBody  style={{borderColor:'grey',padding:15,margin:15,borderRadius:30,}}>
               <View style={{ padding: 25,marginTop:50}}>
-                <Text style={{color:'#000'}}>Enter phone number:</Text>
+
+                <Text style={{color:'#fff'}}>Enter phone number:</Text>
                 <TextInput
                     autoFocus
-                    style={{ height: 40, marginTop: 15, marginBottom: 15 ,color:'#000'}}
+                    style={{ height: 40, marginTop: 15, marginBottom: 15 ,color:'#fff'}}
                     onChangeText={value => this.setState({ phoneNumber: value })}
                     placeholder={'Phone number ... '}
                     keyboardType = 'numeric'
                     value={phoneNumber}
                 />
-                <Button title="Sign In" color="red" onPress={this.signIn} />
+                <Button title="Sign In" color="#59A45C" onPress={this.signIn} />
               </View>
             </CollapseBody>
           </Collapse>
           <Collapse style={{padding:15,justifyContent:'center',alignSelf:'center',alignItems:'center',}}>
             <CollapseHeader style={{width:300,height:50,}}>
               <View>
-                <Text style={{justifyContent:'center',textAlign: 'center',borderWidth:2,borderColor:'grey',borderRadius:30,padding:15,fontSize: 15,fontFamily:'algerian',color:'#000'}}>GOOGLE ACTIVATION</Text>
+                <Text style={{justifyContent:'center',textAlign: 'center',borderWidth:2,borderColor:'grey',borderRadius:20,padding:15,fontSize: 15,fontFamily:'algerian',color:'#fff'}}>GOOGLE ACTIVATION</Text>
               </View>
             </CollapseHeader>
             <CollapseBody  style={{borderColor:'grey',padding:15,margin:15,borderRadius:30,}}>
@@ -305,6 +299,7 @@ export class PhoneAuthTest extends React.Component {
               </View>
             </CollapseBody>
           </Collapse>
+              </View>
               </View>
 </ScrollView>
 
@@ -338,11 +333,17 @@ export class PhoneAuthTest extends React.Component {
 
 
     return (
-        <View style={{ marginTop: 25, padding: 25 }}>
-          <Text>Enter verification code below:</Text>
+        <View style={{ padding: 25,backgroundColor:'#000',height:'100%',alignItems:'center',justifyContent:'center' }}>
+          <Image source={require('./Excersises/gifs/loading.gif')}
+                 style={{flexDirection: 'column',
+                   justifyContent: 'center',
+                   alignItems: 'center',
+                   height: '60%',borderRadius:15,width:'100%'}}/>
+
+          <Text style={{color:'#fff'}}>Enter verification code below:</Text>
           <TextInput
               autoFocus
-              style={{ height: 40, marginTop: 15, marginBottom: 15 }}
+              style={{ height: 40, marginTop: 15, marginBottom: 15,color:'#fff' }}
               onChangeText={value => this.setState({ codeInput: value })}
               placeholder={'Code ... '}
               value={codeInput}
@@ -414,18 +415,20 @@ export class PhoneAuthTest extends React.Component {
 
 
                 <View
-                    style={{flex: 1,}}>
+                    style={{flex: 1,backgroundColor:'#111111'}}>
 
-                  {/*<Image source={require('./android/pic/background.jpg')} style={{ flex: 1,*/}
-                  {/*  resizeMode: 'cover',position:'absolute'}}/>*/}
-                  {/*<Text style={{ fontSize: 25, position: 'absolute',margin:15,alignSelf:'center' ,color:'#000'}}>Signed In!</Text>*/}
-                  <Text style={{ fontSize: 20, position: 'absolute',color:'#000',marginTop:500,alignSelf:'center' }}>{JSON.stringify(user)}</Text>
+                  <Image source={require('./Excersises/gifs/welcome.gif')}
+                         style={{flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    height: '60%',borderRadius:15,width:'100%'}}/>
+                  <Text style={{ fontSize: 25, position: 'absolute',margin:15,alignSelf:'center' ,color:'#f1f1f1',bottom:'25%'}}>Welcome!</Text>
 
                   <View>
 
                   </View>
                   <TouchableHighlight  style={{ position: 'absolute',margin:15,right:0,bottom:20}}>
-                    <Button title="next" onPress={()=>this.props.navigation.navigate('Home')}/>
+                    <Button title="next" color="#59A45C" onPress={()=>this.props.navigation.navigate('Home')}/>
 
                   </TouchableHighlight>
                   <TouchableHighlight style={{ position: 'absolute',margin:15,left:0,bottom:20}}>
@@ -533,26 +536,26 @@ const styles = StyleSheet.create({
   image: {
     width: 200,
     height: 200,
-    padding:15,
-      justifyContent:"flex-start",
 
-      alignSelf: 'center',
+
+
+
 
   },
   text: {
     color: '#000',
     fontSize: 20,
     padding:15,justifyContent:'center',alignSelf:'center',alignItems:'center',
+
   },
   title: {
-    fontSize: 28,
+    fontSize: 15,
     fontWeight: 'bold',
     color: '#000',
     backgroundColor: 'transparent',
-    textAlign: 'center',
- justifyContent:'center',
-    alignSelf:'center',
-    padding:15
+
+    padding:15,
+
   },
   MainContainer:
       {
@@ -578,7 +581,7 @@ const styles = StyleSheet.create({
       {
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#ffff',
+        backgroundColor: '#fff',
         flex:1,
         margin: 20,
       },
@@ -602,13 +605,13 @@ const styles = StyleSheet.create({
 const slides1 = [
   {
     key: 's1',
-    text: 'Best Content offers here!!!',
-    title: 'Better Grades',
+    text: 'Best Exercise offers here!!!',
+    title: 'Fitness Guide',
     titleStyle: styles.title,
     textStyle: styles.text,
     image: {
       uri:
-          'https://cdn0.iconfinder.com/data/icons/modern-education-line-set-1/64/essay-paper-pencil-exam-512.png'        },
+          'https://media.giphy.com/media/X7Zcr8yp7B6issioEp/giphy.gif'        },
     imageStyle: styles.image,
 
 
@@ -622,25 +625,24 @@ const slides1 = [
     key: 's2',
     title: 'Access Free',
     titleStyle: styles.title,
-    text: 'We Provide You Free Content',
+    text: 'We Provide You Free Traning',
     image: {
       uri:
-          'https://cdn2.iconfinder.com/data/icons/maki/100/college-512.png',
-    },
-    imageStyle: styles.image,
-      justifyContent:"flex-start",
+          'https://media.giphy.com/media/xUA7bbcVDWik6cPdmg/giphy.gif',
 
-      alignSelf: 'center',
+    },
+
+    imageStyle: styles.image,
 
 
   },
   {
     key: 's3',
-    title: 'We Cover All Of Your Papers.',
+    title: 'We will Guide you!',
     titleStyle: styles.title,
-    text: 'Enjoy on our all services',
+    text: 'Enjoy all of our services',
     image: {
-      uri: 'https://library.kissclipart.com/20181005/kqw/kissclipart-png-exam-paper-clipart-paper-test-clip-art-ea21954d14cd2126.png'   },
+      uri: 'https://media.giphy.com/media/vEvveLdoyZCms/giphy.gif'   },
     imageStyle: styles.image,
   },
 

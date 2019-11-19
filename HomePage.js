@@ -25,13 +25,8 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 
 import styled from "styled-components/native"; // 3.1.6
 import Carousel from 'react-native-snap-carousel';
-import Weightloss from './Excersises/WeightLoss/Weightloss'
-import Core_Workout from "./Excersises/core Workout/core_Workout";
-import Butt_buildup from "./Excersises/Butt_Buildup/Butt_buildup";
-import Abs_Workout from "./Excersises/Abs_Workout/Abs_Workout";
-import Slimmer_legs from "./Excersises/Slimmer_legs/Slimmer_legs";
-import Chest_builder from "./Excersises/Chest_builder/Chest_builder";
-import Daily_Routine from "./Excersises/Daily_Routine/Daily_Routine";
+
+import Daily_Routine from "./Excersises/fullbodyeasy/Daily_Routine";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import Profile from "./profile";
 export class HomePage extends Component {
@@ -123,27 +118,27 @@ export class HomePage extends Component {
         }
 
 
-       else if(a==2){
-            this.props.navigation.navigate('Weightloss')
-        }
-        else if(a==3){
-
-            this.props.navigation.navigate('Core_Workout')
-        }
-
-        else if(a==4){
-
-            this.props.navigation.navigate('Abs_Builder')
-        }  else if(a==5){
-
-            this.props.navigation.navigate('Butt_build')
-        }else if(a==6){
-
-            this.props.navigation.navigate('Legs')
-        }else if(a==7){
-
-            this.props.navigation.navigate('Chest_builder')
-        }
+       // else if(a==2){
+       //      this.props.navigation.navigate('Weightloss')
+       //  }
+       //  else if(a==3){
+       //
+       //      this.props.navigation.navigate('Core_Workout')
+       //  }
+       //
+       //  else if(a==4){
+       //
+       //      this.props.navigation.navigate('Abs_Builder')
+       //  }  else if(a==5){
+       //
+       //      this.props.navigation.navigate('Butt_build')
+       //  }else if(a==6){
+       //
+       //      this.props.navigation.navigate('Legs')
+       //  }else if(a==7){
+       //
+       //      this.props.navigation.navigate('Chest_builder')
+       //  }
     }
 
 
@@ -187,7 +182,7 @@ export class HomePage extends Component {
              <Image style={{flex:.9 , width: undefined, height: undefined,borderRadius:15}}
                  source={{uri:'https://images.shape.mdpcdn.com/sites/shape.com/files/styles/channel_feature_panel_image/public/jen-goal-crushers-challenge-promo-1000.jpg?itok=DJd6_Wbl'}}/>
 
-                 <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>Daily routine</Text>
+                 <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>Full Body Easy</Text>
         </TouchableOpacity>
         <TouchableOpacity
             onPress={()=>this.props.navigation.navigate('')}
@@ -261,6 +256,114 @@ export class HomePage extends Component {
 
 
         </View>
+        <View style={{flex:1,marginLeft:'5%',flexDirection:'row',marginRight:'5%'}}>
+            <TouchableOpacity
+                onPress={()=>this.props.navigation.navigate('')}
+
+                style={{flex:.5,height:220,width:'100%',backgroundColor:'#673ab7',margin:5,borderRadius:15}}>
+                <Image style={{flex:.9 , width: undefined, height: undefined,borderRadius:15}}
+                       source={{uri:'https://media1.popsugar-assets.com/files/thumbor/DwuRAXRaR7-TXSsEbA0U7L0GfXg/fit-in/728xorig/filters:format_auto-!!-:strip_icc-!!-/2019/07/31/044/n/1922729/8c189b805d422c81c9ba55.76538773_/i/3-Minute-Ab-Workout-Runners.jpg'}}/>
+
+                <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>Abs buildup</Text>
+
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={()=>this.props.navigation.navigate('')}
+
+                style={{flex:.5,height:220,width:'100%',backgroundColor:'#3f51b5',margin:5,marginTop:'16%',borderRadius:15}}>
+
+
+                <Image style={{flex:.83 , width: undefined, height: undefined,borderRadius:15}}
+                       source={{uri:'https://66.media.tumblr.com/03df951f3345e4f55d5d9435af06d4a9/tumblr_p5evieqoeY1x1g1yio1_400.jpg'}}/>
+
+                <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>core workout</Text>
+
+            </TouchableOpacity>
+
+
+
+        </View>
+        <View style={{flex:1,marginLeft:'5%',flexDirection:'row',marginRight:'5%'}}>
+            <TouchableOpacity
+                onPress={()=>this.props.navigation.navigate('')}
+
+                style={{flex:.5,height:220,width:'100%',backgroundColor:'#673ab7',margin:5,borderRadius:15}}>
+                <Image style={{flex:.9 , width: undefined, height: undefined,borderRadius:15}}
+                       source={{uri:'https://media1.popsugar-assets.com/files/thumbor/DwuRAXRaR7-TXSsEbA0U7L0GfXg/fit-in/728xorig/filters:format_auto-!!-:strip_icc-!!-/2019/07/31/044/n/1922729/8c189b805d422c81c9ba55.76538773_/i/3-Minute-Ab-Workout-Runners.jpg'}}/>
+
+                <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>Abs buildup</Text>
+
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={()=>this.props.navigation.navigate('')}
+
+                style={{flex:.5,height:220,width:'100%',backgroundColor:'#3f51b5',margin:5,marginTop:'16%',borderRadius:15}}>
+
+
+                <Image style={{flex:.83 , width: undefined, height: undefined,borderRadius:15}}
+                       source={{uri:'https://66.media.tumblr.com/03df951f3345e4f55d5d9435af06d4a9/tumblr_p5evieqoeY1x1g1yio1_400.jpg'}}/>
+
+                <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>core workout</Text>
+
+            </TouchableOpacity>
+
+
+
+        </View>
+        <View style={{flex:1,marginLeft:'5%',flexDirection:'row',marginRight:'5%'}}>
+            <TouchableOpacity
+                onPress={()=>this.props.navigation.navigate('')}
+
+                style={{flex:.5,height:220,width:'100%',backgroundColor:'#673ab7',margin:5,borderRadius:15}}>
+                <Image style={{flex:.9 , width: undefined, height: undefined,borderRadius:15}}
+                       source={{uri:'https://media1.popsugar-assets.com/files/thumbor/DwuRAXRaR7-TXSsEbA0U7L0GfXg/fit-in/728xorig/filters:format_auto-!!-:strip_icc-!!-/2019/07/31/044/n/1922729/8c189b805d422c81c9ba55.76538773_/i/3-Minute-Ab-Workout-Runners.jpg'}}/>
+
+                <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>Abs buildup</Text>
+
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={()=>this.props.navigation.navigate('')}
+
+                style={{flex:.5,height:220,width:'100%',backgroundColor:'#3f51b5',margin:5,marginTop:'16%',borderRadius:15}}>
+
+
+                <Image style={{flex:.83 , width: undefined, height: undefined,borderRadius:15}}
+                       source={{uri:'https://66.media.tumblr.com/03df951f3345e4f55d5d9435af06d4a9/tumblr_p5evieqoeY1x1g1yio1_400.jpg'}}/>
+
+                <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>core workout</Text>
+
+            </TouchableOpacity>
+
+
+
+        </View>
+        <View style={{flex:1,marginLeft:'5%',flexDirection:'row',marginRight:'5%'}}>
+            <TouchableOpacity
+                onPress={()=>this.props.navigation.navigate('')}
+
+                style={{flex:.5,height:220,width:'100%',backgroundColor:'#673ab7',margin:5,borderRadius:15}}>
+                <Image style={{flex:.9 , width: undefined, height: undefined,borderRadius:15}}
+                       source={{uri:'https://media1.popsugar-assets.com/files/thumbor/DwuRAXRaR7-TXSsEbA0U7L0GfXg/fit-in/728xorig/filters:format_auto-!!-:strip_icc-!!-/2019/07/31/044/n/1922729/8c189b805d422c81c9ba55.76538773_/i/3-Minute-Ab-Workout-Runners.jpg'}}/>
+
+                <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>Abs buildup</Text>
+
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={()=>this.props.navigation.navigate('')}
+
+                style={{flex:.5,height:220,width:'100%',backgroundColor:'#3f51b5',margin:5,marginTop:'16%',borderRadius:15}}>
+
+
+                <Image style={{flex:.83 , width: undefined, height: undefined,borderRadius:15}}
+                       source={{uri:'https://66.media.tumblr.com/03df951f3345e4f55d5d9435af06d4a9/tumblr_p5evieqoeY1x1g1yio1_400.jpg'}}/>
+
+                <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>core workout</Text>
+
+            </TouchableOpacity>
+
+
+
+        </View>
 
 </ScrollView>
 
@@ -292,12 +395,12 @@ const Home1 = createStackNavigator(
 
 
         },
-        Weightloss:Weightloss,
-        Core_Workout:Core_Workout,
-        Abs_Builder:Abs_Workout,
-        Butt_build:Butt_buildup,
-        Legs:Slimmer_legs,
-        Chest_builder:Chest_builder
+        // Weightloss:Weightloss,
+        // Core_Workout:Core_Workout,
+        // Abs_Builder:Abs_Workout,
+        // Butt_build:Butt_buildup,
+        // Legs:Slimmer_legs,
+        // Chest_builder:Chest_builder
 
 
     },

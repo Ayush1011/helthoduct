@@ -9,7 +9,7 @@ import {
 
   ImageBackground
   , Button, StyleSheet, AsyncStorage,
-    ScrollView,
+  ScrollView, BackHandler,
 } from 'react-native';
 
 
@@ -21,7 +21,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import firebase from 'react-native-firebase';
 
 import {Collapse,CollapseHeader, CollapseBody, AccordionList} from 'accordion-collapse-react-native';
-
+import {Container,Content,Header,Form,Input,Item,Label} from "native-base";
 import {
   GoogleSignin,
   GoogleSigninButton,
@@ -57,13 +57,40 @@ export class PhoneAuthTest extends React.Component {
       email: '',
       password: '',
       userInfo: '',
-      showRealApp:false,isVisible : true,
+      showRealApp:false,
+      isVisible : true,
+      loading:true,
+
+
 
     };
   }
 
+loginuser=(email,password)=>{
 
+  try{
+    firebase.auth().signInWithEmailAndPassword(email,password).then(function (user) {
 
+      
+    })
+  }
+  catch (e) {
+    console.log(e.toString())
+  }
+
+}
+  signupuser=(email,password)=>{
+    try{
+      if(this.state.password.length<6){
+        alert('6 character altest')
+        return;
+      }
+      firebase.auth().createUserWithEmailAndPassword(email,password)
+    }
+    catch (e) {
+      console.log(e.toString())
+    }
+  }
   Hide_Splash_Screen=()=>{
 
     this.setState({
@@ -117,6 +144,7 @@ export class PhoneAuthTest extends React.Component {
             '488038246568-aimho25uljsj9s9st588rahff0pce6kv.apps.googleusercontent.com',
       });
     }
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
 
     AsyncStorage.getItem('first_time').then((value) => {
       this.setState({ showRealApp: !!value, loading: false });
@@ -136,6 +164,20 @@ export class PhoneAuthTest extends React.Component {
 
 
 
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+  }
+  handleBackPress = () => {
+    this.props.navigation.navigate('Apps');
+    this.setState({step:0})
+    if(this.state.step>=0){
+      this.setState({step:0})
+
+    }
+
+    return true;
+  };
 
 
 
@@ -238,67 +280,93 @@ export class PhoneAuthTest extends React.Component {
 
 
           <ScrollView>
-              <View style={{justifyContent:'center',height:'100%',width:'100%',alignSelf:'center',alignItems:'center',backgroundColor:'#353535'}}>
+              <View style={{justifyContent:'center',height:'100%',width:'100%',alignSelf:'center',alignItems:'center',backgroundColor:'#f1f1f1'}}>
 
 
-<View style={{justifyContent:'center',marginTop:25,margin:15,height:'40%',width:'100%',alignSelf:'center',alignItems:'center',backgroundColor:'#353535'}}>
+<View  style={{height:300,width:'100%',backgroundColor:'#f1f1f1'}}>
 
-          <AppIntroSlider
-              slides={slides1}
-              style={{backgroundColor:'#353535',borderRadius:15,margin:1,marginTop:15}}
-          />
-
+  <Image source={{uri:'https://mir-s3-cdn-cf.behance.net/project_modules/disp/f847f340400159.577dcf3411820.gif'}} style={{flex:1,height:undefined,width:undefined}}/>
 </View>
 
-<View style={{height:700,borderColor:'#fff',}}>
-          <Collapse style={{padding:25,justifyContent:'center',alignSelf:'center',alignItems:'center',width:'100%',}}>
-            <CollapseHeader style={{width:350,height:50,}}>
-              <View>
-                <Text style={{justifyContent:'center',textAlign: 'center',borderWidth:2,borderColor:'grey',borderRadius:20,padding:15,fontSize: 15,fontFamily:'algerian',color: '#fff'}}>PHONE ACTIVATION</Text>
-              </View>
-            </CollapseHeader>
-            <CollapseBody  style={{borderColor:'grey',padding:15,margin:15,borderRadius:30,}}>
-              <View style={{ padding: 25,marginTop:50}}>
-
-                <Text style={{color:'#fff'}}>Enter phone number:</Text>
-                <TextInput
-                    autoFocus
-                    style={{ height: 40, marginTop: 15, marginBottom: 15 ,color:'#fff'}}
-                    onChangeText={value => this.setState({ phoneNumber: value })}
-                    placeholder={'Phone number ... '}
-                    keyboardType = 'numeric'
-                    value={phoneNumber}
-                />
-                <Button title="Sign In" color="#59A45C" onPress={this.signIn} />
-              </View>
-            </CollapseBody>
-          </Collapse>
-          <Collapse style={{padding:15,justifyContent:'center',alignSelf:'center',alignItems:'center',}}>
-            <CollapseHeader style={{width:300,height:50,}}>
-              <View>
-                <Text style={{justifyContent:'center',textAlign: 'center',borderWidth:2,borderColor:'grey',borderRadius:20,padding:15,fontSize: 15,fontFamily:'algerian',color:'#fff'}}>GOOGLE ACTIVATION</Text>
-              </View>
-            </CollapseHeader>
-            <CollapseBody  style={{borderColor:'grey',padding:15,margin:15,borderRadius:30,}}>
-
-              <View style={{ width:200, height: 48,alignSelf:'center' }} >
-                <GoogleSigninButton
-                    style={{ width:225, height: 48,alignSelf:'center' }}
-                    size={GoogleSigninButton.Size.Wide}
-                    color={GoogleSigninButton.Color.Light}
-                    onPress={this.onLoginOrRegister}
-                />
-                <Button
-                    title='sign out....!!'
-                    style={{ width:200, height: 48,alignSelf:'center' }}
-                    color="red"
-                    onPress={this._signOut}
-                />
+<View style={{height:400,borderColor:'#fff',justifyContent:'center',alignSelf:'center',alignItems:'center'}}>
 
 
-              </View>
-            </CollapseBody>
-          </Collapse>
+      <View style={{  height:300,width:300 }} >
+        <Container style={{backgroundColor:'#f1f1f1'}}>
+        <Form>
+          <Item floatingLabel>
+            <Label>Email</Label>
+            <Input
+            autoCorrect={false }
+            autoCapitalize='none'
+            onChangeText={(email)=>this.setState({email})}
+
+            />
+          </Item>
+
+          <Item floatingLabel>
+            <Label>Password</Label>
+            <Input
+                secureTextEntry={true}
+                autoCorrect={false }
+                autoCapitalize='none'
+                onChangeText={(password)=>this.setState({password})}
+
+            />
+          </Item>
+
+
+
+        </Form>
+          <View style={{flex:1,flexDirection:'row',}}>
+            <TouchableHighlight style={{flex:.5,width:200,height:50,margin:5,backgroundColor:'#4BB543',alignItems:'center',justifyContent:'center',alignSelf:'center',borderRadius:15}} onPress={()=>this.loginuser(this.state.email,this.state.password)}>
+              <Text>LOGIN</Text>
+            </TouchableHighlight>
+            <TouchableHighlight style={{flex:.5,width:200,height:50,margin:5,backgroundColor:'#93ccea',alignItems:'center',justifyContent:'center',alignSelf:'center',borderRadius:15}} onPress={()=>this.signupuser(this.state.email,this.state.password)}>
+              <Text>Signup</Text>
+            </TouchableHighlight>
+          </View>
+          <GoogleSigninButton
+              style={{ width:225, height: 48,alignSelf:'center' }}
+              size={GoogleSigninButton.Size.Wide}
+              color={GoogleSigninButton.Color.Light}
+              onPress={this.onLoginOrRegister}
+          />
+        </Container>
+
+
+
+
+
+
+      </View>
+
+{/*<View style={{width:'100%',}} >*/}
+
+
+{/*          <Collapse style={{padding:25,justifyContent:'center',alignSelf:'center',alignItems:'center',width:'100%',}}>*/}
+{/*            <CollapseHeader style={{width:300,height:50,}}>*/}
+{/*              <View>*/}
+{/*                <Text style={{justifyContent:'center',textAlign: 'center',borderWidth:2,borderColor:'grey',borderRadius:20,padding:15,fontSize: 15,fontFamily:'algerian',color: '#111'}}>PHONE ACTIVATION</Text>*/}
+{/*              </View>*/}
+{/*            </CollapseHeader>*/}
+{/*            <CollapseBody  style={{borderColor:'grey',padding:15,margin:15,borderRadius:30,}}>*/}
+{/*              <View style={{ height:500}}>*/}
+
+{/*                <Text style={{color:'#fff'}}>Enter phone number:</Text>*/}
+{/*                <TextInput*/}
+{/*                    autoFocus*/}
+{/*                    style={{ height: 40, marginTop: 15, marginBottom: 15 ,color:'#111'}}*/}
+{/*                    onChangeText={value => this.setState({ phoneNumber: value })}*/}
+{/*                    placeholder={'Phone number ... '}*/}
+{/*                    keyboardType = 'numeric'*/}
+{/*                    value={phoneNumber}*/}
+{/*                />*/}
+{/*                <Button title="Sign In" color="#59A45C" onPress={this.signIn} />*/}
+{/*              </View>*/}
+{/*            </CollapseBody>*/}
+{/*          </Collapse>*/}
+{/*</View>*/}
               </View>
               </View>
 </ScrollView>
@@ -428,7 +496,7 @@ export class PhoneAuthTest extends React.Component {
 
                   </View>
                   <TouchableHighlight  style={{ position: 'absolute',margin:15,right:0,bottom:20}}>
-                    <Button title="next" color="#59A45C" onPress={()=>this.props.navigation.navigate('Home')}/>
+                    <Button title="next" color="#59A45C" onPress={()=>this.props.navigation.navigate('Appintro')}/>
 
                   </TouchableHighlight>
                   <TouchableHighlight style={{ position: 'absolute',margin:15,left:0,bottom:20}}>
@@ -455,6 +523,11 @@ export class PhoneAuthTest extends React.Component {
 
 
 }
+
+
+
+
+
 
 
 export  class Appintro extends React.Component {
@@ -484,15 +557,27 @@ export  class Appintro extends React.Component {
     // After user finished the intro slides. Show real app through
     // navigation or simply by controlling state
 
-
+    AsyncStorage.setItem('first_time', 'true').then(() => {
+      this.setState({ showRealApp: true });
     this.props.navigation.navigate('Home')
-  };
+
+  })
+  }
+
+
+
+
   _onSkip = () => {
     // After user skip the intro slides. Show real app through
     // navigation or simply by controlling state
-
+    AsyncStorage.setItem('first_time', 'true').then(() => {
+      this.setState({ showRealApp: true });
     this.props.navigation.navigate('Home')
-  };
+  })
+  }
+
+
+
   render() {const config = {
     apiKey: "<API_KEY>",
     authDomain: "<PROJECT_ID>.firebaseapp.com",
@@ -521,7 +606,8 @@ export  class Appintro extends React.Component {
       //Intro slides
       return (
           <AppIntroSlider
-              slides={slides}
+              style={{backgroundColor:'#f1f1f1'}}
+              slides={slides1}
               //comming from the JsonArray below
               onDone={()=>this._onDone()}
               //Handler for the done On last slide
@@ -543,7 +629,7 @@ const styles = StyleSheet.create({
 
   },
   text: {
-    color: '#000',
+    color: '#111',
     fontSize: 20,
     padding:15,justifyContent:'center',alignSelf:'center',alignItems:'center',
 
@@ -551,9 +637,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 15,
     fontWeight: 'bold',
-    color: '#000',
+    color: '#111',
     backgroundColor: 'transparent',
-
     padding:15,
 
   },
@@ -625,14 +710,20 @@ const slides1 = [
     key: 's2',
     title: 'Access Free',
     titleStyle: styles.title,
+    textStyle: styles.text,
+
     text: 'We Provide You Free Traning',
     image: {
       uri:
           'https://media.giphy.com/media/xUA7bbcVDWik6cPdmg/giphy.gif',
+      imageStyle: styles.image,
+      justifyContent:"flex-start",
+
+      alignSelf: 'center',
 
     },
 
-    imageStyle: styles.image,
+
 
 
   },
@@ -640,10 +731,15 @@ const slides1 = [
     key: 's3',
     title: 'We will Guide you!',
     titleStyle: styles.title,
+    textStyle: styles.text,
     text: 'Enjoy all of our services',
     image: {
-      uri: 'https://media.giphy.com/media/vEvveLdoyZCms/giphy.gif'   },
+      uri: 'https://media.giphy.com/media/xUA7bbcVDWik6cPdmg/giphy.gif'},
     imageStyle: styles.image,
+    justifyContent:"flex-start",
+
+    alignSelf: 'center',
+
   },
 
 ];
@@ -655,7 +751,8 @@ const RootStack = createStackNavigator(
     {
       Apps:PhoneAuthTest,
       Appintro:Appintro,
-       Home:HomePage
+       Home:HomePage,
+
 
 
     },

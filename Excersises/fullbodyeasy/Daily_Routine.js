@@ -8,16 +8,17 @@ import {createAppContainer} from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import {HomePage} from "../../HomePage";
 import Modal from "react-native-simple-modal/index";
-import Squat from "./Squat";
+import Kneepushup from "./kneepushup";
 import V_crunch from "./V_crunch";
 import Glute_bridge from "./Glute_bridge";
 import Side_lift from "./Side_lift";
-import Jumping_jack from "./jumping_jack";
+import Reversesnowangels from "./Reversesnowangels";
 import Scissor_Jump from "./Scissor_Jump";
-
+import Gifplay from './gifplay'
 import Icon from "react-native-vector-icons/SimpleLineIcons";
 import {PhoneAuthTest} from "../../App";
 import {Start} from "./start";
+import Dumbbell_side_raise from "./Dumbbell side raise";
 
 
 
@@ -109,7 +110,9 @@ export class Daily_Routine extends Component{
 
                     <View style={{width:'100%',height:'100%',margin:'5%',}}>
 
-                    <TouchableOpacity style={{width:'90%',height:'35%',backgroundColor:'#fff',}}>
+                    <TouchableOpacity
+                        onPress={()=>this.props.navigation.navigate('Knee')}
+                        style={{width:'90%',height:100,backgroundColor:'#fff',}}>
                 <View style={{flex:1,flexDirection:'row'}}>
                      <View style={{width:'25%',height:'100%',}}>
 
@@ -121,7 +124,7 @@ export class Daily_Routine extends Component{
 
                      </View>
                     <View style={{flex:1,flexDirection:'column',height:'100%'}}>
-                        <Text style={{margin:'5%',fontSize:18,color:'#787878'}} >Sccior Jump</Text>
+                        <Text style={{margin:'5%',fontSize:18,color:'#787878'}} >Knee pushup</Text>
                         <View style={{flex:1,flexDirection:'row',height:'100%'}}>
                     <Icon name="clock" size={20} color="#787878" style={{marginLeft:'5%',}}/>
                             <Text style={{fontSize:18,color:'#787878'}}> 30 SEC</Text>
@@ -137,7 +140,10 @@ export class Daily_Routine extends Component{
 
 
 
-                        <TouchableOpacity style={{width:'90%',height:'35%',backgroundColor:'#fff',marginTop:'5%'}}>
+                        <TouchableOpacity
+                            onPress={()=>this.props.navigation.navigate('Snowangel')}
+
+                            style={{width:'90%',height:100,backgroundColor:'#fff',marginTop:'5%'}}>
                             <View style={{flex:1,flexDirection:'row'}}>
                                 <View style={{width:'25%',height:'100%',}}>
 
@@ -149,7 +155,61 @@ export class Daily_Routine extends Component{
 
                                 </View>
                                 <View style={{flex:1,flexDirection:'column',height:'100%'}}>
-                                    <Text style={{margin:'5%',fontSize:18,color:'#787878'}} >Sccior Jump</Text>
+                                    <Text style={{margin:'5%',fontSize:18,color:'#787878'}} >Reverse Snow Angels</Text>
+                                    <View style={{flex:1,flexDirection:'row',height:'100%'}}>
+                                        <Icon name="clock" size={20} color="#787878" style={{marginLeft:'5%',}}/>
+                                        <Text style={{fontSize:18,color:'#787878'}}> 30 SEC</Text>
+                                        <Icon name="arrow-right" size={20} color="#787878" style={{marginLeft:'auto',right:15,bottom:15}}/>
+
+                                    </View>
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+
+
+
+                        <TouchableOpacity
+                            onPress={()=>this.props.navigation.navigate('Snowangel')}
+
+                            style={{width:'90%',height:100,backgroundColor:'#fff',marginTop:'5%'}}>
+                            <View style={{flex:1,flexDirection:'row'}}>
+                                <View style={{width:'25%',height:'100%',}}>
+
+                                    <Image source={{uri:'https://images.pexels.com/photos/1431283/pexels-photo-1431283.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'}}
+                                           style={{width: undefined, height: undefined,flex:1,margin:5}}
+                                    />
+
+
+
+                                </View>
+                                <View style={{flex:1,flexDirection:'column',height:'100%'}}>
+                                    <Text style={{margin:'5%',fontSize:18,color:'#787878'}} >Knee Pushup</Text>
+                                    <View style={{flex:1,flexDirection:'row',height:'100%'}}>
+                                        <Icon name="clock" size={20} color="#787878" style={{marginLeft:'5%',}}/>
+                                        <Text style={{fontSize:18,color:'#787878'}}> 30 SEC</Text>
+                                        <Icon name="arrow-right" size={20} color="#787878" style={{marginLeft:'auto',right:15,bottom:15}}/>
+
+                                    </View>
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            onPress={()=>this.props.navigation.navigate('Dumbbell')}
+
+                            style={{width:'90%',height:100,backgroundColor:'#fff',marginTop:'5%'}}>
+                            <View style={{flex:1,flexDirection:'row'}}>
+                                <View style={{width:'25%',height:'100%',}}>
+
+                                    <Image source={{uri:'https://images.pexels.com/photos/1431283/pexels-photo-1431283.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'}}
+                                           style={{width: undefined, height: undefined,flex:1,margin:5}}
+                                    />
+
+
+
+                                </View>
+                                <View style={{flex:1,flexDirection:'column',height:'100%'}}>
+                                    <Text style={{margin:'5%',fontSize:18,color:'#787878'}} >Dumbbells side raise</Text>
                                     <View style={{flex:1,flexDirection:'row',height:'100%'}}>
                                         <Icon name="clock" size={20} color="#787878" style={{marginLeft:'5%',}}/>
                                         <Text style={{fontSize:18,color:'#787878'}}> 30 SEC</Text>
@@ -163,10 +223,6 @@ export class Daily_Routine extends Component{
 
 
 
-
-
-
-
                     </View>
 
 
@@ -176,7 +232,7 @@ export class Daily_Routine extends Component{
 
 
 
-<TouchableHighlight style={{height:60,backgroundColor:'#f94d6d'}} onPress={()=>{this.props.navigation.navigate('Start')}}>
+<TouchableHighlight style={{height:60,backgroundColor:'#f94d6d'}} onPress={()=>{this.props.navigation.navigate('Gif')}}>
     <Text style={{flex: 1,
         justifyContent: 'center',
         alignItems: 'center',alignSelf: "center",top:10,
@@ -257,13 +313,15 @@ const profile2 = createStackNavigator(
             },
 
         },
+        Gif:Gifplay,
         Start:Start,
         Scissor_jump:Scissor_Jump,
-        Squat:Squat,
+        Knee:Kneepushup,
         V_crunch:V_crunch,
         Glute_bridge:Glute_bridge,
         Side_leg:Side_lift,
-        Jumping_Jack:Jumping_jack,
+        Snowangel:Reversesnowangels,
+        Dumbbell:Dumbbell_side_raise,
 
 
 

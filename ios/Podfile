@@ -36,6 +36,10 @@ target 'healthoduct' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+  pod 'RNCustomFonts', :path => '../node_modules/react-native-custom-fonts'
+
+  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
+
   target 'healthoductTests' do
     inherit! :search_paths
     # Pods for testing

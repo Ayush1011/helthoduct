@@ -4,7 +4,7 @@ import {
   Text,
   TextInput,
   Image,
-
+FlatList,
   TouchableHighlight,
 
   ImageBackground
@@ -29,9 +29,12 @@ import {
 
 } from 'react-native-google-signin';
 import HomePage from "./HomePage";
+import Profile from "./profile";
 
 
 // var Firebase = require('firebase')
+
+const BASE_URL='http://10.0.2.2:3000'
 
 
 
@@ -60,25 +63,30 @@ export class PhoneAuthTest extends React.Component {
       showRealApp:false,
       isVisible : true,
       loading:true,
+      data:[],
+      picname:''
 
 
 
     };
   }
 
-loginuser=(email,password)=>{
 
-  try{
-    firebase.auth().signInWithEmailAndPassword(email,password).then(function (user) {
+  loginuser=(email,password)=>{
 
-      
-    })
+    try{
+      firebase.auth().signInWithEmailAndPassword(email,password).then(function (user) {
+
+
+      }).then((data)=>{
+                 this.savebutton()
+      })
+    }
+    catch (e) {
+      console.log(e.toString())
+    }
+
   }
-  catch (e) {
-    console.log(e.toString())
-  }
-
-}
   signupuser=(email,password)=>{
     try{
       if(this.state.password.length<6){
@@ -86,6 +94,10 @@ loginuser=(email,password)=>{
         return;
       }
       firebase.auth().createUserWithEmailAndPassword(email,password)
+          .then((data)=>{
+            this.savebutton()
+          })
+
     }
     catch (e) {
       console.log(e.toString())
@@ -106,9 +118,17 @@ loginuser=(email,password)=>{
 
   }
 
+  fetchData= async()=>{
+    const response = await fetch('http://10.0.2.2:3000/');
+    const users = await response.json();
+    this.setState({data: users});
 
-  componentDidMount() {
+  }
+
+
+    componentDidMount() {
     // let props = this.props;
+
     this.unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
 
@@ -144,11 +164,19 @@ loginuser=(email,password)=>{
             '488038246568-aimho25uljsj9s9st588rahff0pce6kv.apps.googleusercontent.com',
       });
     }
+
+
     BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
 
     AsyncStorage.getItem('first_time').then((value) => {
-      this.setState({ showRealApp: !!value, loading: false });
+      this.setState({ showRealApp: !!value, loading: false, });
+
     });
+
+        this.setState({picname:this.state.picname},()=>{
+          AsyncStorage.setItem('picname', this.state.picname);
+        })
+
 
     var that = this;
 
@@ -210,7 +238,7 @@ loginuser=(email,password)=>{
 
   signOut = () => {
     firebase.auth().signOut();
-  }
+  };
 
 
 
@@ -223,24 +251,164 @@ loginuser=(email,password)=>{
           // Create a new Firebase credential with the token
           const credential = firebase.auth.GoogleAuthProvider.credential(data.idToken, data.accessToken);
           // Login with the credential
+          const veri=firebase.auth.GoogleAuthProvider.credential(data.user)
+
+         alert(JSON.stringify(veri))
+          this.savebutton(data.user.email)
+          console.log(JSON.stringify(data.user.email))
+          this.setState({picname:data.user.email})
+
+
+          this.profileneed(data.user.email)
+          this.profilefetch(data.user.photo,data.user.name,data.user.email)
+
+          this.profilebutton(data.user.photo,data.user.name,data.user.email)
+
+
+
+
+
           return firebase.auth().signInWithCredential(credential);
+
         })
-        .then((user) => {
-          // If you need to do anything with the user, do it here
-          // The user will be logged in automatically by the
-          // `onAuthStateChanged` listener we set up in App.js earlier
-        })
-        .catch((error) => {
-          const { code, message } = error;
-          // For details of error codes, see the docs
-          // The message contains the default Firebase string
-          // representation of the error
-        });
+
+        .then((users) => {
+
+
+  })
+  }
+
+  profileneed=(email)=>{
+
+
+
+    const emai = email.split('@')[0].trim()
+
+console.log(emai)
+
+    fetch(BASE_URL+'/fetchinfo/'+emai, {
+      method: 'GET',
+
+
+
+    }).then((response)=>{
+      return response.json()
+
+
+    }).then((jsondata)=>{
+      this.setState({data:jsondata})
+    }).done()
   }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+  savebutton=(email)=>{
+
+
+
+    const Email = email.split('@')[0].trim()
+
+
+
+    fetch('http://10.0.2.2:3000/'+Email, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',  // It can be used to overcome cors errors
+        'Content-Type': 'application/json'
+      },
+
+
+    body:JSON.stringify({user:Email})
+
+    }).then((response)=>{
+          return response.json()
+
+
+        }).then((jsondata)=>{
+           this.setState({data:jsondata})
+    }).done()
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+  profilebutton=(photo,names,email)=>{
+
+
+
+    const Email = email.split('@')[0].trim()
+
+
+
+    fetch('http://10.0.2.2:3000/profileinfo', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',  // It can be used to overcome cors errors
+        'Content-Type': 'application/json'
+      },
+
+
+      body:JSON.stringify({photo:photo,name:names,user:Email})
+
+    }).then((response)=>{
+      return response.json()
+
+
+    }).then((jsondata)=>{
+      this.setState({data:jsondata})
+    }).done()
+  }
+
+
+
+  profilefetch=(photo,names,email)=>{
+
+
+
+    const emails = email.split('@')[0].trim()
+
+
+
+    fetch(BASE_URL+'/profileinfo/'+emails, {
+      method: 'GET',
+
+
+
+    }).then((response)=>{
+      return response.json()
+
+
+    }).then((jsondata)=>{
+      this.setState({data:jsondata})
+    }).done()
+  }
+
+
+
+
+
+
   _signOut = async () => {
-    //Remove user session from the device.
+    //Remove user session from the device..token
     try {
       await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();
@@ -285,8 +453,12 @@ loginuser=(email,password)=>{
 
 <View  style={{height:300,width:'100%',backgroundColor:'#f1f1f1'}}>
 
-  <Image source={{uri:'https://mir-s3-cdn-cf.behance.net/project_modules/disp/f847f340400159.577dcf3411820.gif'}} style={{flex:1,height:undefined,width:undefined}}/>
+  <Image source={require('./Excersises/mainImage/first.gif')} style={{flex:1,height:undefined,width:undefined}}/>
 </View>
+
+
+
+
 
 <View style={{height:400,borderColor:'#fff',justifyContent:'center',alignSelf:'center',alignItems:'center'}}>
 
@@ -402,11 +574,12 @@ loginuser=(email,password)=>{
 
     return (
         <View style={{ padding: 25,backgroundColor:'#000',height:'100%',alignItems:'center',justifyContent:'center' }}>
-          <Image source={require('./Excersises/gifs/loading.gif')}
-                 style={{flexDirection: 'column',
-                   justifyContent: 'center',
-                   alignItems: 'center',
-                   height: '60%',borderRadius:15,width:'100%'}}/>
+
+          {/*<Image source={require('./Excersises/gifs/loading.gif')}*/}
+          {/*       style={{flexDirection: 'column',*/}
+          {/*         justifyContent: 'center',*/}
+          {/*         alignItems: 'center',*/}
+          {/*         height: '60%',borderRadius:15,width:'100%'}}/>*/}
 
           <Text style={{color:'#fff'}}>Enter verification code below:</Text>
           <TextInput
@@ -420,6 +593,18 @@ loginuser=(email,password)=>{
         </View>
     );
   }
+
+
+
+
+  Handlenext=()=>{
+
+    this.props.navigation.navigate('Appintro',{verification:this.state.picname})
+
+
+  }
+
+
 
 
 
@@ -470,7 +655,7 @@ loginuser=(email,password)=>{
 
 
       return (
-          <View style={{ flex: 1 }}>
+          <View style={{ flex:1 }}>
 
 
 
@@ -482,30 +667,41 @@ loginuser=(email,password)=>{
            {user && (
 
 
-                <View
-                    style={{flex: 1,backgroundColor:'#111111'}}>
+                <View>
 
-                  <Image source={require('./Excersises/gifs/welcome.gif')}
-                         style={{flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    height: '60%',borderRadius:15,width:'100%'}}/>
-                  <Text style={{ fontSize: 25, position: 'absolute',margin:15,alignSelf:'center' ,color:'#f1f1f1',bottom:'25%'}}>Welcome!</Text>
+                    <Profile   pic={this.state.picname}/>
 
-                  <View>
 
-                  </View>
-                  <TouchableHighlight  style={{ position: 'absolute',margin:15,right:0,bottom:20}}>
-                    <Button title="next" color="#59A45C" onPress={()=>this.props.navigation.navigate('Appintro')}/>
 
+
+                 <TouchableHighlight  style={{position:'absolute', margin:15,alignSelf:'center',backgroundColor:'red',alignItems:'center',justifyContent:'center'}}>
+                   <View>
+
+                     <Image source={require('./images/maindesign.png')}
+                            style={{width:300, height: 300,position:'absolute',alignSelf:'center',marginTop:155 }} />
+                   </View>
                   </TouchableHighlight>
-                  <TouchableHighlight style={{ position: 'absolute',margin:15,left:0,bottom:20}}>
-                    <Button title="Sign Out" color="red" onPress={this.signOut} />
-                  </TouchableHighlight>
+
+
+
+
+                  <TouchableHighlight  style={{position:'absolute', margin:15,right:0,bottom:20,backgroundColor:'red'}}>
+    <Button title="next" color="#59A45C" onPress={()=>this.Handlenext()}/>
+
+  </TouchableHighlight>
+  <TouchableHighlight style={{position:'absolute',margin:15,left:0,bottom:20}}>
+    <Button title="Sign Out" color="red" onPress={this.signOut} />
+  </TouchableHighlight>
+
+
+
+
                 </View>
 
 
             )}
+
+
           </View>
 
 
@@ -513,13 +709,15 @@ loginuser=(email,password)=>{
     }
     else {
       return (
-          this.props.navigation.navigate('Home')
+          <View>
+          {this.props.navigation.navigate('Home')}
+
+          </View>
       )
     }
 
 
   }
-
 
 
 }
@@ -556,10 +754,9 @@ export  class Appintro extends React.Component {
   _onDone = () => {
     // After user finished the intro slides. Show real app through
     // navigation or simply by controlling state
-
     AsyncStorage.setItem('first_time', 'true').then(() => {
       this.setState({ showRealApp: true });
-    this.props.navigation.navigate('Home')
+    this.props.navigation.navigate('Home',{ver:this.props.navigation.state.params.verification})
 
   })
   }
@@ -572,7 +769,9 @@ export  class Appintro extends React.Component {
     // navigation or simply by controlling state
     AsyncStorage.setItem('first_time', 'true').then(() => {
       this.setState({ showRealApp: true });
-    this.props.navigation.navigate('Home')
+
+
+    this.props.navigation.navigate('Home',{ver:this.props.navigation.state.params.verification})
   })
   }
 
@@ -597,8 +796,7 @@ export  class Appintro extends React.Component {
                 padding: 50,
               }}>
             <Text>
-              This will be your screen when you click Skip from any slide or Done
-              button at last
+
             </Text>
           </View>
       );
@@ -606,7 +804,7 @@ export  class Appintro extends React.Component {
       //Intro slides
       return (
           <AppIntroSlider
-              style={{backgroundColor:'#f1f1f1'}}
+              style={{backgroundColor:'#f3f3f3',color:'#111'}}
               slides={slides1}
               //comming from the JsonArray below
               onDone={()=>this._onDone()}
@@ -614,6 +812,7 @@ export  class Appintro extends React.Component {
               showSkipButton={true}
               onSkip={()=>this._onSkip()}
           />
+
       );
     }
   }
@@ -708,33 +907,31 @@ const slides1 = [
   },
   {
     key: 's2',
-    title: 'Access Free',
-    titleStyle: styles.title,
-    textStyle: styles.text,
-
-    text: 'We Provide You Free Traning',
-    image: {
-      uri:
-          'https://media.giphy.com/media/xUA7bbcVDWik6cPdmg/giphy.gif',
-      imageStyle: styles.image,
-      justifyContent:"flex-start",
-
-      alignSelf: 'center',
-
-    },
-
-
-
-
-  },
-  {
-    key: 's3',
     title: 'We will Guide you!',
     titleStyle: styles.title,
     textStyle: styles.text,
     text: 'Enjoy all of our services',
     image: {
       uri: 'https://media.giphy.com/media/xUA7bbcVDWik6cPdmg/giphy.gif'},
+    imageStyle: styles.image,
+    justifyContent:"flex-start",
+
+    alignSelf: 'center',
+
+    },
+
+
+
+
+
+  {
+    key: 's3',
+    title: 'Free services',
+    titleStyle: styles.title,
+    textStyle: styles.text,
+    text: 'We are here for you',
+    image: {
+      uri: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/0b995740400159.577dcf345ee61.gif'},
     imageStyle: styles.image,
     justifyContent:"flex-start",
 
@@ -751,7 +948,8 @@ const RootStack = createStackNavigator(
     {
       Apps:PhoneAuthTest,
       Appintro:Appintro,
-       Home:HomePage,
+       Home:{screen:HomePage},
+
 
 
 

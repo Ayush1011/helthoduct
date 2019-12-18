@@ -97,7 +97,7 @@ export default class Glute_bridge extends Component{
 
             <View style={{backgroundColor: '#3C3C3C',height:'100%',}}>
                 <Image
-                    source={require('../gifs/glute_bridge.gif')}
+                    source={require('../gifs/GluteBridge.gif')}
                     style={{width: '90%',overlayColor: '#3C3C3C',borderRadius:15,height:'40%',padding:15,margin:'3%',justifyContent:"center",alignItems:'center',alignSelf:"center"}}
                 />
 

@@ -11,14 +11,17 @@ import Modal from "react-native-simple-modal/index";
 import Kneepushup from "./kneepushup";
 import V_crunch from "./V_crunch";
 import Glute_bridge from "./Glute_bridge";
-import Side_lift from "./Side_lift";
+
 import Reversesnowangels from "./Reversesnowangels";
 import Scissor_Jump from "./Scissor_Jump";
 import Gifplay from './gifplay'
 import Icon from "react-native-vector-icons/SimpleLineIcons";
 import {PhoneAuthTest} from "../../App";
-import {Start} from "./start";
 import Dumbbell_side_raise from "./Dumbbell side raise";
+import Diamondkneepushup from "./Diamondkneepushup";
+import Dumbbellbicepscrul from "./dumbbellbicepscrul";
+import Standinglegraise from "./Standinglegraise";
+import Crunch from "./Crunch";
 
 
 
@@ -84,21 +87,20 @@ export class Daily_Routine extends Component{
 
                         <Image
                             style={{width:'100%',height:'100%'}}
-                            source={{uri:'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hbz-workout-gettyimages-853930556-1540409352.jpg?crop=1.00xw:1.00xh;0,0&resize=480:*'}}/>
+                            source={require('../mainImage/fullbodyeasy(1).jpg')}/>
 
                     </View>
 
 <View style={{flex:1,flexDirection:'column'}}>
                     <Text style={{margin:'2%',marginLeft:'5%',fontSize:20}}>Introduction</Text>
 
-                    <Text style={{margin:'5%'}}>lorem ipsum was born as a nonsense text. “It's not Latin, though it looks like it, and it actually says nothing,”
-                        Before & After magazine answered a curious reader, “Its ‘words’  </Text>
+                    <Text style={{margin:'5%'}}>This 10-minute routine uses only body weight exercises including a various Exercise. And you can modify all of the moves based on how you're feeling. Moving through these common—but extremely effective exercises will help you become more aware of your form,and it will set you up for more challenging variations as you get stronger.</Text>
 
                    <View style={{flex:1,flexDirection:'column'}}>
                     <View style={{flex:1,flexDirection:'row',width:'100%',}}>
 
                     <Text style={{margin:'2%',marginLeft:'5%',fontSize:20,}}>Actionlist</Text>
-                    <Text style={{margin:'2%',marginLeft: 'auto',flexDirection: 'row', fontSize:20,justifyContent: 'flex-end',right:'5%'}}>6 Actions</Text>
+                    <Text style={{margin:'2%',marginLeft: 'auto',flexDirection: 'row', fontSize:20,justifyContent: 'flex-end',right:'5%'}}>7 Actions</Text>
                     </View>
 
 
@@ -108,22 +110,22 @@ export class Daily_Routine extends Component{
 
 
 
-                    <View style={{width:'100%',height:'100%',margin:'5%',}}>
+                    <View style={{width:'100%',margin:'5%',}}>
 
                     <TouchableOpacity
                         onPress={()=>this.props.navigation.navigate('Knee')}
                         style={{width:'90%',height:100,backgroundColor:'#fff',}}>
                 <View style={{flex:1,flexDirection:'row'}}>
-                     <View style={{width:'25%',height:'100%',}}>
+                     <View style={{width:'25%',height:100,}}>
 
-                         <Image source={{uri:'https://images.pexels.com/photos/1431283/pexels-photo-1431283.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'}}
+                         <Image source={require('../mainImage/helto.jpg')}
                          style={{width: undefined, height: undefined,flex:1,margin:5}}
                          />
 
 
 
                      </View>
-                    <View style={{flex:1,flexDirection:'column',height:'100%'}}>
+                    <View style={{flex:1,flexDirection:'column',height:100}}>
                         <Text style={{margin:'5%',fontSize:18,color:'#787878'}} >Knee pushup</Text>
                         <View style={{flex:1,flexDirection:'row',height:'100%'}}>
                     <Icon name="clock" size={20} color="#787878" style={{marginLeft:'5%',}}/>
@@ -135,6 +137,31 @@ export class Daily_Routine extends Component{
                 </View>
                     </TouchableOpacity>
 
+                        <TouchableOpacity
+                            onPress={()=>this.props.navigation.navigate('Dumbbell')}
+
+                            style={{width:'90%',height:100,backgroundColor:'#fff',marginTop:'5%'}}>
+                            <View style={{flex:1,flexDirection:'row'}}>
+                                <View style={{width:'25%',height:100,}}>
+
+                                    <Image source={require('../mainImage/helto.jpg')}
+                                           style={{width: undefined, height: undefined,flex:1,margin:5}}
+                                    />
+
+
+
+                                </View>
+                                <View style={{flex:1,flexDirection:'column',height:'100%'}}>
+                                    <Text style={{margin:'5%',fontSize:18,color:'#787878'}} >Dumbbells side raise</Text>
+                                    <View style={{flex:1,flexDirection:'row',height:100}}>
+                                        <Icon name="clock" size={20} color="#787878" style={{marginLeft:'5%',}}/>
+                                        <Text style={{fontSize:18,color:'#787878'}}> 30 SEC</Text>
+                                        <Icon name="arrow-right" size={20} color="#787878" style={{marginLeft:'auto',right:15,bottom:15}}/>
+
+                                    </View>
+                                </View>
+                            </View>
+                        </TouchableOpacity>
 
 
 
@@ -145,16 +172,16 @@ export class Daily_Routine extends Component{
 
                             style={{width:'90%',height:100,backgroundColor:'#fff',marginTop:'5%'}}>
                             <View style={{flex:1,flexDirection:'row'}}>
-                                <View style={{width:'25%',height:'100%',}}>
+                                <View style={{width:'25%',height:100,}}>
 
-                                    <Image source={{uri:'https://images.pexels.com/photos/1431283/pexels-photo-1431283.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'}}
+                                    <Image source={require('../mainImage/helto.jpg')}
                                            style={{width: undefined, height: undefined,flex:1,margin:5}}
                                     />
 
 
 
                                 </View>
-                                <View style={{flex:1,flexDirection:'column',height:'100%'}}>
+                                <View style={{flex:1,flexDirection:'column',height:100}}>
                                     <Text style={{margin:'5%',fontSize:18,color:'#787878'}} >Reverse Snow Angels</Text>
                                     <View style={{flex:1,flexDirection:'row',height:'100%'}}>
                                         <Icon name="clock" size={20} color="#787878" style={{marginLeft:'5%',}}/>
@@ -168,14 +195,16 @@ export class Daily_Routine extends Component{
 
 
 
+
+
                         <TouchableOpacity
-                            onPress={()=>this.props.navigation.navigate('Snowangel')}
+                            onPress={()=>this.props.navigation.navigate('Diamond')}
 
                             style={{width:'90%',height:100,backgroundColor:'#fff',marginTop:'5%'}}>
                             <View style={{flex:1,flexDirection:'row'}}>
-                                <View style={{width:'25%',height:'100%',}}>
+                                <View style={{width:'25%',height:100,}}>
 
-                                    <Image source={{uri:'https://images.pexels.com/photos/1431283/pexels-photo-1431283.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'}}
+                                    <Image source={require('../mainImage/helto.jpg')}
                                            style={{width: undefined, height: undefined,flex:1,margin:5}}
                                     />
 
@@ -183,8 +212,8 @@ export class Daily_Routine extends Component{
 
                                 </View>
                                 <View style={{flex:1,flexDirection:'column',height:'100%'}}>
-                                    <Text style={{margin:'5%',fontSize:18,color:'#787878'}} >Knee Pushup</Text>
-                                    <View style={{flex:1,flexDirection:'row',height:'100%'}}>
+                                    <Text style={{margin:'5%',fontSize:18,color:'#787878'}} >Diamond Knee Pushup</Text>
+                                    <View style={{flex:1,flexDirection:'row',height:100}}>
                                         <Icon name="clock" size={20} color="#787878" style={{marginLeft:'5%',}}/>
                                         <Text style={{fontSize:18,color:'#787878'}}> 30 SEC</Text>
                                         <Icon name="arrow-right" size={20} color="#787878" style={{marginLeft:'auto',right:15,bottom:15}}/>
@@ -195,21 +224,21 @@ export class Daily_Routine extends Component{
                         </TouchableOpacity>
 
                         <TouchableOpacity
-                            onPress={()=>this.props.navigation.navigate('Dumbbell')}
+                            onPress={()=>this.props.navigation.navigate('DumbellBiceps')}
 
                             style={{width:'90%',height:100,backgroundColor:'#fff',marginTop:'5%'}}>
                             <View style={{flex:1,flexDirection:'row'}}>
-                                <View style={{width:'25%',height:'100%',}}>
+                                <View style={{width:'25%',height:100,}}>
 
-                                    <Image source={{uri:'https://images.pexels.com/photos/1431283/pexels-photo-1431283.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'}}
+                                    <Image source={require('../mainImage/helto.jpg')}
                                            style={{width: undefined, height: undefined,flex:1,margin:5}}
                                     />
 
 
 
                                 </View>
-                                <View style={{flex:1,flexDirection:'column',height:'100%'}}>
-                                    <Text style={{margin:'5%',fontSize:18,color:'#787878'}} >Dumbbells side raise</Text>
+                                <View style={{flex:1,flexDirection:'column',height:100}}>
+                                    <Text style={{margin:'5%',fontSize:18,color:'#787878'}} >Dumbell Biceps Crul</Text>
                                     <View style={{flex:1,flexDirection:'row',height:'100%'}}>
                                         <Icon name="clock" size={20} color="#787878" style={{marginLeft:'5%',}}/>
                                         <Text style={{fontSize:18,color:'#787878'}}> 30 SEC</Text>
@@ -223,6 +252,70 @@ export class Daily_Routine extends Component{
 
 
 
+
+                        <TouchableOpacity
+                            onPress={()=>this.props.navigation.navigate('leg_raise')}
+
+                            style={{width:'90%',height:100,backgroundColor:'#fff',marginTop:'5%'}}>
+                            <View style={{flex:1,flexDirection:'row'}}>
+                                <View style={{width:'25%',height:100,}}>
+
+                                    <Image source={require('../mainImage/helto.jpg')}
+                                           style={{width: undefined, height: undefined,flex:1,margin:5}}
+                                    />
+
+
+
+                                </View>
+                                <View style={{flex:1,flexDirection:'column',height:100}}>
+                                    <Text style={{margin:'5%',fontSize:18,color:'#787878'}} >Standing Leg Raise</Text>
+                                    <View style={{flex:1,flexDirection:'row',height:'100%'}}>
+                                        <Icon name="clock" size={20} color="#787878" style={{marginLeft:'5%',}}/>
+                                        <Text style={{fontSize:18,color:'#787878'}}> 30 SEC</Text>
+                                        <Icon name="arrow-right" size={20} color="#787878" style={{marginLeft:'auto',right:15,bottom:15}}/>
+
+                                    </View>
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <TouchableOpacity
+                            onPress={()=>this.props.navigation.navigate('Crunch')}
+
+                            style={{width:'90%',height:100,backgroundColor:'#fff',marginTop:'5%'}}>
+                            <View style={{flex:1,flexDirection:'row'}}>
+                                <View style={{width:'25%',height:100,}}>
+
+                                    <Image source={require('../mainImage/helto.jpg')}
+                                           style={{width: undefined, height: undefined,flex:1,margin:5}}
+                                    />
+
+
+
+                                </View>
+                                <View style={{flex:1,flexDirection:'column',height:100}}>
+                                    <Text style={{margin:'5%',fontSize:18,color:'#787878'}} >Crunch</Text>
+                                    <View style={{flex:1,flexDirection:'row',height:'100%'}}>
+                                        <Icon name="clock" size={20} color="#787878" style={{marginLeft:'5%',}}/>
+                                        <Text style={{fontSize:18,color:'#787878'}}> 30 SEC</Text>
+                                        <Icon name="arrow-right" size={20} color="#787878" style={{marginLeft:'auto',right:15,bottom:15}}/>
+
+                                    </View>
+                                </View>
+                            </View>
+                        </TouchableOpacity>
                     </View>
 
 
@@ -314,14 +407,17 @@ const profile2 = createStackNavigator(
 
         },
         Gif:Gifplay,
-        Start:Start,
+
         Scissor_jump:Scissor_Jump,
         Knee:Kneepushup,
         V_crunch:V_crunch,
         Glute_bridge:Glute_bridge,
-        Side_leg:Side_lift,
         Snowangel:Reversesnowangels,
         Dumbbell:Dumbbell_side_raise,
+        Diamond:Diamondkneepushup,
+        DumbellBiceps:Dumbbellbicepscrul,
+        leg_raise:Standinglegraise,
+        Crunch:Crunch
 
 
 

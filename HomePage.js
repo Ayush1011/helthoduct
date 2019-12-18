@@ -29,6 +29,17 @@ import Carousel from 'react-native-snap-carousel';
 import Daily_Routine from "./Excersises/fullbodyeasy/Daily_Routine";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import Profile from "./profile";
+import Fullbodyintermidiate from "./Excersises/fullbodyintermidiate/Fullbodyintermidiate";
+import  Weightlosseasy from "./Excersises/Weightlosseasy/Weightloss";
+import Weightlossintermidiate from "./Excersises/wightlossintermidiate/weightlossintermidiate";
+import Legseasy from "./Excersises/LegsEasy/legseasy";
+import Legsintermidiate from "./Excersises/legsintermidiate/legsintermidiate";
+import Absbeginner from "./Excersises/Absbeginner/Absbeginner";
+import Absintermidiate from "./Excersises/Absintermidiate/Absintermidiate";
+import Dailyawakening from "./Excersises/Daily awakening/Dailyawakening";
+import Buildyourbutt from "./Excersises/Buildyourbutt/buildyourbutt";
+import Chestbooster from "./Excersises/Chestbooster/Chestbooster";
+import Coreworkout from "./Excersises/Coreworkout/Coreworkout";
 export class HomePage extends Component {
 
     static navigationOptions = {
@@ -146,31 +157,11 @@ export class HomePage extends Component {
     render = () => {
         return (
 <View style={{flex:1,flexDirection:'column',height:'100%'}}>
+
     <ScrollView>
     <Text style={{fontSize: 35,marginLeft: '5%',margin:'1%',fontWeight:'light'}}>Find a</Text>
-    <Text style={{fontSize: 35,marginLeft: '5%',margin:'1%',fontWeight:'bold'}}>Workout Type</Text>
+        <Text style={{fontSize: 35,marginLeft: '5%',margin:'1%',fontWeight:'bold'}}>Workout Type</Text>
 
-<View style={{flex:1,flexDirection:'column',height:'100%',margin:5}}>
-    <View style={{flex:1,margin:'5%',flexDirection:'row',}}>
-        <TouchableOpacity
-            style={{flex:.5,height:200,width:'100%',backgroundColor:'red',margin:5,borderRadius:15}}>
-
-
-        </TouchableOpacity>
-        <TouchableOpacity style={{flex:.5,height:200,width:'100%',backgroundColor:'red',margin:5,marginTop:'16%',borderRadius:15}}>
-        </TouchableOpacity>
-
-
-
-        <TouchableOpacity style={{flex:.5,height:200,width:'100%',backgroundColor:'blue',margin:5,borderRadius:15}}>
-        </TouchableOpacity>
-        <TouchableOpacity style={{flex:.5,height:200,width:'100%',backgroundColor:'blue',margin:5,marginTop:'16%',borderRadius:15}}>
-        </TouchableOpacity>
-    </View>
-
-
-
-</View>
 
 
     <View style={{flex:1,marginLeft:'5%',flexDirection:'row',marginTop:'6%',marginRight:'5%'}}>
@@ -180,12 +171,12 @@ export class HomePage extends Component {
             style={{flex:.5,height:220,width:'100%',backgroundColor:'#4caf50',margin:5,borderRadius:15}}>
 
              <Image style={{flex:.9 , width: undefined, height: undefined,borderRadius:15}}
-                 source={{uri:'https://images.shape.mdpcdn.com/sites/shape.com/files/styles/channel_feature_panel_image/public/jen-goal-crushers-challenge-promo-1000.jpg?itok=DJd6_Wbl'}}/>
+                 source={require('./Excersises/mainImage/fullbodyeasy(1).jpg')}/>
 
                  <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>Full Body Easy</Text>
         </TouchableOpacity>
         <TouchableOpacity
-            onPress={()=>this.props.navigation.navigate('')}
+            onPress={()=>this.props.navigation.navigate('Fullbodyintermidiate')}
 
             style={{flex:.5,height:220,width:'100%',backgroundColor:'#795548',margin:5,marginTop:'16%',borderRadius:15}}>
 
@@ -193,7 +184,7 @@ export class HomePage extends Component {
             <Image style={{flex:.83 , width: undefined, height: undefined,borderRadius:15}}
                    source={{uri:'https://www.thegrowthop.com/wp-content/uploads/2019/04/1a_GettyImages-1007730100-e1555440810469.jpg'}}/>
 
-            <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>Weight Loss</Text>
+            <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>Full Body Intermediate</Text>
 
         </TouchableOpacity>
 
@@ -202,25 +193,25 @@ export class HomePage extends Component {
     </View>
         <View style={{flex:1,marginLeft:'5%',flexDirection:'row',marginRight:'5%'}}>
             <TouchableOpacity
-                onPress={()=>this.props.navigation.navigate('')}
+                onPress={()=>this.props.navigation.navigate('Weightlosseasy')}
 
                 style={{flex:.5,height:220,width:'100%',backgroundColor:'#673ab7',margin:5,borderRadius:15}}>
                 <Image style={{flex:.9 , width: undefined, height: undefined,borderRadius:15}}
-                       source={{uri:'https://media1.popsugar-assets.com/files/thumbor/DwuRAXRaR7-TXSsEbA0U7L0GfXg/fit-in/728xorig/filters:format_auto-!!-:strip_icc-!!-/2019/07/31/044/n/1922729/8c189b805d422c81c9ba55.76538773_/i/3-Minute-Ab-Workout-Runners.jpg'}}/>
+                       source={require('./Excersises/mainImage/weightlosseasy.jpg')}/>
 
-                <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>Abs buildup</Text>
+                <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>Weight Loss Easy</Text>
 
             </TouchableOpacity>
             <TouchableOpacity
-                onPress={()=>this.props.navigation.navigate('')}
+                onPress={()=>this.props.navigation.navigate('Weightlossintermidiate')}
 
                 style={{flex:.5,height:220,width:'100%',backgroundColor:'#3f51b5',margin:5,marginTop:'16%',borderRadius:15}}>
 
 
                 <Image style={{flex:.83 , width: undefined, height: undefined,borderRadius:15}}
-                       source={{uri:'https://66.media.tumblr.com/03df951f3345e4f55d5d9435af06d4a9/tumblr_p5evieqoeY1x1g1yio1_400.jpg'}}/>
+                       source={require('./Excersises/mainImage/weightlossintermidiate.jpg')}/>
 
-                <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>core workout</Text>
+                <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>Weight loss Intermidiate</Text>
 
             </TouchableOpacity>
 
@@ -230,53 +221,26 @@ export class HomePage extends Component {
 
         <View style={{flex:1,marginLeft:'5%',flexDirection:'row',marginRight:'5%'}}>
             <TouchableOpacity
-                onPress={()=>this.props.navigation.navigate('')}
+                onPress={()=>this.props.navigation.navigate('Legseasy')}
 
                 style={{flex:.5,height:220,width:'100%',backgroundColor:'#00bcd4',margin:5,borderRadius:15}}>
 
                 <Image style={{flex:.9 , width: undefined, height: undefined,borderRadius:15}}
-                       source={{uri:'https://cdn10.phillymag.com/wp-content/uploads/sites/3/2017/03/iStock-501776792.jpg'}}/>
+                       source={require('./Excersises/mainImage/legseasy.jpg')}/>
 
-                <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>slimmer legs</Text>
+                <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>Legs Easy</Text>
 
             </TouchableOpacity>
             <TouchableOpacity
-                onPress={()=>this.props.navigation.navigate('')}
+                onPress={()=>this.props.navigation.navigate('Legsintermidiate')}
 
                 style={{flex:.5,height:220,width:'100%',backgroundColor:'#607d8b',margin:5,marginTop:'16%',borderRadius:15}}>
 
 
                 <Image style={{flex:.83 , width: undefined, height: undefined,borderRadius:15}}
-                       source={{uri:'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/young-woman-with-medicine-ball-exercising-on-royalty-free-image-1004449544-1550861346.jpg?crop=0.56251xw:1xh;center,top&resize=480:*'}}/>
+                       source={require('./Excersises/mainImage/legsintermidiate.jpg')}/>
 
-                <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>butt buildup</Text>
-
-            </TouchableOpacity>
-
-
-
-        </View>
-        <View style={{flex:1,marginLeft:'5%',flexDirection:'row',marginRight:'5%'}}>
-            <TouchableOpacity
-                onPress={()=>this.props.navigation.navigate('')}
-
-                style={{flex:.5,height:220,width:'100%',backgroundColor:'#673ab7',margin:5,borderRadius:15}}>
-                <Image style={{flex:.9 , width: undefined, height: undefined,borderRadius:15}}
-                       source={{uri:'https://media1.popsugar-assets.com/files/thumbor/DwuRAXRaR7-TXSsEbA0U7L0GfXg/fit-in/728xorig/filters:format_auto-!!-:strip_icc-!!-/2019/07/31/044/n/1922729/8c189b805d422c81c9ba55.76538773_/i/3-Minute-Ab-Workout-Runners.jpg'}}/>
-
-                <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>Abs buildup</Text>
-
-            </TouchableOpacity>
-            <TouchableOpacity
-                onPress={()=>this.props.navigation.navigate('')}
-
-                style={{flex:.5,height:220,width:'100%',backgroundColor:'#3f51b5',margin:5,marginTop:'16%',borderRadius:15}}>
-
-
-                <Image style={{flex:.83 , width: undefined, height: undefined,borderRadius:15}}
-                       source={{uri:'https://66.media.tumblr.com/03df951f3345e4f55d5d9435af06d4a9/tumblr_p5evieqoeY1x1g1yio1_400.jpg'}}/>
-
-                <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>core workout</Text>
+                <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>Legs intermidiate</Text>
 
             </TouchableOpacity>
 
@@ -285,25 +249,25 @@ export class HomePage extends Component {
         </View>
         <View style={{flex:1,marginLeft:'5%',flexDirection:'row',marginRight:'5%'}}>
             <TouchableOpacity
-                onPress={()=>this.props.navigation.navigate('')}
+                onPress={()=>this.props.navigation.navigate('AbsBeginner')}
 
                 style={{flex:.5,height:220,width:'100%',backgroundColor:'#673ab7',margin:5,borderRadius:15}}>
                 <Image style={{flex:.9 , width: undefined, height: undefined,borderRadius:15}}
-                       source={{uri:'https://media1.popsugar-assets.com/files/thumbor/DwuRAXRaR7-TXSsEbA0U7L0GfXg/fit-in/728xorig/filters:format_auto-!!-:strip_icc-!!-/2019/07/31/044/n/1922729/8c189b805d422c81c9ba55.76538773_/i/3-Minute-Ab-Workout-Runners.jpg'}}/>
+                       source={require('./Excersises/mainImage/abseasy.jpg')}/>
 
-                <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>Abs buildup</Text>
+                <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>Abs beginner</Text>
 
             </TouchableOpacity>
             <TouchableOpacity
-                onPress={()=>this.props.navigation.navigate('')}
+                onPress={()=>this.props.navigation.navigate('AbsIntermidiate')}
 
                 style={{flex:.5,height:220,width:'100%',backgroundColor:'#3f51b5',margin:5,marginTop:'16%',borderRadius:15}}>
 
 
                 <Image style={{flex:.83 , width: undefined, height: undefined,borderRadius:15}}
-                       source={{uri:'https://66.media.tumblr.com/03df951f3345e4f55d5d9435af06d4a9/tumblr_p5evieqoeY1x1g1yio1_400.jpg'}}/>
+                       source={require('./Excersises/mainImage/absintermidiate.jpg')}/>
 
-                <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>core workout</Text>
+                <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>Abs Intermediate</Text>
 
             </TouchableOpacity>
 
@@ -312,25 +276,25 @@ export class HomePage extends Component {
         </View>
         <View style={{flex:1,marginLeft:'5%',flexDirection:'row',marginRight:'5%'}}>
             <TouchableOpacity
-                onPress={()=>this.props.navigation.navigate('')}
+                onPress={()=>this.props.navigation.navigate('DailyAwakning')}
 
-                style={{flex:.5,height:220,width:'100%',backgroundColor:'#673ab7',margin:5,borderRadius:15}}>
+                style={{flex:.5,height:220,width:'100%',backgroundColor:'#607d8b',margin:5,borderRadius:15}}>
                 <Image style={{flex:.9 , width: undefined, height: undefined,borderRadius:15}}
-                       source={{uri:'https://media1.popsugar-assets.com/files/thumbor/DwuRAXRaR7-TXSsEbA0U7L0GfXg/fit-in/728xorig/filters:format_auto-!!-:strip_icc-!!-/2019/07/31/044/n/1922729/8c189b805d422c81c9ba55.76538773_/i/3-Minute-Ab-Workout-Runners.jpg'}}/>
+                       source={require('./Excersises/mainImage/dailyawakning.jpg')}/>
 
-                <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>Abs buildup</Text>
+                <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>Daily Awakening</Text>
 
             </TouchableOpacity>
             <TouchableOpacity
-                onPress={()=>this.props.navigation.navigate('')}
+                onPress={()=>this.props.navigation.navigate('Butt')}
 
-                style={{flex:.5,height:220,width:'100%',backgroundColor:'#3f51b5',margin:5,marginTop:'16%',borderRadius:15}}>
+                style={{flex:.5,height:220,width:'100%',backgroundColor:'#e91e63',margin:5,marginTop:'16%',borderRadius:15}}>
 
 
                 <Image style={{flex:.83 , width: undefined, height: undefined,borderRadius:15}}
-                       source={{uri:'https://66.media.tumblr.com/03df951f3345e4f55d5d9435af06d4a9/tumblr_p5evieqoeY1x1g1yio1_400.jpg'}}/>
+                       source={require('./Excersises/mainImage/buttbuildup.jpg')}/>
 
-                <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>core workout</Text>
+                <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>Build your butt</Text>
 
             </TouchableOpacity>
 
@@ -339,31 +303,32 @@ export class HomePage extends Component {
         </View>
         <View style={{flex:1,marginLeft:'5%',flexDirection:'row',marginRight:'5%'}}>
             <TouchableOpacity
-                onPress={()=>this.props.navigation.navigate('')}
+                onPress={()=>this.props.navigation.navigate('ChestBooster')}
 
-                style={{flex:.5,height:220,width:'100%',backgroundColor:'#673ab7',margin:5,borderRadius:15}}>
+                style={{flex:.5,height:220,width:'100%',backgroundColor:'#9c27b0',margin:5,borderRadius:15}}>
                 <Image style={{flex:.9 , width: undefined, height: undefined,borderRadius:15}}
-                       source={{uri:'https://media1.popsugar-assets.com/files/thumbor/DwuRAXRaR7-TXSsEbA0U7L0GfXg/fit-in/728xorig/filters:format_auto-!!-:strip_icc-!!-/2019/07/31/044/n/1922729/8c189b805d422c81c9ba55.76538773_/i/3-Minute-Ab-Workout-Runners.jpg'}}/>
+                       source={require('./Excersises/mainImage/chestbuildup.jpg')}/>
 
-                <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>Abs buildup</Text>
+                <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>Chest Booster</Text>
 
             </TouchableOpacity>
             <TouchableOpacity
-                onPress={()=>this.props.navigation.navigate('')}
+                onPress={()=>this.props.navigation.navigate('CoreWorkout')}
 
-                style={{flex:.5,height:220,width:'100%',backgroundColor:'#3f51b5',margin:5,marginTop:'16%',borderRadius:15}}>
+                style={{flex:.5,height:220,width:'100%',backgroundColor:'#f44336',margin:5,marginTop:'16%',borderRadius:15}}>
 
 
                 <Image style={{flex:.83 , width: undefined, height: undefined,borderRadius:15}}
-                       source={{uri:'https://66.media.tumblr.com/03df951f3345e4f55d5d9435af06d4a9/tumblr_p5evieqoeY1x1g1yio1_400.jpg'}}/>
+                       source={require('./Excersises/mainImage/coreworkout.jpg')}/>
 
-                <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>core workout</Text>
+                <Text style={{color:'white',textAlign: 'left',fontSize:17,fontWeight:'bold',alignItems:'center',marginTop:'5%',marginLeft:'10%'}}>Core Workout</Text>
 
             </TouchableOpacity>
 
 
 
         </View>
+
 
 </ScrollView>
 
@@ -380,6 +345,183 @@ const Home1 = createStackNavigator(
     {
         Home: HomePage,
         Wakeing:{screen:Daily_Routine,
+            navigationOptions: {
+                headerTransparent: true,
+
+                headerStyle: {
+                    Color: 'red',
+
+                    headerMode: null
+
+
+                },
+            }
+
+
+
+        },
+        Fullbodyintermidiate:{screen:Fullbodyintermidiate,
+            navigationOptions: {
+                headerTransparent: true,
+
+                headerStyle: {
+                    Color: 'red',
+
+                    headerMode: null
+
+
+                },
+            }
+
+
+
+        },
+        Weightlosseasy:{screen:Weightlosseasy,
+            navigationOptions: {
+                headerTransparent: true,
+
+                headerStyle: {
+                    Color: 'red',
+
+                    headerMode: null
+
+
+                },
+            }
+
+
+
+        },
+        Weightlossintermidiate:{screen:Weightlossintermidiate,
+            navigationOptions: {
+                headerTransparent: true,
+
+                headerStyle: {
+                    Color: 'red',
+
+                    headerMode: null
+
+
+                },
+            }
+
+
+
+        },
+
+        Legseasy:{screen:Legseasy,
+            navigationOptions: {
+                headerTransparent: true,
+
+                headerStyle: {
+                    Color: 'red',
+
+                    headerMode: null
+
+
+                },
+            }
+
+
+
+        },
+        Legsintermidiate:{screen:Legsintermidiate,
+            navigationOptions: {
+                headerTransparent: true,
+
+                headerStyle: {
+                    Color: 'red',
+
+                    headerMode: null
+
+
+                },
+            }
+
+
+
+        },
+        AbsBeginner:{screen:Absbeginner,
+            navigationOptions: {
+                headerTransparent: true,
+
+                headerStyle: {
+                    Color: 'red',
+
+                    headerMode: null
+
+
+                },
+            }
+
+
+
+        },
+        AbsIntermidiate:{screen:Absintermidiate,
+            navigationOptions: {
+                headerTransparent: true,
+
+                headerStyle: {
+                    Color: 'red',
+
+                    headerMode: null
+
+
+                },
+            }
+
+
+
+        },
+        DailyAwakning:{screen:Dailyawakening,
+            navigationOptions: {
+                headerTransparent: true,
+
+                headerStyle: {
+                    Color: 'red',
+
+                    headerMode: null
+
+
+                },
+            }
+
+
+
+        },
+        Butt:{screen:Buildyourbutt,
+            navigationOptions: {
+                headerTransparent: true,
+
+                headerStyle: {
+                    Color: 'red',
+
+                    headerMode: null
+
+
+                },
+            }
+
+
+
+        },
+        ChestBooster:{screen:Chestbooster,
+            navigationOptions: {
+                headerTransparent: true,
+
+                headerStyle: {
+                    Color: 'red',
+
+                    headerMode: null
+
+
+                },
+            }
+
+
+
+        },
+        CoreWorkout:{screen:Coreworkout,
             navigationOptions: {
                 headerTransparent: true,
 
@@ -431,7 +573,7 @@ const RootStack=createBottomTabNavigator(
                 },
                 tabBarOptions : {
                     style: {
-                        backgroundColor: '#fff',
+                        backgroundColor: 'transparent',
                         borderColor:'#fff'
                     }
                 },
@@ -446,10 +588,24 @@ const RootStack=createBottomTabNavigator(
 
         Profile:{screen:profile,
             navigationOptions: {
+                headerStyle: { Color: 'red',
+                    backgroundColor: '#fff',
+                    borderBottomColor: '#fff',
 
-                tabBarOptions : {
+
+
+                },
+                headerTitleStyle: { color: '#111',fontFamily:'Roboto',right:0,
+                    marginLeft:'auto',
+
+
+                    fontSize:25},
+
+
+            tabBarOptions : {
                     style: {
                         backgroundColor: '#fff',
+                        color:'#111'
                     }
                 },
                 tabBarLabel:"profile",

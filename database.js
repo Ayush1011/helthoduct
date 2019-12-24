@@ -63,7 +63,7 @@ app.post('/',function(req,res)
         }
     )
 
-    connection.query(`create table if not exists ${req.body.user}(Weight int,height int,age int,bmi float)`,function(err,rows,fields){
+    connection.query(`create table if not exists ${req.body.user}(Weight int,height int,age int,bmi varchar(20))`,function(err,rows,fields){
         if(!!err){
             console.log(err)
         }
@@ -123,8 +123,31 @@ app.post('/profileinfo',function(req,res) {
     }
 )
 
+app.post('/:id',function(req,res){
+
+    connection.query(`INSERT INTO ${req.params.id} (Weight,height,age,bmi) select * from (select ${req.body.weight},${req.body.height},${req.body.age},${req.body.bmi}) as tmp WHERE NOT EXISTS  (select age from ${req.params.id} where age=${req.body.age})`,function(err,feilds,rows,){
+        if(err){
+            console.log(err)
+        }
+        else{
+            console.log(rows)
+            console.log('insrted in :id'+req.params.id )
+        }
+    })
+})
 
 
+app.get('/:id',function(req,res){
+    connection.query(`SELECT * from ${req.params.id}`,function (err,rows) {
+        if(!!err){
+            console.log(err)
+        }
+        else{
+            console.log(rows)
+
+        }
+    })
+})
 
 app.post('/delete/:id',function(req,res,rows){
     console.log(req.params)

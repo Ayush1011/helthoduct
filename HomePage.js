@@ -40,6 +40,7 @@ import Dailyawakening from "./Excersises/Daily awakening/Dailyawakening";
 import Buildyourbutt from "./Excersises/Buildyourbutt/buildyourbutt";
 import Chestbooster from "./Excersises/Chestbooster/Chestbooster";
 import Coreworkout from "./Excersises/Coreworkout/Coreworkout";
+import Links from "./Links";
 export class HomePage extends Component {
 
     static navigationOptions = {
@@ -608,7 +609,37 @@ const RootStack=createBottomTabNavigator(
                         color:'#111'
                     }
                 },
-                tabBarLabel:"profile",
+                tabBarLabel:"Profile",
+
+
+                tabBarIcon: ({ tintColor }) => (
+                    <Icon name="fingerprint" size={25} color="#837A83" />
+                )
+            },
+
+        },      Links:{screen:Links,
+            navigationOptions: {
+                headerStyle: { Color: 'red',
+                    backgroundColor: '#fff',
+                    borderBottomColor: '#fff',
+
+
+
+                },
+                headerTitleStyle: { color: '#111',fontFamily:'Roboto',right:0,
+                    marginLeft:'auto',
+
+
+                    fontSize:25},
+
+
+                tabBarOptions : {
+                    style: {
+                        backgroundColor: '#fff',
+                        color:'#111'
+                    }
+                },
+                tabBarLabel:"Links",
 
 
                 tabBarIcon: ({ tintColor }) => (

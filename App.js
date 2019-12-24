@@ -30,6 +30,7 @@ import {
 } from 'react-native-google-signin';
 import HomePage from "./HomePage";
 import Profile from "./profile";
+import Icon from "react-native-vector-icons/AntDesign";
 
 
 // var Firebase = require('firebase')
@@ -64,7 +65,9 @@ export class PhoneAuthTest extends React.Component {
       isVisible : true,
       loading:true,
       data:[],
-      picname:''
+      picname:'',
+      picurl:'',
+      profilename:''
 
 
 
@@ -257,6 +260,7 @@ export class PhoneAuthTest extends React.Component {
           this.savebutton(data.user.email)
           console.log(JSON.stringify(data.user.email))
           this.setState({picname:data.user.email})
+          this.setState({picurl:data.user.photo,profilename:data.user.name})
 
 
           this.profileneed(data.user.email)
@@ -321,7 +325,7 @@ console.log(emai)
 
 
 
-    fetch('http://10.0.2.2:3000/'+Email, {
+    fetch('http://10.0.2.2:3000/', {
       method: 'POST',
       headers: {
         'Accept': 'application/json, text/plain, */*',  // It can be used to overcome cors errors
@@ -498,6 +502,12 @@ console.log(emai)
               <Text>Signup</Text>
             </TouchableHighlight>
           </View>
+
+
+
+
+
+
           <GoogleSigninButton
               style={{ width:225, height: 48,alignSelf:'center' }}
               size={GoogleSigninButton.Size.Wide}
@@ -667,36 +677,44 @@ console.log(emai)
            {user && (
 
 
-                <View>
-
-                    <Profile   pic={this.state.picname}/>
+                <View >
 
 
-
-
-                 <TouchableHighlight  style={{position:'absolute', margin:15,alignSelf:'center',backgroundColor:'red',alignItems:'center',justifyContent:'center'}}>
-                   <View>
-
-                     <Image source={require('./images/maindesign.png')}
-                            style={{width:300, height: 300,position:'absolute',alignSelf:'center',marginTop:155 }} />
-                   </View>
-                  </TouchableHighlight>
+                  <Profile pic={this.state.picname} picurl={this.state.picurl} profilename={this.state.profilename} email={this.state.email} />
 
 
 
 
-                  <TouchableHighlight  style={{position:'absolute', margin:15,right:0,bottom:20,backgroundColor:'red'}}>
-    <Button title="next" color="#59A45C" onPress={()=>this.Handlenext()}/>
-
-  </TouchableHighlight>
-  <TouchableHighlight style={{position:'absolute',margin:15,left:0,bottom:20}}>
-    <Button title="Sign Out" color="red" onPress={this.signOut} />
-  </TouchableHighlight>
 
 
+                  <View>
 
+
+                    <Collapse>
+                      <CollapseHeader>
+                        <View style={{width:85,backgroundColor:'#607d8b',height:45,borderRadius:25,marginLeft:'auto',right:20,marginTop: '.55%',}}>
+                          <Icon style={{alignSelf:'center',marginTop:'10%'}} name="caretup" size={27} color="#fff" />
+                        </View>
+                      </CollapseHeader>
+                      <CollapseBody>
+
+                        <TouchableHighlight  style={{position:'absolute', margin:15,right:5,bottom:40,backgroundColor:'#59A45C',marginBottom: 40,width:70,height:70,borderRadius:75/2}} onPress={()=>this.Handlenext()}>
+                          <Icon style={{alignSelf:'center',marginTop:'30%'}} name="forward" size={27} color="#fff" />
+
+                        </TouchableHighlight>
+
+                        <TouchableHighlight style={{position:'absolute', margin:15,right:5,bottom:40,backgroundColor:'red',marginBottom: 120,width:70,height:70,borderRadius:75/2}} onPress={this.signOut}>
+                          <Icon style={{alignSelf:'center',marginTop:'30%'}} name="logout" size={27} color="#fff" />
+                        </TouchableHighlight>
+                      </CollapseBody>
+                    </Collapse>
+
+
+                  </View>
 
                 </View>
+
+
 
 
             )}

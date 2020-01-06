@@ -25,7 +25,7 @@ import Bycyclecrunch from "./Bycyclecrunch";
 import Cobarastreatch from "./cobarastreatch";
 
 
-
+let likeai=0
 export class Absintermidiate extends Component{
 
     static navigationOptions = {
@@ -51,12 +51,32 @@ export class Absintermidiate extends Component{
         this.state={
             open:false,
             offset:0,
-
+            deafult:0
 
         }
     }
 
     ;
+
+    handlenext=()=>{
+        let myinterval = setInterval(() => {
+
+
+
+                likeai=this.state.deafult
+            },
+
+            1000);
+    }
+
+    componentDidMount() {
+        this.handlenext()
+
+        alert('Consult a physician before beginning any exercise program')
+
+
+
+    }
 
 
 
@@ -89,9 +109,38 @@ export class Absintermidiate extends Component{
                             source={require('../mainImage/absintermidiate.jpg')}/>
 
                     </View>
+                    <View style={{flex:.1,flexDirection:'row',marginTop:'-25%'}}>
+                        <View style={{flex:.1,}}>
 
+                        </View>
+                        <View style={{flex:.2,margin:15,flexDirection:'column'}}>
+                            <Text style={{fontSize:25,fontWeight: 'bold',color:'#fff',textAlign: 'center'}}>5.5</Text>
+                            <Text style={{fontSize:15,color:'#fff',textAlign: 'center'}}>Mins</Text>
+
+                        </View>
+                        <View style={{flex:.1,}}>
+
+                        </View>
+                        <View style={{flex:.2,margin:15,flexDirection:'column'}}>
+                            <Text style={{fontSize:25,fontWeight: 'bold',color:'#fff',textAlign: 'center'}}>120</Text>
+                            <Text style={{fontSize:15,color:'#fff',textAlign: 'center'}}>Kcal</Text>
+
+                        </View>
+                        <View style={{flex:.1,}}>
+
+                        </View>
+                        <View style={{flex:.2,margin:15,flexDirection:'column'}}>
+                            <Text style={{fontSize:25,fontWeight: 'bold',color:'#fff',textAlign: 'center'}}>11</Text>
+                            <Text style={{fontSize:15,color:'#fff',textAlign: 'center'}}>Action</Text>
+
+                        </View>
+                        <View style={{flex:.1,}}>
+
+                        </View>
+
+                    </View>
                     <View style={{flex:1,flexDirection:'column'}}>
-                        <Text style={{margin:'2%',marginLeft:'5%',fontSize:20}}>Introduction</Text>
+                        <Text style={{margin:'2%',marginLeft:'5%',fontSize:20,marginTop:'5%'}}>Introduction</Text>
 
                         <Text style={{margin:'5%'}}>your abs that you wanted, there are ways to achieve this over a relatively short period of time. The aim of a structured program is to build the various muscle groups that comprise your abdominals in a way that is targeted, intense, and safe.</Text>
 
@@ -450,7 +499,7 @@ export class Absintermidiate extends Component{
 
 
 
-                <TouchableHighlight style={{height:60,backgroundColor:'#f94d6d'}} onPress={()=>{this.props.navigation.navigate('Gif')}}>
+                <TouchableHighlight style={{height:60,backgroundColor:'#f94d6d'}} onPress={()=>{this.props.navigation.navigate('Gif');this.setState({deafult:1})}}>
                     <Text style={{flex: 1,
                         justifyContent: 'center',
                         alignItems: 'center',alignSelf: "center",top:10,
@@ -575,3 +624,4 @@ export default class App extends React.Component {
 
 
 
+export {likeai}

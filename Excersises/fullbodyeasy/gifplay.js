@@ -7,7 +7,7 @@ import {createAppContainer} from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import Scissor_Jump from "./Scissor_Jump";
 import Kneepushup from "./kneepushup";
-import Icon from "react-native-vector-icons/Feather";
+import Icon from "react-native-vector-icons/AntDesign";
 import Endwork from './Endwork'
 import {Daily_Routine} from "./Daily_Routine";
 import FadingSlides from 'react-native-fading-slides';
@@ -26,8 +26,10 @@ export default class Gifplay extends Component {
         this.state = {
             position: 0,
             interval: null,
-            timepassed:0,
+            timepassed:30,
             total:7,
+            change:false,
+            count:5,
             toShow:false,
             dataSource: [
                 {
@@ -65,13 +67,29 @@ export default class Gifplay extends Component {
 
 
 
+
+    showDelay=()=>{
+        let myinterval1 = setInterval(() => {
+
+                this.setState({count:this.state.count-1})
+                if(this.state.count===0){
+                    this.setState({change:true})
+                }
+            },
+
+            1000);
+    }
+
+
+
+
+
     ShowAlertWithDelay=()=> {
             let myinterval = setInterval(() => {
 
-                    this.setState({timepassed: this.state.timepassed + 1,});
-
-                    if (this.state.timepassed===30) {
-                        this.setState({timepassed: 0,position:this.state.position+1});
+                    this.setState({timepassed: this.state.timepassed - 1,});
+                    if (this.state.timepassed===0) {
+                        this.setState({timepassed: 30,position:this.state.position+1});
                         clearInterval(myinterval)
 
                         setTimeout(() => {this.ShowAlertWithDelay()}, 5000)
@@ -86,13 +104,36 @@ export default class Gifplay extends Component {
 
                 1000);
 
-        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
 
 
 
     componentWillMount(){
 
-        setTimeout(() => {this.ShowAlertWithDelay()}, 8000)
+        setTimeout(() => {this.ShowAlertWithDelay()
+
+
+
+        }, 5000)
+        this.showDelay()
 
     }
 
@@ -114,7 +155,7 @@ export default class Gifplay extends Component {
     }
     render() {
         return (
-            <View style={{flex:1,flexDirection:'column',backgroundColor:'#222222'}}>
+            <View style={{flex:1,flexDirection:'column',backgroundColor:'#363636'}}>
 <View>
                 <Slideshow
                     style={{color:'#111'}}
@@ -127,39 +168,75 @@ export default class Gifplay extends Component {
                     indicatorSelectedColor={'black'}
                     indicatorSize={6}
 
-                containerStyle={{color:'#111',margin:5,borderRadius:15,}}
+                containerStyle={{color:'#111',borderRadius:15,margin:5}}
                  />
 </View>
                  <ScrollView>
-<View style={{flex:1,flexDirection:'row',marginTop:5,margin:10,borderRadius:15}}>
 
 
-        <Text style={{flex:.7,fontSize:20,padding:20,fontWeight: 'bold',color:'#fff',borderRadius:15,}}>Continue Till Time Hit 30 Sec</Text>
+<Text style={{textAlign:'center',fontSize:25,fontWeight:'bold',color:'white',margin:15}}>Full Body Easy</Text>
+                     <View style={{backgroundColor:'grey',width:'90%',height:1,alignSelf:'center'}}>
+
+                     </View>
 
 
-                <TouchableHighlight style={{width:100,height:100,backgroundColor:'#2A2A2A',borderRadius:100/2,marginTop:7}}>
-
-                    <Text style={{fontSize:50,textAlign: 'center',marginTop:'15%',alignItems:'center',color:'#fff'}}>{ this.state.toShow==false ? this.state.timepassed : <Text>0</Text>}</Text>
+                     <View style={{flex:1,flexDirection:'row',marginTop:5,margin:10,borderRadius:15}}>
 
 
 
-</TouchableHighlight>
+                         {
+                             this.state.change===true
+                             ?
+                                 <View style={{flex:1,flexDirection:'row'}}>
+                                     <Text style={{flex:.8,color:'white',fontSize:25,alignSelf:'center'}}>
+                                         Continue Till Timer hits 0
+                                     </Text>
+                             <TouchableHighlight style={{width:70,height:70,backgroundColor:'#2A2A2A',borderRadius:70/2,marginTop:7}}>
+                                 <View style={{flex:1,justifyContent:'center',alignItems:'center',}}>
+                                    <Text style={{fontSize:20,textAlign: 'center',justifyContent:'center',alignItems:'center',color:'#fff'}}>{ this.state.toShow===false ? this.state.timepassed : <Text>0</Text>}</Text>
+
+                                </View>
+
+                             </TouchableHighlight>
+                                 </View>
+
+                                 :
+                                 <View style={{flex:1,flexDirection:'row'}}>
+                                     <Text style={{flex:.8,color:'white',fontSize:25,alignSelf:'center'}}>
+                                         Prepare Yourself
+                                     </Text>
+                                     <TouchableHighlight style={{width:70,height:70,backgroundColor:'#2A2A2A',borderRadius:70/2,marginTop:7,}}>
+
+                                         <View style={{flex:1,justifyContent:'center',alignItems:'center',}}>
+
+                                             <Text style={{fontSize:20,textAlign: 'center',alignSelf:'center',justifyContent:'center',alignItems:'center',color:'#fff'}}>{this.state.count}</Text>
+
+                                         </View>
+
+                                     </TouchableHighlight>
+                                 </View>
+
+                                 }
+
+
+
+
 </View>
-                <View style={{flexDirection:'row',backgroundColor:'#333',justifyContent:'center',alignItems:'center',alignSelf:'center',height:50,margin:'4%',borderRadius:15,}}>
-    <TouchableOpacity style={{margin:15}} onPress={()=>this.onBack()}>
-        <Icon name="chevrons-left" size={30} color="#787878" style={{right:15,justifyContent:'center',alignItems:'center',bottom:5}}/>
+                <View style={{flex:1,flexDirection:'row',backgroundColor:'#313131',justifyContent:'center',alignItems:'center',alignSelf:'center',height:60,margin:'4%',borderRadius:5,width:200}}>
+    <TouchableOpacity style={{margin:15,flex:.3,alignSelf:'center',justifyContent:'center',alignItems:'center',}} onPress={()=>this.onBack()}>
+        <Icon name="stepbackward" size={27} color="#787878" style={{bottom:5}}/>
 
     </TouchableOpacity>
-                    <Text style={{textAlign:'center',fontSize:20,alignItems:'center',bottom:5,color:'#fff'}}>{this.state.position+1}/{this.state.total}</Text>
-    <TouchableOpacity style={{margin:15}} onPress={()=>this.onForward()}>
-        <Icon name="chevrons-right" size={30} color="#787878" style={{left:15,bottom:5}}/>
+                    <Text style={{flex:.25,textAlign:'center',fontSize:20,alignItems:'center',bottom:5,color:'#fff',fontWeight:'bold'}}>{this.state.position+1}/{this.state.total}</Text>
+    <TouchableOpacity style={{margin:15,flex:.3,alignSelf:'center',justifyContent:'center',alignItems:'center',}} onPress={()=>this.onForward()}>
+        <Icon name="stepforward" size={27} color="#787878" style={{bottom:5}}/>
     </TouchableOpacity>
 
                 </View>
 
                 {this.state.toShow==true?
-                    <TouchableOpacity style={{backgroundColor:'#333',justifyContent:'center',alignItems:'center',alignSelf:'center',height:50,margin:'4%',borderRadius:15,width:100}}  onPress={()=>this.setState({toShow:false,timepassed:0})}>
-                        <Text style={{fontSize:20,bottom:5,color:'#fff'}}>start</Text>
+                    <TouchableOpacity style={{backgroundColor:'#313131',justifyContent:'center',alignItems:'center',alignSelf:'center',height:50,margin:'4%',borderRadius:5,width:100}}  onPress={()=>this.setState({toShow:false,timepassed:30})}>
+                        <Text style={{fontSize:20,bottom:5,color:'#fff',}}>Start</Text>
                     </TouchableOpacity>:null
                 }
                  </ScrollView>

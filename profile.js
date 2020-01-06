@@ -11,7 +11,7 @@ import {
     Button,
     Dimensions,
     FlatList,
-    TouchableOpacity, AsyncStorage, TouchableHighlight
+    TouchableOpacity, AsyncStorage, TouchableHighlight,ImageBackground
 } from 'react-native';
 import Icon from "react-native-vector-icons/FontAwesome5";
 import Storage from 'react-native-storage';
@@ -21,11 +21,24 @@ import {Container,Content,Header,Form,Input,Item,Label} from "native-base";
 import {GoogleSigninButton} from "react-native-google-signin";
 import {createStackNavigator} from "react-navigation-stack";
 import {createAppContainer} from "react-navigation";
-
-
+import LinearGradient from "react-native-linear-gradient";
+// import {userNameKey} from './constant';
+import {profilemodule, todaymodule} from './calories'
+import {likefe} from './Excersises/fullbodyeasy/Daily_Routine'
+import {likefi} from "./Excersises/fullbodyintermidiate/Fullbodyintermidiate";
+import {likewe} from "./Excersises/Weightlosseasy/Weightloss";
+import {likewi} from "./Excersises/wightlossintermidiate/weightlossintermidiate";
+import {likele} from "./Excersises/LegsEasy/legseasy";
+import {likeli} from "./Excersises/legsintermidiate/legsintermidiate";
+import {likeab} from "./Excersises/Absbeginner/Absbeginner";
+import {likeda} from "./Excersises/Daily awakening/Dailyawakening";
+import {likebu} from "./Excersises/Buildyourbutt/buildyourbutt";
+import {likeai} from "./Excersises/Absintermidiate/Absintermidiate";
+import {likecb} from "./Excersises/Chestbooster/Chestbooster";
+import {likecw} from "./Excersises/Coreworkout/Coreworkout";
 const storage = new Storage({
     // maximum capacity, default 1000
-    size: 1000,
+    size: 10000,
 
     // Use AsyncStorage for RN apps, or window.localStorage for web apps.
     // If storageBackend is not set, data will be lost after reload.
@@ -45,9 +58,6 @@ const storage = new Storage({
         // we'll talk about the details later.
     }
 });
-
-
-
 
 
 
@@ -74,22 +84,49 @@ export default class Profile extends Component {
         super(props)
         this.state={
             showReal: false,
-               loading: true,weight:0,
+            loading: true,
+            weight:0,
             height:0,
             age:0,
-            bmi:'',
+            bmi:0,
             Disable:true,
             data:[],
             fetchshow:true,
             actualname:'',
             tocall:0,
-            photodisable:false,
+            photodisiable:false,
             showmaindesign:true,
             ndata:[],
-            uniqueValue:1,
             picurl:'',
             profilename:'',
-            email:''
+            email:'',
+            showdefault:0,
+            calofe:68,
+            calofi:134,
+            calowe:74,
+            calowi:124,
+            calole:34,
+            caloli:55,
+            caloab:61,
+            caloai:120,
+            caloda:68,
+            calobu:34,
+            calocb:34,
+            calocw:87,
+            istruefe:0,
+            showprogress:0,
+            likefe:0,likefi:0,likewe:0,
+            likewi:0,
+            likele:0,
+            likeli:0,
+            likeab:0,
+            likeai:0,
+            likeda:0,
+            likebu:0,
+            likecb:0,
+            likecw:0,todaymodule:0
+
+
 
         }
     }
@@ -134,7 +171,7 @@ export default class Profile extends Component {
 
 
     savecallinfo=()=>{
-        console.log('inside savecallinfo')
+        this.setState({showReal:true})
         storage.save({
             key: 'callinfo', // Note: Do not use underscore("_") in key!
             data: {
@@ -143,6 +180,8 @@ export default class Profile extends Component {
                 weight:this.state.weight,
                 height:this.state.height,
                 bmi:this.state.bmi,
+                age:this.state.age,
+
 
             },
 
@@ -165,17 +204,20 @@ export default class Profile extends Component {
             data: {
 
                 isvalue: this.props.pic,
-                photodisable: true,
+                photodisiable: true,
                 photo:this.props.picurl,
                 profilename:this.props.profilename,
-                email:this.props.email
+                email:this.props.email,
+                showdefault:this.props.showdefault,
+
+
             },
 
             // if expires not specified, the defaultExpires will be applied instead.
             // if set to null, then it will never expire.
             expires: null
         })
-        console.log('aaaaaa' + this.props.pic)
+        console.log('aaaaaa' + this.props.picurl)
 
     }
 
@@ -185,17 +227,16 @@ export default class Profile extends Component {
 
 
      getdata=()=>{
-         console.log('inside getinfo')
 
          storage
      .load({
              key: 'loginState',
 
+         autoSync: true,
 
-             autoSync: true,
 
+         syncInBackground: true,
 
-             syncInBackground: true,
 
              // you can pass extra params to the sync method
              // see sync example below
@@ -210,12 +251,11 @@ export default class Profile extends Component {
                  // found data go to then()
                  console.log(ret.isvalue);
                  this.setState({actualname:ret.isvalue})
-                 this.setState({photodisable:ret.photodisable})
+                 this.setState({photodisiable:ret.photodisiable})
                  this.setState({picurl:ret.photo,profilename:ret.profilename})
-                 console.log('aaaaaayyyyyyyyy'+ret.photo)
-                 console.log('aa'+ret.isvalue)
+                 this.setState({email:ret.email,showdefault:ret.showdefault,})
 
-                 console.log('aaaaaay'+this.state.actualname)
+
              })
              .catch(err => {
                  // any exception including data not found
@@ -232,15 +272,12 @@ export default class Profile extends Component {
              });
 
 
-         this.fetchData()
-
 
 
 
      }
 
     getcalldata=()=> {
-        console.log('inside getcallinfo')
 
         storage
             .load({
@@ -263,10 +300,8 @@ export default class Profile extends Component {
             })
             .then(ret => {
                 // found data go to then()
-                console.log(ret.showReal);
                 this.setState({showReal: ret.showReal})
-                 this.setState({bmi:ret.bmi,height:ret.height,weight:ret.weight})
-                console.log('getcallinfo' + ret.showReal)
+                 this.setState({bmi:ret.bmi,height:ret.height,weight:ret.weight,age:ret.age,showdefault:ret.showdefault})
             })
             .catch(err => {
                 // any exception including data not found
@@ -294,36 +329,34 @@ export default class Profile extends Component {
 
 
 
-    fetchinfo= async()=>{
-        const Email = this.state.actualname.split('@')[0].trim()
-
-        const response = await fetch('http://10.0.2.2:3000/'+Email);
-        const users = await response.json()
-        this.setState({ndata:users});
-        console.log('inside fetchinfo')
-
-    }
-
-
-
-    fetchData= ()=>{
-        const Email = this.state.actualname.split('@')[0].trim()
-
-        console.log('fetchdata'+Email)
-        fetch('http://10.0.2.2:3000/profileinfo/'+Email,{
-            method:'GET'
-        }).then((response)=>{
-            return response.json();
-
-        }).then((users)=>{
-            this.setState({data:users});
-
-        })
-
-
-
-
-    }
+    // fetchinfo= async()=>{
+    //     const Email = this.state.actualname.split('@')[0].trim()
+    //
+    //     const response = await fetch('db4free.net:3306/'+Email);
+    //     const users = await response.json()
+    //     this.setState({ndata:users});
+    //
+    // }
+    //
+    //
+    //
+    // fetchData= ()=>{
+    //     const Email = this.state.actualname.split('@')[0].trim()
+    //
+    //     fetch('db4free.net:3306/profileinfo/'+Email,{
+    //         method:'GET'
+    //     }).then((response)=>{
+    //         return response.json();
+    //
+    //     }).then((users)=>{
+    //         this.setState({data:users});
+    //
+    //     })
+    //
+    //
+    //
+    //
+    // }
 
 
 
@@ -333,38 +366,266 @@ export default class Profile extends Component {
     // }
 
 
-    setuserdata=()=>{
+    // setuserdata=()=>{
+    //
+    //
+    //
+    //
+    //     const Email = this.state.actualname.split('@')[0].trim()
+    //
+    //
+    //     fetch('db4free.net:3306/'+Email, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Accept': 'application/json, text/plain, */*',  // It can be used to overcome cors errors
+    //             'Content-Type': 'application/json'
+    //         },
+    //
+    //
+    //         body:JSON.stringify({weight:this.state.weight,height:this.state.height,age:this.state.age,bmi:this.state.bmi})
+    //
+    //     }).then((response)=>{
+    //         return response.json()
+    //
+    //
+    //     }).then((jsondata)=>{
+    //         this.setState({data:jsondata})
+    //     }).done()
+    //
+    //
+    //
+    //
+    // }
+
+//
+//
+// //
 
 
 
+    calcgoal=()=>{
+        let c=0
+        if(this.state.likefe===1)
+        {
 
-        const Email = this.state.actualname.split('@')[0].trim()
-        console.log('setuserdata')
+             c=c+this.state.calofe
+        }
+        else if(this.state.likefe===1)
+        {
+            c=c+this.state.calofi
 
-console.log(this.state.bmi)
+        }
+        else if(this.state.likewe===1)
+        {
+            c=c+this.state.calowe
 
-        fetch('http://10.0.2.2:3000/'+Email, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json, text/plain, */*',  // It can be used to overcome cors errors
-                'Content-Type': 'application/json'
-            },
+        }
+        else if(this.state.likewi===1)
+        {
+            c=c+this.state.calowi
+
+        }
+        else if(this.state.likele===1)
+        {
+            c=c+this.state.calole
+
+        }
+        else if(this.state.likeli===1)
+        {
+            c=c+this.state.caloli
+
+        }
+        else if(this.state.likeab===1)
+        {
+            c=c+this.state.caloab
+
+        }
+        else if(this.state.likeai===1)
+        {
+            c=c+this.state.caloai
+
+        }
+        else if(this.state.likeda===1)
+        {
+            c=c+this.state.caloda
+
+        }
+        else if(this.state.likebu===1)
+        {
+            c=c+this.state.calobu
+
+        }
+        else if(this.state.likecb===1)
+        {
+            c=c+this.state.calocb
+
+        } else if(this.state.likecw===1)
+        {
+            c=c+this.state.calocw
+
+        }
+        this.setState({showprogress:c})
+    }
 
 
-            body:JSON.stringify({weight:this.state.weight,height:this.state.height,age:this.state.age,bmi:this.state.bmi})
 
-        }).then((response)=>{
-            return response.json()
+saveprofiledata=()=>{
+    storage.save({
+        key: 'profilestate', // Note: Do not use underscore("_") in key!
+        data: {
+
+            // showprogerss: this.state.showprogress
+
+        },
+
+        // if expires not specified, the defaultExpires will be applied instead.
+        // if set to null, then it will never expire.
+        expires: 24*60*3600
+    })
+
+}
+    getalldata=()=> {
+
+            storage
+                .load({
+                    key: 'profile',
 
 
-        }).then((jsondata)=>{
-            this.setState({data:jsondata})
-        }).done()
+                    autoSync: true,
+
+
+                    syncInBackground: true,
+
+                    // you can pass extra params to the sync method
+                    // see sync example below
+                    syncParams: {
+                        extraFetchOptions: {
+                            // blahblah
+                        },
+                        someFlag: true
+                    }
+                })
+                .then(ret => {
+                    // found data go to then()
+                    // this.setState({showprogersss ret.showprogress})
+
+                })
+                .catch(err => {
+                    // any exception including data not found
+                    // goes to catch()
+                    console.warn(err.message);
+                    switch (err.name) {
+                        case 'NotFoundError':
+                            // TODO;
+                            break;
+                        case 'ExpiredError':
+                            // TODO
+                            break;
+                    }
+                });
+
+
 
 
 
 
     }
+
+
+
+
+
+
+    saveexedata=()=>{
+        storage.save({
+            key: 'profilestate', // Note: Do not use underscore("_") in key!
+            data: {
+
+                todayprogress:profilemodule,
+
+            },
+
+            // if expires not specified, the defaultExpires will be applied instead.
+            // if set to null, then it will never expire.
+            expires: 24*60*3600
+        })
+
+    }
+    getexedata=()=> {
+
+        storage
+            .load({
+                key: 'profile',
+
+
+                autoSync: true,
+
+
+                syncInBackground: true,
+
+                // you can pass extra params to the sync method
+                // see sync example below
+                syncParams: {
+                    extraFetchOptions: {
+                        // blahblah
+                    },
+                    someFlag: true
+                }
+            })
+            .then(ret => {
+                // found data go to then()
+                this.setState({todaymodule:ret.todaymodule})
+            })
+            .catch(err => {
+                // any exception including data not found
+                // goes to catch()
+                console.warn(err.message);
+                switch (err.name) {
+                    case 'NotFoundError':
+                        // TODO;
+                        break;
+                    case 'ExpiredError':
+                        // TODO
+                        break;
+                }
+            });
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     componentDidMount() {
@@ -379,12 +640,85 @@ console.log(this.state.bmi)
 
 
 
-
             let myinterval = setInterval(() => {
                     this.getdata()
-                    this.fetchData()
                     this.getcalldata()
-                    this.fetchinfo()
+                    this.getalldata()
+                this.getexedata()
+                this.calcgoal()
+                this.saveprofiledata()
+
+                    this.setState({likefe:likefe,likefi:likefi,likewe:likewe,likewi:likewi,likele:likele,likeli:likeli,likeab:likeab,likeai:likeai,likeda:likeda,likebu:likebu,likecb:likecb,likecw:likecw})
+
+                let c=0
+                if(this.state.likefe===1)
+                {
+
+                    c=c+this.state.calofe
+                }
+                 if(this.state.likefe===1)
+                {
+                    c=c+this.state.calofi
+
+                }
+                 if(this.state.likewe===1)
+                {
+                    c=c+this.state.calowe
+
+                }
+                 if(this.state.likewi===1)
+                {
+                    c=c+this.state.calowi
+
+                }
+                 if(this.state.likele===1)
+                {
+                    c=c+this.state.calole
+
+                }
+                if(this.state.likeli===1)
+                {
+                    c=c+this.state.caloli
+
+                }
+                if(this.state.likeab===1)
+                {
+                    c=c+this.state.caloab
+
+                }
+                 if(this.state.likeai===1)
+                {
+                    c=c+this.state.caloai
+
+                }
+                 if(this.state.likeda===1)
+                {
+                    c=c+this.state.caloda
+
+                }
+                 if(this.state.likebu===1)
+                {
+                    c=c+this.state.calobu
+
+                }
+                 if(this.state.likecb===1)
+                {
+                    c=c+this.state.calocb
+
+                }  if(this.state.likecw===1)
+                {
+                    c=c+this.state.calocw
+
+                }
+                this.setState({showprogress:c})
+
+
+
+
+
+
+
+
 
                 },
 
@@ -393,10 +727,19 @@ console.log(this.state.bmi)
 
     }
 
-componentWillMount(): void {
+componentWillMount() {
     this.getcalldata()
-    this.fetchData()
     this.getdata()
+    this.saveprofiledata()
+
+    this.setState({likefe:likefe,likefi:likefi,likewe:likewe,likewi:likewi,likele:likele,likeli:likeli,likeab:likeab,likeai:likeai,likeda:likeda,likebu:likebu,likecb:likecb,likecw:likecw})
+
+    this.calcgoal()
+
+    this.saveexedata()
+
+
+
 
 }
 
@@ -410,14 +753,8 @@ componentWillMount(): void {
     render(){
 
         return(
-      <View style={{height:700,backgroundColor: '#fff'}} key={this.state.uniqueValue}>
+      <View style={{height:'100%',backgroundColor: '#fff'}} key={this.state.uniqueValue}>
           <ScrollView>
-
-
-
-
-
-
 
 
 
@@ -426,8 +763,8 @@ componentWillMount(): void {
               {this.state.showReal===false ?
 
 
-                  <View>
-                      <View style={{flex:1,backgroundColor:'#ECECEC',height:200}}>
+                  <View style={{flex:1}}>
+                      <View style={{flex:1,backgroundColor:'#ECECEC',height:80}}>
 
 
                           <Image style={{flex:1 ,width: undefined, height: undefined,}}
@@ -437,152 +774,178 @@ componentWillMount(): void {
 
 
 
-                      <TouchableOpacity style={{flex:1,width:100,
-                          backgroundColor:'#C7C7C7',height:100,
-                          borderRadius:50,marginLeft:'5%',zIndex:5,marginTop:'-10%',}}  onPress={()=>{this.saveinfo();this.fetchData();}} disabled={this.state.photodisiable} >
+                      <TouchableOpacity  onPress={()=>{this.saveinfo();this.saveprofiledata()}} disabled={this.state.photodisiable} >
+                        <View style={{flex:1,flexDirection:'row',marginTop:'17%'}}>
+
+                          <View style={{width:500,marginTop:5,marginLeft:'4%',flex:.6}}>
+                              {this.state.photodisiable===false? <View><Text style={{fontSize:20,fontWeight: 'bold',color:'#2F2F2F'}}>Press Here</Text>
+
+                                  <Text style={{fontSize:10,color:'#2F2F2F',fontWeight: 'bold',}}>To load your profile</Text>
+
+                              </View>:<View style={{marginTop:'15%'}}>
+
+
+                                  <Text style={{fontSize:25,alignItems:'center',color:'#2F2F2F',fontWeight: 'bold',justifyContent:'center'}}>{this.state.profilename}</Text>
 
 
 
-                          <Image style={{flex:1,width:100, height: 100,borderRadius:50,position:'absolute'}}
-                                 source={{uri:this.state.picurl}}/>
+                              </View>  }
 
-                          <View style={{width:500,marginTop:45,marginLeft:'105%'}}>
-                              {this.state.photodisiable===false?<View><Text style={{fontSize:25,fontWeight: 'bold',color:'#2F2F2F'}}>  Click here</Text>
-
-                                  <Text style={{fontSize:20,color:'#2F2F2F',fontWeight: 'bold',}}>   To load your profile</Text>
-
-                              </View>:<View></View>}
 
 
                           </View>
-                      </TouchableOpacity>
 
-                      <View style={{marginTop:25,marginLeft:'5%',bottom:0}}>
 
-                          <View>
-                              <Text style={{fontSize:25,alignItems:'center',color:'#2F2F2F',fontWeight: 'bold'}}>Welcome</Text>
 
-                              <Text style={{fontSize:25,alignItems:'center',color:'#2F2F2F',fontWeight: 'bold'}}>{this.state.profilename}</Text>
+
+
+                         <View style={{flex:.3}}>
+                          <View style={{width: 120, height: 120,borderRadius:120/2,borderWidth:3,borderRightColor:'orange',borderLeftColor:'orange',borderTopColor:'orange',borderBottomColor:'orange',justifyContent: 'center', alignItems: 'center',}}>
+
+
+                                <View>
+                                    <Image style={{ width: 125, height: 125,borderRadius:125/2,justifyContent: 'center', alignItems: 'center',}}
+                                           source={require('./images/avatar.png')}/>
+                                </View>
+
+
+
+
+
+
+
+
                           </View>
 
-
-                      </View>
-
+                                 </View>
 
 
-
+                            </View>
 
 
 
 
-                     <View style={{flex:1,height:700,marginTop:'10%'}}>
+                             </TouchableOpacity>
 
-                         <Container style={{backgroundColor:'#fff',width:'90%',alignSelf:'center'}}>
 
-                           <View >
+
+                                <View style={{flex:1,flexDirection:'column',alignSelf:'center',marginTop:'20%'}}>
+                                 <View style={{flex:1,alignSelf:'center'}}>
+                              <Text style={{fontSize:30,alignItems:'center',color:'#2F2F2F',fontWeight: 'bold',textAlign: 'center'}}>Welcome</Text>
+
+                                 </View>
+
+                                </View>
+
+
+
+
+
+
+
+
+
+                                            <View style={{flex:1,height:450,marginTop:'10%'}}>
+
+                                    <Container style={{backgroundColor:'#fff',width:'90%',alignSelf:'center'}}>
+
+                                     <View style={{flex:1}} >
                              <Form>
                                  <ScrollView>
 
-                                     <View style={{flex:1,flexDirection:'row',}}>
-                                     <View style={{height:200,flex:.5,backgroundColor:'#00bcd4',borderRadius:10,margin:15,}}>
-                                         <Image style={{height:150,width:230,alignItems:'center',alignSelf:'center',justifyContent:'center'}} source={require('./images/weightmachine.png')}/>
+                                     <View style={{height:50,backgroundColor:'#f1f1f1',flex:1}}>
 
 
-                                             <View style={{ position: 'absolute',
-                                    bottom: 20,}}>
+                                         <View style={{ position: 'absolute',bottom:'4.5%',}}>
 
-                                 <Item floatingLabel style={{width:130,marginLeft:'13%',}}>
+                                             <Item floatingLabel style={{width:200,}}>
 
-                                     <Label style={{marginLeft:'1%',fontSize:17,color:'#fff'}}><Icon name="weight" size={17} color="#fff" />  WEIGHT</Label>
-                                     <Input
-                                         autoCorrect={false }
-                                         autoCapitalize='none'
-                                         keyboardType="numeric"
-                                         onChangeText={(weight)=>this.setState({weight})}
+                                                 <Label style={{marginLeft:'1%',fontSize:17}}><Icon name="weight" size={17} color="#837A83" />  WEIGHT</Label>
+                                                 <Input
+                                                     autoCorrect={false }
+                                                     autoCapitalize='none'
+                                                     keyboardType="numeric"
+                                                     onChangeText={(weight)=>this.setState({weight})}
 
-                                     />
+                                                 />
 
-                                 </Item>
-                                </View>
-                                     </View>
-
-                                     <View style={{height:200,width:300,flex:.5,backgroundColor:'#03a9f4',borderRadius:10,margin:15,marginTop:55}}>
-                                         <Image style={{height:150,width:165,alignItems:'center',alignSelf:'center',justifyContent:'center'}} source={require('./images/age.png')}/>
-
-
-                                         <View style={{ position: 'absolute',
-                                             bottom: 20,}}>
-
-                                             <Item floatingLabel style={{width:130,marginLeft:'13%',}}>
-                                     <Label style={{color:'#fff'}}><Icon name="magento" size={17} color="#fff" />  AGE </Label>
-
-                                     <Input
-                                         autoCorrect={false }
-                                         keyboardType="numeric"
-
-                                         autoCapitalize='none'
-                                         onChangeText={(age)=>this.setState({age})}
-
-                                     />
-
-                                 </Item>
+                                             </Item>
                                          </View>
                                      </View>
-                                     </View>
 
 
-                                     <View style={{flex:1,flexDirection:'row',}}>
-
-                                     <View style={{height:200,width:100,backgroundColor:'#03a9f4',borderRadius:10,margin:15,flex:1,marginTop:-15}}>
-                                         <Image style={{height:150,width:230,alignItems:'center',alignSelf:'center',justifyContent:'center'}} source={require('./images/height.png')}/>
+                                     <View style={{height:50,backgroundColor:'#f1f1f1',flex:1,marginTop:'5%'}}>
 
 
-                                         <View style={{ position: 'absolute',
-                                             bottom: 20,}}>
+                                         <View style={{ position: 'absolute',bottom:'4.5%',}}>
 
-                                             <Item floatingLabel style={{width:130,marginLeft:'13%',}}>
-                                     <Label style={{color:'white'}}><Icon name="angle-double-up" size={17} color="#fff" />  HEIGHT</Label>
-                                     <Input
-                                         autoCorrect={false }
-                                         keyboardType="numeric"
-                                         autoCapitalize='none'
-                                         onChangeText={(height)=>this.setState({height})}
+                                             <Item floatingLabel style={{width:200,}}>
 
-                                     />
-                                 </Item>
-                                     </View>
-                                     </View>
+                                                 <Label style={{marginLeft:'1%',fontSize:17}}><Icon name="angle-double-up" size={17} color="#837A83" />  HEIGHT</Label>
+                                                 <Input
+                                                     autoCorrect={false }
+                                                     autoCapitalize='none'
+                                                     keyboardType="numeric"
+                                                     onChangeText={(height)=>this.setState({height})}
 
+                                                 />
 
-
-
-
-                                         <View style={{height:200,width:300,backgroundColor:'#00bcd4',borderRadius:10,margin:15,flex:1,}}>
-                                             <Image style={{height:130,width:120,alignItems:'center',alignSelf:'center',justifyContent:'center'}} source={require('./images/clock.png')}/>
-
-
-                                             <View style={{ position: 'absolute',
-                                                 bottom: 20,}}>
-
-                                                 <Item floatingLabel style={{width:130,marginLeft:'13%',}}>
-                                                     <Label style={{color:'#fff'}}><Icon name="hourglass" size={17} color="#fff" />  HOURS</Label>
-                                                     <Input
-                                                         autoCorrect={false }
-                                                         keyboardType="numeric"
-                                                         autoCapitalize='none'
-
-                                                     />
-                                                 </Item>
-                                             </View>
+                                             </Item>
                                          </View>
-
-
-
-
-
-
-
                                      </View>
+
+
+
+
+
+
+                                     <View style={{height:50,backgroundColor:'#f1f1f1',flex:1,marginTop:'5%'}}>
+
+
+                                         <View style={{ position: 'absolute',bottom:'4.5%',}}>
+
+                                             <Item floatingLabel style={{width:200,}}>
+
+                                                 <Label style={{marginLeft:'1%',fontSize:17}}><Icon name="book-reader" size={17} color="#837A83" />  AGE</Label>
+                                                 <Input
+                                                     autoCorrect={false }
+                                                     autoCapitalize='none'
+                                                     keyboardType="numeric"
+                                                     onChangeText={(age)=>this.setState({age})}
+
+                                                 />
+
+                                             </Item>
+                                         </View>
+                                     </View>
+
+
+
+
+
+                                     <View style={{flex:1,flexDirection:'row',height:100,alignSelf:'center',margin:15}}>
+
+
+
+
+                                         {this.state.Disable===true?   <TouchableOpacity
+                                                 style={{flex:1,width:200,height:50,backgroundColor:'#949295',alignItems:'center',justifyContent:'center',alignSelf:'center',borderRadius:5,flexDirection:'row'}}  disabled={this.state.Disable}>
+
+                                                 <Text style={{color:'white',fontSize:20}}> Next </Text>
+                                             </TouchableOpacity>
+
+                                             :
+                                             <TouchableOpacity
+
+
+
+                                                 style={{flex:1,width:200,height:50,backgroundColor:'#93ccea',alignItems:'center',justifyContent:'center',alignSelf:'center',borderRadius:5}} onPress={()=>this.savecallinfo()} disabled={this.state.Disable}>
+                                                 <Text style={{color:'white'}}>Next</Text>
+                                             </TouchableOpacity>
+
+                                         }
+                                     </View>
+
                                  </ScrollView>
                              </Form>
                            </View>
@@ -611,29 +974,6 @@ componentWillMount(): void {
 
 
 
-                             <View style={{flex:1,flexDirection:'row',height:100,alignSelf:'center',margin:15}}>
-
-
-
-
-                                 {this.state.Disable===true?   <TouchableOpacity
-                                         style={{flex:1,width:200,height:50,backgroundColor:'#949295',alignItems:'center',justifyContent:'center',alignSelf:'center',borderRadius:5,flexDirection:'row'}} onPress={()=>this.calcbmi()} disabled={this.state.Disable}>
-                                         <Icon name="creative-commons-pd" size={20} color="#fff" />
-
-                                         <Text style={{color:'white',fontSize:20}}>  Please Fill </Text>
-                                     </TouchableOpacity>
-
-                                     :
-                                     <TouchableOpacity
-
-
-
-                                         style={{flex:1,width:200,height:50,backgroundColor:'#93ccea',alignItems:'center',justifyContent:'center',alignSelf:'center',borderRadius:5}} onPress={()=>{this.setuserdata();this.savecallinfo()}} disabled={this.state.Disable}>
-                                         <Text style={{color:'white'}}>Submit</Text>
-                                     </TouchableOpacity>
-
-                                 }
-                             </View>
 
                          </Container>
 
@@ -653,121 +993,207 @@ componentWillMount(): void {
 
 
 
-                  <View style={{height:'100%',backgroundColor:'#fff'}}>
+                  <View style={{height:1000,backgroundColor:'#fff'}}>
                       <ScrollView>
 
+                          <View>
+                              <View style={{flex:1,backgroundColor:'#ECECEC',height:80}}>
 
-<View style={{flex:1,flexDirection:'row',}}>
-                          <View style={{height:250,borderRadius:75,marginTop:'-10%',marginLeft:'-10%'}}>
 
-                              <View style={{width:235,backgroundColor:'#4CC7BB',height:235,borderRadius:127,  justifyContent: 'center', alignItems: 'center'}}>
-                                  <View style={{width:200,backgroundColor:'#625A96',height:200,borderRadius:100,alignItems:'center',justifyContent:'center'}}>
-                                      <View style={{width:160,backgroundColor:'#413F66',height:160,borderRadius:80,  justifyContent: 'center', alignItems: 'center'}}>
-                                          <Image  source={{uri:this.state.picurl}} style={{ width: 120, height: 120,borderRadius:60,}}/>
+                                  <Image style={{flex:1 ,width: undefined, height: undefined,}}
+                                         source={require('./Excersises/mainImage/profileimage.png' )}/>
+                              </View>
+
+
+
+
+                              <TouchableOpacity  onPress={()=>{this.saveinfo();}} disabled={this.state.photodisiable} >
+                                  <View style={{flex:1,flexDirection:'row',marginTop:'17%'}}>
+
+                                      <View style={{width:500,marginTop:5,marginLeft:'4%',flex:.6}}>
+                                          {this.state.photodisiable===false? <View><Text style={{fontSize:20,fontWeight: 'bold',color:'#2F2F2F'}}>Press Here</Text>
+
+                                              <Text style={{fontSize:10,color:'#2F2F2F',fontWeight: 'bold',}}>To load your profile</Text>
+
+                                          </View>:<View style={{marginTop:'15%'}}>
+
+
+                                              <Text style={{fontSize:25,alignItems:'center',color:'#2F2F2F',fontWeight: 'bold',justifyContent:'center'}}>{this.state.profilename}</Text>
+
+
+
+                                          </View>  }
+
+
 
                                       </View>
+
+
+
+
+
+                                      <View style={{flex:.3}}>
+                                          <View style={{width: 130, height: 130,borderRadius:130/2,borderWidth:3,borderRightColor:'orange',borderLeftColor:'orange',borderTopColor:'orange',borderBottomColor:'orange',justifyContent: 'center', alignItems: 'center',}}>
+
+
+
+
+                                              <Image style={{ width: 130, height: 130,borderRadius:130/2,justifyContent: 'center', alignItems: 'center',position:'absolute'}}
+                                                                                     source={require('./images/avatar.png')}/>
+
+
+
+                                          </View>
+
+                                      </View>
+
+
                                   </View>
-                              </View>
 
 
 
-                          </View>
-    <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
-        <Text style={{fontSize:25,fontWeight:'bold'}}>{this.state.bmi}</Text>
-        <Text style={{marginLeft:'12%',fontSize:15,}}>Bmi</Text>
-    </View>
+
+                              </TouchableOpacity>
+
+
+                              <ScrollView>
+
+
+
+                                  <View style={{height:150,flex:1,margin:15,flexDirection:'row',borderRadius:5,alignSelf:'center'}}>
+                                      <LinearGradient colors={['#Fff', '#f1f1f1', '#f2f2f2']}   locations={[0,0.4,0.6]} startPoint={{x: 0.0, y: 0.25}} endPoint={{x: 0.5, y: 1.0}} style={{flex:.5,backgroundColor:'#cbcbcb',margin:15,borderRadius:15,elevation:5}} >
+
+                                        <View style={{flex:1,margin:15,borderRadius:15}}>
+                                            <View style={{flex:.5}}>
+
+                                                <Text  style={{fontSize:25,textAlign:'center',color:'#a2a2a2'}}>{this.state.bmi}</Text>
+                                            </View>
+                                            <View style={{flex:.5,}}>
+                                                <Text style={{fontSize:20,textAlign:'center',color:'#a2a2a2'}}>BMI</Text>
+                                            </View>
+                                        </View>
+
+                                      </LinearGradient>
+
+                                      <LinearGradient colors={['#Fff', '#f1f1f1', '#f2f2f2']}   locations={[0,0.4,0.6]} startPoint={{x: 0.0, y: 0.25}} endPoint={{x: 0.5, y: 1.0}} style={{flex:.5,elevation:5,backgroundColor:'#cbcbcb',margin:15,borderRadius:15}} >
+
+                                          <View style={{flex:1,margin:15,borderRadius:15}}>
+                                              <View style={{flex:.5}}>
+
+                                                  <View style={{flexDirection:'row',alignSelf:'center'}}><Text  style={{fontSize:25,textAlign:'center',color:'#a2a2a2',alignSelf:'center'}}>{profilemodule}</Text><Text style={{fontSize:15,textAlign:'center',color:'#a2a2a2'}}>kcal</Text></View>
+                                              </View>
+                                              <View style={{flex:.5,}}>
+                                                  <Text style={{fontSize:20,textAlign:'center',color:'#a2a2a2'}}>Today's Goal</Text>
+                                              </View>
+                                          </View>
+
+                                      </LinearGradient>
+
+                                  </View>
+                                  <View style={{height:150,flex:1,marginLeft:15,marginRight:15,flexDirection:'row',borderRadius:5,alignSelf:'center',}}>
+                                      <LinearGradient colors={['#Fff', '#f1f1f1', '#f2f2f2']}   locations={[0,0.4,0.6]} startPoint={{x: 0.0, y: 0.25}} endPoint={{x: 0.5, y: 1.0}} style={{flex:.5,elevation:5,backgroundColor:'#cbcbcb',margin:15,borderRadius:15}} >
+
+                                          <View style={{flex:1,margin:15,borderRadius:15}}>
+                                              <View style={{flex:.5}}>
+
+                                                  <View style={{flexDirection:'row',alignSelf:'center'}}><Text  style={{fontSize:25,textAlign:'center',color:'#a2a2a2',alignSelf:'center'}}>{this.state.showprogress}</Text><Text style={{fontSize:15,textAlign:'center',color:'#a2a2a2'}}>kcal</Text></View>
+                                              </View>
+                                              <View style={{flex:.5,}}>
+                                                  <Text style={{fontSize:20,textAlign:'center',color:'#a2a2a2'}}>Goal Achieved</Text>
+                                              </View>
+                                          </View>
+
+                                      </LinearGradient>
+
+                                      <LinearGradient colors={['#Fff', '#f1f1f1', '#f2f2f2']}   locations={[0,0.4,0.6]} startPoint={{x: 0.0, y: 0.25}} endPoint={{x: 0.5, y: 1.0}} style={{flex:.5,elevation:5,backgroundColor:'#cbcbcb',margin:15,borderRadius:15}} >
+
+                                          <View style={{flex:1,margin:15,borderRadius:15}}>
+                                              <View style={{flex:.5}}>
+
+                                                  <Text  style={{fontSize:25,textAlign:'center',color:'#a2a2a2'}}>{this.state.age}</Text>
+                                              </View>
+                                              <View style={{flex:.5,}}>
+                                                  <Text style={{fontSize:20,textAlign:'center',color:'#a2a2a2'}}>AGE</Text>
+                                              </View>
+                                          </View>
+
+                                      </LinearGradient>
+
+                                  </View>
+                              <View style={{flex:1,height:250,backgroundColor:'#fff',margin:20,elevation:7,flexDirection:'row',borderRadius:15,}}>
+
+
+                                  <View style={{flex:.2,flexDirection:'column',justifyContent:'center',alignItems:'center',borderRadius:15}}>
+                                      <Icon name="heart" size={27} color="grey" />
+                                  </View>
+                                  <View style={{height:'100%',width:1,backgroundColor:'grey'}}></View>
+                                  <View style={{flex:.8}}>
+                                      <View style={{flexDirection:'column'}}>
+                                          <Text style={{textAlign:'center',fontSize:17,margin:5,color:'grey'}}>Exercise You Started Today</Text>
+                                          <View style={{width:'90%',height:1,backgroundColor:'grey',alignSelf:'center'}}></View>
+                                            <View style={{flexDirection:'row',flexWrap: 'wrap'}}>
+                                          {this.state.likefe===1?<View style={{backgroundColor:'#f4f4f4',margin:5,borderRadius:5}}><Text style={{justifyContent:'center',alignItems:'center',padding:10,}}>Full-Body Easy</Text></View>:
+                                              <View></View>}
+
+
+                                                {this.state.likefi===1?<View style={{backgroundColor:'#f4f4f4',margin:5,borderRadius:5}}><Text style={{justifyContent:'center',alignItems:'center',padding:10,}}>Full-Body(Int.)</Text></View>:
+                                                    <View></View>}
+
+
+                                                {this.state.likewe===1?<View style={{backgroundColor:'#f4f4f4',margin:5,borderRadius:5}}><Text style={{justifyContent:'center',alignItems:'center',padding:10,}}>WeightLoss Easy</Text></View>:
+                                                    <View></View>}
+
+
+                                                    {this.state.likewi===1?<View style={{backgroundColor:'#f4f4f4',margin:5,borderRadius:5}}><Text style={{justifyContent:'center',alignItems:'center',padding:10,}}>WeightLoss (Int.)</Text></View>:
+                                                <View></View>}
+                                                {this.state.likele===1?<View style={{backgroundColor:'#f4f4f4',margin:5,borderRadius:5}}><Text style={{justifyContent:'center',alignItems:'center',padding:10,}}>Legs Easy</Text></View>:
+                                                    <View></View>}
+                                                {this.state.likeli===1?<View style={{backgroundColor:'#f4f4f4',margin:5,borderRadius:5}}><Text style={{justifyContent:'center',alignItems:'center',padding:10,}}>Legs (Int.)</Text></View>:
+                                                    <View></View>}
+                                                {this.state.likeab===1?<View style={{backgroundColor:'#f4f4f4',margin:5,borderRadius:5}}><Text style={{justifyContent:'center',alignItems:'center',padding:10,}}>Abs Beginner</Text></View>:
+                                                    <View></View>}
+                                                {this.state.likeai===1?<View style={{backgroundColor:'#f4f4f4',margin:5,borderRadius:5}}><Text style={{justifyContent:'center',alignItems:'center',padding:10,}}>Abs Intermediate</Text></View>:
+                                                    <View></View>}
+                                                {this.state.likeda===1?<View style={{backgroundColor:'#f4f4f4',margin:5,borderRadius:5}}><Text style={{justifyContent:'center',alignItems:'center',padding:10,}}>Daily Awakening</Text></View>:
+                                                    <View></View>}
+                                                {this.state.likebu===1?<View style={{backgroundColor:'#f4f4f4',margin:5,borderRadius:5}}><Text style={{justifyContent:'center',alignItems:'center',padding:10,}}>Butt Buildup</Text></View>:
+                                                    <View></View>}
+                                                {this.state.likecb===1?<View style={{backgroundColor:'#f4f4f4',margin:5,borderRadius:5}}><Text style={{justifyContent:'center',alignItems:'center',padding:10,}}>Chest Booster</Text></View>:
+                                                    <View></View>}
+                                                {this.state.likecw===1?<View style={{backgroundColor:'#f4f4f4',margin:5,borderRadius:5}}><Text style={{justifyContent:'center',alignItems:'center',padding:10,}}>Core Workout</Text></View>:
+                                                    <View></View>}
+
+
+                                                {this.state.likefe===0&&this.state.likefi===0&&
+                                                this.state.likewe===0&&this.state.likewe===0&&
+                                                this.state.likewi===0&&this.state.likele===0&&this.state.likeab===0&&
+                                                this.state.likeai===0&&this.state.likeda===0&&this.state.likebu===0&&
+                                                this.state.likecb===0&&this.state.likecw===0?<View style={{alignSelf:'center',justifyContent:'center',alignItems:'center',flex:1,height:'100%',marginTop:'13%'}}><Text style={{justifyContent:'center',alignItems:'center',color:'grey',textAlign:'center'}}>No Exercise Is Yet Started</Text></View>:<View/>}
+
+
+
+
+
+
+
+
+                                      </View>
+
+                                  </View>
+
 
 
 </View>
 
 
-                          <View style={{flex:1,flexDirection:'row',}}>
-
-                              <View style={{flex:.3}}>
-
-                              </View>
-                             <View style={{flex:.7}}>
-                                 <Text style={{fontWeight:'bold',fontSize:25}}>{this.state.profilename}</Text>
-                                <View style={{backgroundColor:'grey',height:1,flex:.7,marginTop:15}}></View>
-                             </View>
-                          </View>
-
-
-<View style={{backgroundColor:'lavender',margin:15,borderTopLeftRadius:145,borderBottomRightRadius:145}}>
-
-<ScrollView>
-
-                          <View style={{flex:1,flexDirection:'row',borderWidth:3,margin:15,borderRadius:15,borderColor:'#BBBBBB'}}>
-
-
-                              <View style={{height:100,width:100,backgroundColor:'transparent',borderRadius:50,marginLeft:'5%',margin:5,borderLeftColor:'#39CB41',borderRightColor:'#39CB41',borderTopColor:'#39CB41',borderBottomColor: '#fff',borderWidth:3}}>
-
-                                <Image  source={require('./images/weightlogo.png')} style={{flex:1 , width: undefined, height: undefined,borderRadius:50}}/>
-
-                              </View>
-
-                              <View style={{flexDirection:'column'}}>
-
-
-                                  <Text style={{fontSize:20,fontWeight:'bold',marginLeft:10,marginTop:'5%'}}>Your Weight Is</Text>
-                            <Text style={{fontSize:20,fontWeight:'bold',marginLeft:10}}>{this.state.weight}</Text>
-
-                              </View>
-
-                          </View>
-
-
-                          <View style={{flex:1,flexDirection:'row',borderWidth:3,margin:15,borderRadius:15,borderColor:'#BBBBBB'}}>
-
-
-                              <View style={{height:100,width:100,backgroundColor:'#E4E4E4',borderRadius:50,marginLeft:'5%',margin:5,borderLeftColor:'#CB9047',borderRightColor:'#CB9047',borderTopColor:'#CB9047',borderBottomColor: '#fff',borderWidth:3}}>
-
-                                  <Image  source={require('./images/heightlogo.png')} style={{flex:1 , width: undefined, height: undefined,borderRadius:50}}/>
-
 
                               </View>
 
 
-<View style={{flexDirection:'column'}}>
-                                  <Text style={{fontSize:20,fontWeight:'bold',marginLeft:10,marginTop:'5%'}}>Your Height Is</Text>
-                                  <Text style={{fontSize:20,fontWeight:'bold',marginLeft:10}}>{this.state.height}</Text>
+                              </ScrollView>
+            </View>
 
-</View>
-
-
-
-
-
-                          </View>
-
-                          <View style={{flex:1,flexDirection:'row',borderWidth:3,margin:15,borderRadius:15,borderColor:'#BBBBBB'}}>
-
-
-                              <View style={{height:100,width:100,backgroundColor:'#E4E4E4',borderRadius:50,marginLeft:'5%',margin:5,borderLeftColor:'#CB8BBC',borderRightColor:'#CB8BBC',borderTopColor:'#CB8BBC',borderBottomColor: '#fff',borderWidth:3}}>
-
-                                  <Image  source={require('./images/agelogo.png')} style={{flex:1 , width: undefined, height: undefined,borderRadius:50}}/>
-
-
-                              </View>
-
-                              <View style={{flexDirection:'column'}}>
-
-
-                                  <Text style={{fontSize:20,fontWeight:'bold',marginLeft:10,marginTop:'5%'}}>Your Age</Text>
-                                  <Text style={{fontSize:20,fontWeight:'bold',marginLeft:10,}}>{this.state.age}</Text>
-                              </View>
-
-                              </View>
-
-
-
-
-
-
-</ScrollView>
-</View>
-
-</ScrollView>
+                    </ScrollView>
 
                   </View> }
 

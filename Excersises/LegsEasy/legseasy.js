@@ -20,8 +20,10 @@ import Quadstrtch from "./Quadstrtch";
 import Wallcalf from "./Wallcalf";
 import Calfraise from "./calfraise";
 import Squat from "./Squat";
+import {likefi} from "../fullbodyintermidiate/Fullbodyintermidiate";
 
 
+let likele=0
 
 
 export class Legseasy extends Component{
@@ -51,6 +53,9 @@ export class Legseasy extends Component{
             offset:0,
 
 
+            deafult:0
+
+
         }
     }
 
@@ -58,7 +63,25 @@ export class Legseasy extends Component{
 
 
 
+    handlenext=()=>{
+        let myinterval = setInterval(() => {
 
+
+
+                likele=this.state.deafult
+            },
+
+            1000);
+    }
+
+    componentDidMount() {
+        this.handlenext()
+        alert('Consult a physician before beginning any exercise program')
+
+
+
+
+    }
 
 
 
@@ -87,9 +110,38 @@ export class Legseasy extends Component{
                             source={require('../mainImage/legseasy.jpg')}/>
 
                     </View>
+                    <View style={{flex:.1,flexDirection:'row',marginTop:'-25%'}}>
+                        <View style={{flex:.1,}}>
 
+                        </View>
+                        <View style={{flex:.2,margin:15,flexDirection:'column'}}>
+                            <Text style={{fontSize:25,fontWeight: 'bold',color:'#fff',textAlign: 'center'}}>6.0</Text>
+                            <Text style={{fontSize:15,color:'#fff',textAlign: 'center'}}>Mins</Text>
+
+                        </View>
+                        <View style={{flex:.1,}}>
+
+                        </View>
+                        <View style={{flex:.2,margin:15,flexDirection:'column'}}>
+                            <Text style={{fontSize:25,fontWeight: 'bold',color:'#fff',textAlign: 'center'}}>34</Text>
+                            <Text style={{fontSize:15,color:'#fff',textAlign: 'center'}}>Kcal</Text>
+
+                        </View>
+                        <View style={{flex:.1,}}>
+
+                        </View>
+                        <View style={{flex:.2,margin:15,flexDirection:'column'}}>
+                            <Text style={{fontSize:25,fontWeight: 'bold',color:'#fff',textAlign: 'center'}}>12</Text>
+                            <Text style={{fontSize:15,color:'#fff',textAlign: 'center'}}>Action</Text>
+
+                        </View>
+                        <View style={{flex:.1,}}>
+
+                        </View>
+
+                    </View>
                     <View style={{flex:1,flexDirection:'column'}}>
-                        <Text style={{margin:'2%',marginLeft:'5%',fontSize:20}}>Introduction</Text>
+                        <Text style={{margin:'2%',marginLeft:'5%',fontSize:20,marginTop:'5%'}}>Introduction</Text>
 
                         <Text style={{margin:'5%'}}>Doing leg exercises at home is probably a lot easier than you realize. You don't need a leg press machine or a stair climber or a squat bar to fire up those lower-body muscles. All you need is your bodyweight, maybe a chair, and the motivation to put some burn
                             in your quads, hamstrings, glutes, calves, and inner thighs.</Text>
@@ -477,7 +529,7 @@ export class Legseasy extends Component{
 
 
 
-                <TouchableHighlight style={{height:60,backgroundColor:'#f94d6d'}} onPress={()=>{this.props.navigation.navigate('Gif')}}>
+                <TouchableHighlight style={{height:60,backgroundColor:'#f94d6d'}} onPress={()=>{this.props.navigation.navigate('Gif');this.setState({deafult:1})}}>
                     <Text style={{flex: 1,
                         justifyContent: 'center',
                         alignItems: 'center',alignSelf: "center",top:10,
@@ -598,4 +650,5 @@ export default class App extends React.Component {
 
 
 
+export {likele}
 

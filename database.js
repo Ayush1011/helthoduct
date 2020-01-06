@@ -5,13 +5,14 @@ var bodyParser=require('body-parser')
 app.use(bodyParser.json({type:'application/json'}))
 app.use(bodyParser.urlencoded({ extended: false }))
 
+
 var connection=mysql.createConnection({
-    host:'localhost',
-    user:'root',
-    password:'',
-    database:'heltho'
+    host:'db4free.net',
+    user:'helthoduct',
+    password:'qwerty000',
+    database:'helthoduct'
 })
-var server= app.listen(3000,function(){
+var server= app.listen(3306,function(){
     console.log('starteddd')
 
 })
@@ -43,6 +44,37 @@ app.get('/fetchinfo/:email',function(req,res){
         }
     })
 })
+
+
+app.get('/',function(req,res){
+    console.log(req.params.email)
+    console.log('hiiiiii')
+
+    connection.query(`SELECT * from User`,function(error,rows,feilds){
+        if(error){
+            console.log(error)
+        }
+        else{
+            console.log(rows)
+            res.send(rows)
+        }
+    })
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 app.post('/',function(req,res)
 {
@@ -146,16 +178,5 @@ app.get('/:id',function(req,res){
             console.log(rows)
 
         }
-    })
-})
-
-app.post('/delete/:id',function(req,res,rows){
-    console.log(req.params)
-    connection.query(`DELETE FROM USER WHERE id= ${req.params.id}`,function(err,result){
-
-        console.log('deleted')
-
-        res.send(rows)
-
     })
 })

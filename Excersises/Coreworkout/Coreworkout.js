@@ -19,6 +19,7 @@ import Plankkneetoelbow from "./Plankkneetoelbow";
 import Plank from "./Plank";
 import Cobarastreatch from "./cobarastreatch";
 import Tricepsstretch from "./Tricepsstretch";
+let likecw=0
 
 
 
@@ -49,6 +50,8 @@ export class Coreworkout extends Component{
             open:false,
             offset:0,
 
+            deafult:0
+
 
         }
     }
@@ -57,7 +60,25 @@ export class Coreworkout extends Component{
 
 
 
+    handlenext=()=>{
+        let myinterval = setInterval(() => {
 
+
+
+                likecw=this.state.deafult
+            },
+
+            1000);
+    }
+
+    componentDidMount() {
+        this.handlenext()
+        alert('Consult a physician before beginning any exercise program')
+
+
+
+
+    }
 
 
 
@@ -86,9 +107,38 @@ export class Coreworkout extends Component{
                             source={require('../mainImage/coreworkout.jpg')}/>
 
                     </View>
+                    <View style={{flex:.1,flexDirection:'row',marginTop:'-25%'}}>
+                        <View style={{flex:.1,}}>
 
+                        </View>
+                        <View style={{flex:.2,margin:15,flexDirection:'column'}}>
+                            <Text style={{fontSize:25,fontWeight: 'bold',color:'#fff',textAlign: 'center'}}>4.0</Text>
+                            <Text style={{fontSize:15,color:'#fff',textAlign: 'center'}}>Mins</Text>
+
+                        </View>
+                        <View style={{flex:.1,}}>
+
+                        </View>
+                        <View style={{flex:.2,margin:15,flexDirection:'column'}}>
+                            <Text style={{fontSize:25,fontWeight: 'bold',color:'#fff',textAlign: 'center'}}>87</Text>
+                            <Text style={{fontSize:15,color:'#fff',textAlign: 'center'}}>Kcal</Text>
+
+                        </View>
+                        <View style={{flex:.1,}}>
+
+                        </View>
+                        <View style={{flex:.2,margin:15,flexDirection:'column'}}>
+                            <Text style={{fontSize:25,fontWeight: 'bold',color:'#fff',textAlign: 'center'}}>7</Text>
+                            <Text style={{fontSize:15,color:'#fff',textAlign: 'center'}}>Action</Text>
+
+                        </View>
+                        <View style={{flex:.1,}}>
+
+                        </View>
+
+                    </View>
                     <View style={{flex:1,flexDirection:'column'}}>
-                        <Text style={{margin:'2%',marginLeft:'5%',fontSize:20}}>Introduction</Text>
+                        <Text style={{margin:'2%',marginLeft:'5%',fontSize:20,marginTop:'5%'}}>Introduction</Text>
 
                         <Text style={{margin:'5%'}}>A strong core does not just look goot it
                             makes it easier to do many physical activities the core is formed by the diapharag the
@@ -325,7 +375,7 @@ export class Coreworkout extends Component{
 
 
 
-                <TouchableHighlight style={{height:60,backgroundColor:'#f94d6d'}} onPress={()=>{this.props.navigation.navigate('Gif')}}>
+                <TouchableHighlight style={{height:60,backgroundColor:'#f94d6d'}} onPress={()=>{this.props.navigation.navigate('Gif');this.setState({deafult:1})}}>
                     <Text style={{flex: 1,
                         justifyContent: 'center',
                         alignItems: 'center',alignSelf: "center",top:10,
@@ -448,3 +498,4 @@ export default class App extends React.Component {
 
 
 
+export {likecw}

@@ -1,5 +1,19 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Text,Image, StyleSheet,Dimensions,StatusBar,ViewPagerAndroid,ImageBackground,TouchableOpacity,TouchableHighlight,Button } from 'react-native';
+import {
+    View,
+    ScrollView,
+    Text,
+    Image,
+    StyleSheet,
+    Dimensions,
+    StatusBar,
+    ViewPagerAndroid,
+    ImageBackground,
+    TouchableOpacity,
+    TouchableHighlight,
+    Button,
+    AsyncStorage
+} from 'react-native';
 
 
 
@@ -7,7 +21,6 @@ import AppIntroSlider from 'react-native-app-intro-slider';
 import {createAppContainer} from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import {HomePage} from "../../HomePage";
-import Modal from "react-native-simple-modal/index";
 import Kneepushup from "./kneepushup";
 import V_crunch from "./V_crunch";
 import Glute_bridge from "./Glute_bridge";
@@ -22,10 +35,12 @@ import Diamondkneepushup from "./Diamondkneepushup";
 import Dumbbellbicepscrul from "./dumbbellbicepscrul";
 import Standinglegraise from "./Standinglegraise";
 import Crunch from "./Crunch";
+import Profile from "../../profile";
+import {profilemodule} from "../../calories";
 
+import Modal, { ModalContent } from 'react-native-modals';
 
-
-
+let likefe=0
 
 export class Daily_Routine extends Component{
 
@@ -52,6 +67,10 @@ export class Daily_Routine extends Component{
         this.state={
             open:false,
             offset:0,
+            calofe:68,
+            istruefe:0,
+            deafult:0,
+            visible:true
 
 
         }
@@ -62,7 +81,30 @@ export class Daily_Routine extends Component{
 
 
 
+handlenext=()=>{
+    let myinterval = setInterval(() => {
 
+
+
+           likefe=this.state.deafult
+        },
+
+        1000);
+}
+
+
+    componentDidMount() {
+this.handlenext()
+
+        alert('Consult a physician before beginning any exercise program')
+
+
+
+    }
+
+
+    componentWillUnmount() {
+    }
 
 
     render(){
@@ -73,8 +115,11 @@ export class Daily_Routine extends Component{
             <View style={{width:'100%',height:'100%',backgroundColor:'#f1f1f1'}}>
 
 
-                <ScrollView>
 
+
+
+
+                <ScrollView>
 
 
 
@@ -90,9 +135,39 @@ export class Daily_Routine extends Component{
                             source={require('../mainImage/fullbodyeasy(1).jpg')}/>
 
                     </View>
+                    <View style={{flex:.1,flexDirection:'row',marginTop:'-25%'}}>
+                        <View style={{flex:.1,}}>
+
+                        </View>
+                        <View style={{flex:.2,margin:15,flexDirection:'column'}}>
+                            <Text style={{fontSize:25,fontWeight: 'bold',color:'#fff',textAlign: 'center'}}>4.0</Text>
+                            <Text style={{fontSize:15,color:'#fff',textAlign: 'center'}}>Mins</Text>
+
+                        </View>
+                        <View style={{flex:.1,}}>
+
+                        </View>
+                        <View style={{flex:.2,margin:15,flexDirection:'column'}}>
+                            <Text style={{fontSize:25,fontWeight: 'bold',color:'#fff',textAlign: 'center'}}>68</Text>
+                            <Text style={{fontSize:15,color:'#fff',textAlign: 'center'}}>Kcal</Text>
+
+                        </View>
+                        <View style={{flex:.1,}}>
+
+                        </View>
+                        <View style={{flex:.2,margin:15,flexDirection:'column'}}>
+                            <Text style={{fontSize:25,fontWeight: 'bold',color:'#fff',textAlign: 'center'}}>7</Text>
+                            <Text style={{fontSize:15,color:'#fff',textAlign: 'center'}}>Action</Text>
+
+                        </View>
+                        <View style={{flex:.1,}}>
+
+                        </View>
+
+                    </View>
 
 <View style={{flex:1,flexDirection:'column'}}>
-                    <Text style={{margin:'2%',marginLeft:'5%',fontSize:20}}>Introduction</Text>
+                    <Text style={{margin:'2%',marginLeft:'5%',fontSize:20,marginTop:'5%'}}>Introduction</Text>
 
                     <Text style={{margin:'5%'}}>This 10-minute routine uses only body weight exercises including a various Exercise. And you can modify all of the moves based on how you're feeling. Moving through these common—but extremely effective exercises will help you become more aware of your form,and it will set you up for more challenging variations as you get stronger.</Text>
 
@@ -325,7 +400,7 @@ export class Daily_Routine extends Component{
 
 
 
-<TouchableHighlight style={{height:60,backgroundColor:'#f94d6d'}} onPress={()=>{this.props.navigation.navigate('Gif')}}>
+<TouchableHighlight style={{height:60,backgroundColor:'#f94d6d'}} onPress={()=>{this.props.navigation.navigate('Gif');this.setState({deafult:1});}}>
     <Text style={{flex: 1,
         justifyContent: 'center',
         alignItems: 'center',alignSelf: "center",top:10,
@@ -442,6 +517,6 @@ export default class App extends React.Component {
     }
 }
 
-
+export {likefe}
 
 

@@ -20,6 +20,9 @@ import Dumbbellbicepscrul from "./dumbbellbicepscrul";
 import Gifplay from "./gifplay";
 
 
+let likefi=0
+
+
 
 export class Fullbodyintermidiate extends Component{
 
@@ -48,6 +51,9 @@ export class Fullbodyintermidiate extends Component{
             offset:0,
 
 
+            deafult:0
+
+
         }
     }
 
@@ -55,6 +61,25 @@ export class Fullbodyintermidiate extends Component{
 
 
 
+    handlenext=()=>{
+        let myinterval = setInterval(() => {
+
+
+
+                likefi=this.state.deafult
+            },
+
+            1000);
+    }
+
+    componentDidMount() {
+        this.handlenext()
+
+
+        alert('Consult a physician before beginning any exercise program')
+
+
+    }
 
 
 
@@ -81,12 +106,58 @@ export class Fullbodyintermidiate extends Component{
 
                         <Image
                             style={{width:'100%',height:'100%'}}
-                            source={{uri:'https://www.thegrowthop.com/wp-content/uploads/2019/04/1a_GettyImages-1007730100-e1555440810469.jpg'}}/>
+                            source={require('../mainImage/fullbodyintermidiate.jpg')}/>
 
                     </View>
 
+                    <View style={{flex:.1,flexDirection:'row',marginTop:'-25%'}}>
+                        <View style={{flex:.1,}}>
+
+                        </View>
+                        <View style={{flex:.2,margin:15,flexDirection:'column'}}>
+                            <Text style={{fontSize:25,fontWeight: 'bold',color:'#fff',textAlign: 'center'}}>4.0</Text>
+                            <Text style={{fontSize:15,color:'#fff',textAlign: 'center'}}>Mins</Text>
+
+                        </View>
+                        <View style={{flex:.1,}}>
+
+                        </View>
+                        <View style={{flex:.2,margin:15,flexDirection:'column'}}>
+                            <Text style={{fontSize:25,fontWeight: 'bold',color:'#fff',textAlign: 'center'}}>134</Text>
+                            <Text style={{fontSize:15,color:'#fff',textAlign: 'center'}}>Kcal</Text>
+
+                        </View>
+                        <View style={{flex:.1,}}>
+
+                        </View>
+                        <View style={{flex:.2,margin:15,flexDirection:'column'}}>
+                            <Text style={{fontSize:25,fontWeight: 'bold',color:'#fff',textAlign: 'center'}}>7</Text>
+                            <Text style={{fontSize:15,color:'#fff',textAlign: 'center'}}>Action</Text>
+
+                        </View>
+                        <View style={{flex:.1,}}>
+
+                        </View>
+
+                    </View>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     <View style={{flex:1,flexDirection:'column'}}>
-                        <Text style={{margin:'2%',marginLeft:'5%',fontSize:20}}>Introduction</Text>
+                        <Text style={{margin:'2%',marginLeft:'5%',fontSize:20,marginTop:'5%'}}>Introduction</Text>
 
                         <Text style={{margin:'5%'}}>This workout is a progression from the beginner/intermediate total body workout. It includes more advanced exercises and incorporates a barbell into many of the exercises. If you don't have a barbell you can continue to use dumbbells.</Text>
 
@@ -319,7 +390,7 @@ export class Fullbodyintermidiate extends Component{
 
 
 
-                <TouchableHighlight style={{height:60,backgroundColor:'#f94d6d'}} onPress={()=>{this.props.navigation.navigate('Gif')}}>
+                <TouchableHighlight style={{height:60,backgroundColor:'#f94d6d'}} onPress={()=>{this.props.navigation.navigate('Gif');this.setState({deafult:1})}}>
                     <Text style={{flex: 1,
                         justifyContent: 'center',
                         alignItems: 'center',alignSelf: "center",top:10,
@@ -433,5 +504,6 @@ export default class App extends React.Component {
 }
 
 
+export {likefi}
 
 

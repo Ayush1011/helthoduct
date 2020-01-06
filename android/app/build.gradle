@@ -205,7 +205,6 @@ splits {
 
 dependencies {
     implementation project(':react-native-image-picker')
-    implementation project(':react-native-custom-fonts')
     implementation project(':react-native-vector-icons')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules

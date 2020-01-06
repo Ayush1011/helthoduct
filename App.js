@@ -10,6 +10,7 @@ FlatList,
   ImageBackground
   , Button, StyleSheet, AsyncStorage,
   ScrollView, BackHandler,
+    SafeAreaView
 } from 'react-native';
 
 
@@ -35,7 +36,7 @@ import Icon from "react-native-vector-icons/AntDesign";
 
 // var Firebase = require('firebase')
 
-const BASE_URL='http://10.0.2.2:3000'
+const BASE_URL='db4free.net'
 
 
 
@@ -67,7 +68,9 @@ export class PhoneAuthTest extends React.Component {
       data:[],
       picname:'',
       picurl:'',
-      profilename:''
+      profilename:'',
+      showdefault:0,
+      signup:true
 
 
 
@@ -82,7 +85,7 @@ export class PhoneAuthTest extends React.Component {
 
 
       }).then((data)=>{
-                 this.savebutton()
+
       })
     }
     catch (e) {
@@ -191,6 +194,17 @@ export class PhoneAuthTest extends React.Component {
 
 
 
+
+      let myinterval = setInterval(() => {
+            this.getinfodata()
+
+
+          },
+
+          1000);
+
+
+
   }
 
 
@@ -256,20 +270,18 @@ export class PhoneAuthTest extends React.Component {
           // Login with the credential
           const veri=firebase.auth.GoogleAuthProvider.credential(data.user)
 
-         alert(JSON.stringify(veri))
-          this.savebutton(data.user.email)
-          console.log(JSON.stringify(data.user.email))
+         // alert(JSON.stringify(veri))
+          // this.savebutton(data.user.email)
           this.setState({picname:data.user.email})
-          this.setState({picurl:data.user.photo,profilename:data.user.name})
+          this.setState({picurl:JSON.stringify(data.user.photo),profilename:data.user.name})
 
+          // this.profileneed(data.user.email)
+          // this.profilefetch(data.user.photo,data.user.name,data.user.email)
+          //
+          // this.profilebutton(data.user.photo,data.user.name,data.user.email)
 
-          this.profileneed(data.user.email)
-          this.profilefetch(data.user.photo,data.user.name,data.user.email)
-
-          this.profilebutton(data.user.photo,data.user.name,data.user.email)
-
-
-
+          this.setState({showdefault:1})
+          this.saveinfo()
 
 
           return firebase.auth().signInWithCredential(credential);
@@ -282,66 +294,76 @@ export class PhoneAuthTest extends React.Component {
   })
   }
 
-  profileneed=(email)=>{
+
+  saveinfo=()=>{
+    storage.save({
+      key: 'show', // Note: Do not use underscore("_") in key!
+      data: {
 
 
-
-    const emai = email.split('@')[0].trim()
-
-console.log(emai)
-
-    fetch(BASE_URL+'/fetchinfo/'+emai, {
-      method: 'GET',
+        showdefault:this.state.showdefault
 
 
-
-    }).then((response)=>{
-      return response.json()
-
-
-    }).then((jsondata)=>{
-      this.setState({data:jsondata})
-    }).done()
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  savebutton=(email)=>{
-
-
-
-    const Email = email.split('@')[0].trim()
-
-
-
-    fetch('http://10.0.2.2:3000/', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json, text/plain, */*',  // It can be used to overcome cors errors
-        'Content-Type': 'application/json'
       },
 
+      // if expires not specified, the defaultExpires will be applied instead.
+      // if set to null, then it will never expire.
+      expires:null
+    })
 
-    body:JSON.stringify({user:Email})
-
-    }).then((response)=>{
-          return response.json()
+  }
 
 
-        }).then((jsondata)=>{
-           this.setState({data:jsondata})
-    }).done()
+
+
+
+  getinfodata=()=>{
+
+    storage
+        .load({
+          key: 'show',
+
+
+          autoSync: true,
+
+
+          syncInBackground: true,
+
+          // you can pass extra params to the sync method
+          // see sync example below
+          syncParams: {
+            extraFetchOptions: {
+              // blahblah
+            },
+            someFlag: true
+          }
+        })
+        .then(ret => {
+          // found data go to then()
+
+          this.setState({showdefault:ret.showdefault})
+
+
+        })
+        .catch(err => {
+          // any exception including data not found
+          // goes to catch()
+          console.warn(err.message);
+          switch (err.name) {
+            case 'NotFoundError':
+              // TODO;
+              break;
+            case 'ExpiredError':
+              // TODO
+              break;
+          }
+        });
+
+
+
+
+
+
   }
 
 
@@ -355,56 +377,136 @@ console.log(emai)
 
 
 
-  profilebutton=(photo,names,email)=>{
 
 
 
-    const Email = email.split('@')[0].trim()
 
 
 
-    fetch('http://10.0.2.2:3000/profileinfo', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json, text/plain, */*',  // It can be used to overcome cors errors
-        'Content-Type': 'application/json'
-      },
 
-
-      body:JSON.stringify({photo:photo,name:names,user:Email})
-
-    }).then((response)=>{
-      return response.json()
-
-
-    }).then((jsondata)=>{
-      this.setState({data:jsondata})
-    }).done()
-  }
-
-
-
-  profilefetch=(photo,names,email)=>{
-
-
-
-    const emails = email.split('@')[0].trim()
-
-
-
-    fetch(BASE_URL+'/profileinfo/'+emails, {
-      method: 'GET',
+//   profileneed=(email)=>{
+//
+//
+//
+//     const emai = email.split('@')[0].trim()
+//
+// console.log(emai)
+//
+//     fetch('profileinfo:3306/'+emai, {
+//       method: 'GET',
+//
+//
+//
+//     }).then((response)=>{
+//       return response.json()
+//
+//
+//     }).then((jsondata)=>{
+//       this.setState({data:jsondata})
+//     }).done()
+//   }
+//
+//
+//
 
 
 
-    }).then((response)=>{
-      return response.json()
 
 
-    }).then((jsondata)=>{
-      this.setState({data:jsondata})
-    }).done()
-  }
+
+
+
+
+
+  //
+  // savebutton=(email)=>{
+  //
+  //
+  //
+  //   const Email = email.split('@')[0].trim()
+  //
+  //
+  //
+  //   fetch('db4free.net:3306/', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Accept': 'application/json, text/plain, */*',  // It can be used to overcome cors errors
+  //       'Content-Type': 'application/json'
+  //     },
+  //
+  //
+  //   body:JSON.stringify({user:Email})
+  //
+  //   }).then((response)=>{
+  //         return response.json()
+  //
+  //
+  //       }).then((jsondata)=>{
+  //          this.setState({data:jsondata})
+  //   }).done()
+  // }
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+
+
+
+
+  //
+  // profilebutton=(photo,names,email)=>{
+  //
+  //
+  //
+  //   const Email = email.split('@')[0].trim()
+  //
+  //
+  //
+  //   fetch('db4free.net:3306/profileinfo', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Accept': 'application/json, text/plain, */*',  // It can be used to overcome cors errors
+  //       'Content-Type': 'application/json'
+  //     },
+  //
+  //
+  //     body:JSON.stringify({photo:photo,name:names,user:Email})
+  //
+  //   }).then((response)=>{
+  //     return response.json()
+  //
+  //
+  //   }).then((jsondata)=>{
+  //     this.setState({data:jsondata})
+  //   }).done()
+  // }
+  //
+  //
+  //
+  // profilefetch=(photo,names,email)=>{
+  //
+  //
+  //
+  //   const emails = email.split('@')[0].trim()
+  //
+  //
+  //
+  //   fetch(BASE_URL+'/profileinfo/'+emails, {
+  //     method: 'GET',
+  //
+  //
+  //
+  //   }).then((response)=>{
+  //     return response.json()
+  //
+  //
+  //   }).then((jsondata)=>{
+  //     this.setState({data:jsondata})
+  //   }).done()
+  // }
 
 
 
@@ -443,6 +545,17 @@ console.log(emai)
 
 
 
+
+
+  sigupshow=()=>{
+
+    this.setState({signup:false})
+
+
+  }
+
+
+
   renderPhoneNumberInput() {
     const { phoneNumber } = this.state;
     const {email,password}=this.state;
@@ -464,44 +577,70 @@ console.log(emai)
 
 
 
-<View style={{height:400,borderColor:'#fff',justifyContent:'center',alignSelf:'center',alignItems:'center'}}>
+<View style={{height:600,borderColor:'#fff',justifyContent:'center',alignSelf:'center',alignItems:'center'}}>
 
 
       <View style={{  height:300,width:300 }} >
         <Container style={{backgroundColor:'#f1f1f1'}}>
+
+
+
+
+          <Text style={{fontSize:25,color:'grey',margin:15}}>Daily Fitness</Text>
+          <Text  style={{fontSize:15,color:'grey',margin:10}}>Daily Fitness provides you with exercise to regulate daily schedule</Text>
         <Form>
-          <Item floatingLabel>
-            <Label>Email</Label>
-            <Input
-            autoCorrect={false }
-            autoCapitalize='none'
-            onChangeText={(email)=>this.setState({email})}
+          {/*<Item floatingLabel>*/}
+          {/*  <Label>Email</Label>*/}
+          {/*  <Input*/}
+          {/*  autoCorrect={false }*/}
+          {/*  autoCapitalize='none'*/}
+          {/*  onChangeText={(email)=>this.setState({email})}*/}
 
-            />
-          </Item>
+          {/*  />*/}
+          {/*</Item>*/}
 
-          <Item floatingLabel>
-            <Label>Password</Label>
-            <Input
-                secureTextEntry={true}
-                autoCorrect={false }
-                autoCapitalize='none'
-                onChangeText={(password)=>this.setState({password})}
+          {/*<Item floatingLabel>*/}
+          {/*  <Label>Password</Label>*/}
+          {/*  <Input*/}
+          {/*      secureTextEntry={true}*/}
+          {/*      autoCorrect={false }*/}
+          {/*      autoCapitalize='none'*/}
+          {/*      onChangeText={(password)=>this.setState({password})}*/}
 
-            />
-          </Item>
+          {/*  />*/}
+          {/*</Item>*/}
 
 
 
         </Form>
-          <View style={{flex:1,flexDirection:'row',}}>
-            <TouchableHighlight style={{flex:.5,width:200,height:50,margin:5,backgroundColor:'#4BB543',alignItems:'center',justifyContent:'center',alignSelf:'center',borderRadius:15}} onPress={()=>this.loginuser(this.state.email,this.state.password)}>
-              <Text>LOGIN</Text>
-            </TouchableHighlight>
-            <TouchableHighlight style={{flex:.5,width:200,height:50,margin:5,backgroundColor:'#93ccea',alignItems:'center',justifyContent:'center',alignSelf:'center',borderRadius:15}} onPress={()=>this.signupuser(this.state.email,this.state.password)}>
-              <Text>Signup</Text>
-            </TouchableHighlight>
-          </View>
+{/*          {this.state.signup===true?*/}
+
+{/*              <View style={{flex:1,flexDirection:'row',}}>*/}
+{/*                <TouchableHighlight style={{flex:.5,width:200,height:50,margin:5,backgroundColor:'#4BB543',alignItems:'center',justifyContent:'center',alignSelf:'center',borderRadius:15}} onPress={()=>this.loginuser(this.state.email,this.state.password)}>*/}
+{/*                  <Text>LOGIN</Text>*/}
+{/*                </TouchableHighlight>*/}
+{/*                <TouchableHighlight style={{flex:.5,width:200,height:50,margin:5,backgroundColor:'#93ccea',alignItems:'center',justifyContent:'center',alignSelf:'center',borderRadius:15}} onPress={()=>this.sigupshow()}>*/}
+{/*                  <Text>Signup</Text>*/}
+{/*                </TouchableHighlight>*/}
+{/*              </View>*/}
+{/*:*/}
+{/*              <View style={{flex:1,flexDirection:'row',}}>*/}
+
+
+{/*              <TouchableHighlight style={{flex:1,height:50,margin:5,backgroundColor:'#93ccea',alignItems:'center',justifyContent:'center',alignSelf:'center',borderRadius:15}} onPress={()=>this.signupuser(this.state.email,this.state.password)}>*/}
+{/*                <Text>Signup</Text>*/}
+{/*              </TouchableHighlight>*/}
+{/*                <TouchableHighlight style={{flex:.5,width:200,height:50,margin:5,backgroundColor:'#4BB543',alignItems:'center',justifyContent:'center',alignSelf:'center',borderRadius:15}} onPress={()=>this.loginuser(this.state.email,this.state.password)}>*/}
+{/*                  <Text>LOGIN</Text>*/}
+{/*                </TouchableHighlight>*/}
+{/*              </View>*/}
+
+
+
+{/*          }*/}
+
+
+
 
 
 
@@ -509,7 +648,7 @@ console.log(emai)
 
 
           <GoogleSigninButton
-              style={{ width:225, height: 48,alignSelf:'center' }}
+              style={{ width:255, height: 48,alignSelf:'center',marginTop: 15 }}
               size={GoogleSigninButton.Size.Wide}
               color={GoogleSigninButton.Color.Light}
               onPress={this.onLoginOrRegister}
@@ -648,7 +787,7 @@ console.log(emai)
     if(this.state.isVisible===true)
     {
       return (
-          <View style = { styles.MainContainer }>
+          <View style = { {flex:1,height:1000} }>
 
 
 
@@ -665,8 +804,9 @@ console.log(emai)
 
 
       return (
-          <View style={{ flex:1 }}>
 
+
+          <View style={{ flex:1,height:1000 }}>
 
 
             {!user && !confirmResult && this.renderPhoneNumberInput()}
@@ -677,42 +817,24 @@ console.log(emai)
            {user && (
 
 
-                <View >
+                <View  style={{flex:1,}}>
 
 
-                  <Profile pic={this.state.picname} picurl={this.state.picurl} profilename={this.state.profilename} email={this.state.email} />
-
-
-
+                  <Profile pic={this.state.picname} picurl={this.state.picurl} profilename={this.state.profilename} email={this.state.email} showdefault={this.state.showdefault} />
 
 
 
-                  <View>
 
 
-                    <Collapse>
-                      <CollapseHeader>
-                        <View style={{width:85,backgroundColor:'#607d8b',height:45,borderRadius:25,marginLeft:'auto',right:20,marginTop: '.55%',}}>
-                          <Icon style={{alignSelf:'center',marginTop:'10%'}} name="caretup" size={27} color="#fff" />
-                        </View>
-                      </CollapseHeader>
-                      <CollapseBody>
+                  <TouchableHighlight  style={{position:'absolute', margin:15,right:0,bottom:'10%',backgroundColor:'red'}}>
+                    <Button title="next" color="#59A45C" onPress={()=>this.Handlenext()}/>
 
-                        <TouchableHighlight  style={{position:'absolute', margin:15,right:5,bottom:40,backgroundColor:'#59A45C',marginBottom: 40,width:70,height:70,borderRadius:75/2}} onPress={()=>this.Handlenext()}>
-                          <Icon style={{alignSelf:'center',marginTop:'30%'}} name="forward" size={27} color="#fff" />
-
-                        </TouchableHighlight>
-
-                        <TouchableHighlight style={{position:'absolute', margin:15,right:5,bottom:40,backgroundColor:'red',marginBottom: 120,width:70,height:70,borderRadius:75/2}} onPress={this.signOut}>
-                          <Icon style={{alignSelf:'center',marginTop:'30%'}} name="logout" size={27} color="#fff" />
-                        </TouchableHighlight>
-                      </CollapseBody>
-                    </Collapse>
-
+                  </TouchableHighlight>
 
                   </View>
 
-                </View>
+
+
 
 
 
@@ -721,8 +843,6 @@ console.log(emai)
 
 
           </View>
-
-
       );
     }
     else {
@@ -789,10 +909,33 @@ export  class Appintro extends React.Component {
       this.setState({ showRealApp: true });
 
 
-    this.props.navigation.navigate('Home',{ver:this.props.navigation.state.params.verification})
+    this.props.navigation.navigate('Home')
   })
   }
 
+  _renderNextButton = () => {
+    return (
+        <View style={styles.buttonCircle}>
+          <Icon name="doubleright" size={17} color="black" />
+        </View>
+    );
+  };
+  _renderDoneButton = () => {
+    return (
+        <View style={styles.buttonCircle}>
+          <Icon name="check" size={17} color="black" />
+        </View>
+    );
+  };
+
+  _renderskipButton=()=>{
+    return (
+        <View style={styles.buttonCircle}>
+          <Icon name="stepforward" size={17} color="black" />
+        </View>
+
+  )
+  }
 
 
   render() {const config = {
@@ -829,6 +972,11 @@ export  class Appintro extends React.Component {
               //Handler for the done On last slide
               showSkipButton={true}
               onSkip={()=>this._onSkip()}
+              renderSkipButton={this._renderskipButton}
+              renderDoneButton={this._renderDoneButton}
+              renderNextButton={this._renderNextButton}
+
+
           />
 
       );
@@ -897,6 +1045,15 @@ const styles = StyleSheet.create({
     position: 'absolute'
 
   },
+  buttonCircle: {
+    width: 40,
+    height: 40,
+    backgroundColor: '#C3C3C3',
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
 });
 
 

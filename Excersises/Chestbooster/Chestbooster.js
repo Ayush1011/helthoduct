@@ -20,6 +20,7 @@ import Cheststreatch from "./Cheststreatch";
 
 
 
+let likecb=0
 
 export class Chestbooster extends Component{
 
@@ -46,6 +47,7 @@ export class Chestbooster extends Component{
         this.state={
             open:false,
             offset:0,
+            deafult:0
 
 
         }
@@ -55,7 +57,25 @@ export class Chestbooster extends Component{
 
 
 
+    handlenext=()=>{
+        let myinterval = setInterval(() => {
 
+
+
+                likecb=this.state.deafult
+            },
+
+            1000);
+    }
+
+    componentDidMount() {
+        this.handlenext()
+
+        alert('Consult a physician before beginning any exercise program')
+
+
+
+    }
 
 
 
@@ -84,9 +104,38 @@ export class Chestbooster extends Component{
                             source={require('../mainImage/chestbuildup.jpg')}/>
 
                     </View>
+                    <View style={{flex:.1,flexDirection:'row',marginTop:'-25%'}}>
+                        <View style={{flex:.1,}}>
 
+                        </View>
+                        <View style={{flex:.2,margin:15,flexDirection:'column'}}>
+                            <Text style={{fontSize:25,fontWeight: 'bold',color:'#fff',textAlign: 'center'}}>3.0</Text>
+                            <Text style={{fontSize:15,color:'#fff',textAlign: 'center'}}>Mins</Text>
+
+                        </View>
+                        <View style={{flex:.1,}}>
+
+                        </View>
+                        <View style={{flex:.2,margin:15,flexDirection:'column'}}>
+                            <Text style={{fontSize:25,fontWeight: 'bold',color:'#fff',textAlign: 'center'}}>38</Text>
+                            <Text style={{fontSize:15,color:'#fff',textAlign: 'center'}}>Kcal</Text>
+
+                        </View>
+                        <View style={{flex:.1,}}>
+
+                        </View>
+                        <View style={{flex:.2,margin:15,flexDirection:'column'}}>
+                            <Text style={{fontSize:25,fontWeight: 'bold',color:'#fff',textAlign: 'center'}}>6</Text>
+                            <Text style={{fontSize:15,color:'#fff',textAlign: 'center'}}>Action</Text>
+
+                        </View>
+                        <View style={{flex:.1,}}>
+
+                        </View>
+
+                    </View>
                     <View style={{flex:1,flexDirection:'column'}}>
-                        <Text style={{margin:'2%',marginLeft:'5%',fontSize:20}}>Introduction</Text>
+                        <Text style={{margin:'2%',marginLeft:'5%',fontSize:20,marginTop:'5%'}}>Introduction</Text>
 
                         <Text style={{margin:'5%'}}>Not only man but women also need to do chest exercise for muscle building. if you a strong muscle it will surely increase and help for the correct posture  </Text>
 
@@ -283,7 +332,7 @@ export class Chestbooster extends Component{
 
 
 
-                <TouchableHighlight style={{height:60,backgroundColor:'#f94d6d'}} onPress={()=>{this.props.navigation.navigate('Gif')}}>
+                <TouchableHighlight style={{height:60,backgroundColor:'#f94d6d'}} onPress={()=>{this.props.navigation.navigate('Gif');this.setState({deafult:1})}}>
                     <Text style={{flex: 1,
                         justifyContent: 'center',
                         alignItems: 'center',alignSelf: "center",top:10,
@@ -329,7 +378,6 @@ export class Chestbooster extends Component{
     }
 
 }
-
 
 
 
@@ -405,3 +453,4 @@ export default class App extends React.Component {
 
 
 
+export {likecb}

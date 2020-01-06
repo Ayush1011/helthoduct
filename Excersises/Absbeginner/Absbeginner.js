@@ -20,12 +20,13 @@ import Alternateheel from "./alternateheel";
 import Standinglegraise from "./Standinglegraise";
 import Plank from "./Plank";
 import Cobarastreatch from "./cobarastreatch";
+import {likefe} from "../fullbodyeasy/Daily_Routine";
 
 
 
 
 
-
+let likeab=0
 export class Absbeginner extends Component{
 
     static navigationOptions = {
@@ -51,7 +52,7 @@ export class Absbeginner extends Component{
         this.state={
             open:false,
             offset:0,
-
+            deafult:0
 
         }
     }
@@ -59,7 +60,25 @@ export class Absbeginner extends Component{
     ;
 
 
+    handlenext=()=>{
+        let myinterval = setInterval(() => {
 
+
+
+                likeab=this.state.deafult
+            },
+
+            1000);
+    }
+
+    componentDidMount() {
+        this.handlenext()
+        alert('Consult a physician before beginning any exercise program')
+
+
+
+
+    }
 
 
 
@@ -89,9 +108,38 @@ export class Absbeginner extends Component{
                             source={require('../mainImage/abseasy.jpg')}/>
 
                     </View>
+                    <View style={{flex:.1,flexDirection:'row',marginTop:'-25%'}}>
+                        <View style={{flex:.1,}}>
 
+                        </View>
+                        <View style={{flex:.2,margin:15,flexDirection:'column'}}>
+                            <Text style={{fontSize:25,fontWeight: 'bold',color:'#fff',textAlign: 'center'}}>5.0</Text>
+                            <Text style={{fontSize:15,color:'#fff',textAlign: 'center'}}>Mins</Text>
+
+                        </View>
+                        <View style={{flex:.1,}}>
+
+                        </View>
+                        <View style={{flex:.2,margin:15,flexDirection:'column'}}>
+                            <Text style={{fontSize:25,fontWeight: 'bold',color:'#fff',textAlign: 'center'}}>61</Text>
+                            <Text style={{fontSize:15,color:'#fff',textAlign: 'center'}}>Kcal</Text>
+
+                        </View>
+                        <View style={{flex:.1,}}>
+
+                        </View>
+                        <View style={{flex:.2,margin:15,flexDirection:'column'}}>
+                            <Text style={{fontSize:25,fontWeight: 'bold',color:'#fff',textAlign: 'center'}}>10</Text>
+                            <Text style={{fontSize:15,color:'#fff',textAlign: 'center'}}>Action</Text>
+
+                        </View>
+                        <View style={{flex:.1,}}>
+
+                        </View>
+
+                    </View>
                     <View style={{flex:1,flexDirection:'column'}}>
-                        <Text style={{margin:'2%',marginLeft:'5%',fontSize:20}}>Introduction</Text>
+                        <Text style={{margin:'2%',marginLeft:'5%',fontSize:20,marginTop:'5%'}}>Introduction</Text>
 
                         <Text style={{margin:'5%'}}>Abs are the major part of your body structure you may find that this routine help them to build up in amazing way</Text>
 
@@ -368,7 +416,7 @@ export class Absbeginner extends Component{
 
 
 
-                <TouchableHighlight style={{height:60,backgroundColor:'#f94d6d'}} onPress={()=>{this.props.navigation.navigate('Gif')}}>
+                <TouchableHighlight style={{height:60,backgroundColor:'#f94d6d'}} onPress={()=>{this.props.navigation.navigate('Gif');this.setState({deafult:1})}}>
                     <Text style={{flex: 1,
                         justifyContent: 'center',
                         alignItems: 'center',alignSelf: "center",top:10,
@@ -487,4 +535,5 @@ export default class App extends React.Component {
 
 
 
+export {likeab}
 

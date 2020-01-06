@@ -25,7 +25,7 @@ import Mountainclimber from "./Mountainclimber";
 import Squat from "./Squat";
 import Inclinepushup from "./Inclinepushup";
 
-
+let likewi=0
 
 export class Weightlossintermidiate extends Component{
 
@@ -53,11 +53,35 @@ export class Weightlossintermidiate extends Component{
             open:false,
             offset:0,
 
+            deafult:0
+
 
         }
     }
 
     ;
+
+
+
+    handlenext=()=>{
+        let myinterval = setInterval(() => {
+
+
+
+                likewi=this.state.deafult
+            },
+
+            1000);
+    }
+
+    componentDidMount() {
+        this.handlenext()
+
+        alert('Consult a physician before beginning any exercise program')
+
+
+
+    }
 
 
 
@@ -90,12 +114,40 @@ export class Weightlossintermidiate extends Component{
                             source={require('../mainImage/weightlossintermidiate.jpg')}/>
 
                     </View>
+                    <View style={{flex:.1,flexDirection:'row',marginTop:'-25%'}}>
+                        <View style={{flex:.1,}}>
 
+                        </View>
+                        <View style={{flex:.2,margin:15,flexDirection:'column'}}>
+                            <Text style={{fontSize:25,fontWeight: 'bold',color:'#fff',textAlign: 'center'}}>6.0</Text>
+                            <Text style={{fontSize:15,color:'#fff',textAlign: 'center'}}>Mins</Text>
+
+                        </View>
+                        <View style={{flex:.1,}}>
+
+                        </View>
+                        <View style={{flex:.2,margin:15,flexDirection:'column'}}>
+                            <Text style={{fontSize:25,fontWeight: 'bold',color:'#fff',textAlign: 'center'}}>124</Text>
+                            <Text style={{fontSize:15,color:'#fff',textAlign: 'center'}}>Kcal</Text>
+
+                        </View>
+                        <View style={{flex:.1,}}>
+
+                        </View>
+                        <View style={{flex:.2,margin:15,flexDirection:'column'}}>
+                            <Text style={{fontSize:25,fontWeight: 'bold',color:'#fff',textAlign: 'center'}}>12</Text>
+                            <Text style={{fontSize:15,color:'#fff',textAlign: 'center'}}>Action</Text>
+
+                        </View>
+                        <View style={{flex:.1,}}>
+
+                        </View>
+
+                    </View>
                     <View style={{flex:1,flexDirection:'column'}}>
-                        <Text style={{margin:'2%',marginLeft:'5%',fontSize:20}}>Introduction</Text>
+                        <Text style={{margin:'2%',marginLeft:'5%',fontSize:20,marginTop:'5%'}}>Introduction</Text>
 
-                        <Text style={{margin:'5%'}}>lorem ipsum was born as a nonsense text. “It's not Latin, though it looks like it, and it actually says nothing,”
-                            Before & After magazine answered a curious reader, “Its ‘words’  </Text>
+                        <Text style={{margin:'5%'}}>This set of exercise consist of well proclaimed exercise to loss weight in perfect and well contained manner for all ages. </Text>
 
                         <View style={{flex:1,flexDirection:'column'}}>
                             <View style={{flex:1,flexDirection:'row',width:'100%',}}>
@@ -124,7 +176,7 @@ export class Weightlossintermidiate extends Component{
                                     <View style={{flex:1,flexDirection:'row'}}>
                                         <View style={{width:'25%',height:'100%',}}>
 
-                                            <Image source={{uri:'https://images.pexels.com/photos/1431283/pexels-photo-1431283.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'}}
+                                            <Image source={require('../../images/helto.jpg')}
                                                    style={{width: undefined, height: undefined,flex:1,margin:5}}
                                             />
 
@@ -151,7 +203,7 @@ export class Weightlossintermidiate extends Component{
                                     <View style={{flex:1,flexDirection:'row'}}>
                                         <View style={{width:'25%',height:100,}}>
 
-                                            <Image source={{uri:'https://images.pexels.com/photos/1431283/pexels-photo-1431283.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'}}
+                                            <Image source={require('../../images/helto.jpg')}
                                                    style={{width: undefined, height: undefined,flex:1,margin:5}}
                                             />
 
@@ -177,7 +229,7 @@ export class Weightlossintermidiate extends Component{
                                     <View style={{flex:1,flexDirection:'row'}}>
                                         <View style={{width:'25%',height:100,}}>
 
-                                            <Image source={{uri:'https://images.pexels.com/photos/1431283/pexels-photo-1431283.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'}}
+                                            <Image source={require('../../images/helto.jpg')}
                                                    style={{width: undefined, height: undefined,flex:1,margin:5}}
                                             />
 
@@ -204,7 +256,7 @@ export class Weightlossintermidiate extends Component{
                                     <View style={{flex:1,flexDirection:'row'}}>
                                         <View style={{width:'25%',height:100,}}>
 
-                                            <Image source={{uri:'https://images.pexels.com/photos/1431283/pexels-photo-1431283.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'}}
+                                            <Image source={require('../../images/helto.jpg')}
                                                    style={{width: undefined, height: undefined,flex:1,margin:5}}
                                             />
 
@@ -231,7 +283,7 @@ export class Weightlossintermidiate extends Component{
                                     <View style={{flex:1,flexDirection:'row'}}>
                                         <View style={{width:'25%',height:100,}}>
 
-                                            <Image source={{uri:'https://images.pexels.com/photos/1431283/pexels-photo-1431283.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'}}
+                                            <Image source={require('../../images/helto.jpg')}
                                                    style={{width: undefined, height: undefined,flex:1,margin:5}}
                                             />
 
@@ -261,7 +313,7 @@ export class Weightlossintermidiate extends Component{
                                     <View style={{flex:1,flexDirection:'row'}}>
                                         <View style={{width:'25%',height:100,}}>
 
-                                            <Image source={{uri:'https://images.pexels.com/photos/1431283/pexels-photo-1431283.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'}}
+                                            <Image source={require('../../images/helto.jpg')}
                                                    style={{width: undefined, height: undefined,flex:1,margin:5}}
                                             />
 
@@ -300,7 +352,7 @@ export class Weightlossintermidiate extends Component{
                                     <View style={{flex:1,flexDirection:'row'}}>
                                         <View style={{width:'25%',height:100,}}>
 
-                                            <Image source={{uri:'https://images.pexels.com/photos/1431283/pexels-photo-1431283.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'}}
+                                            <Image source={require('../../images/helto.jpg')}
                                                    style={{width: undefined, height: undefined,flex:1,margin:5}}
                                             />
 
@@ -326,7 +378,7 @@ export class Weightlossintermidiate extends Component{
                                     <View style={{flex:1,flexDirection:'row'}}>
                                         <View style={{width:'25%',height:100,}}>
 
-                                            <Image source={{uri:'https://images.pexels.com/photos/1431283/pexels-photo-1431283.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'}}
+                                            <Image source={require('../../images/helto.jpg')}
                                                    style={{width: undefined, height: undefined,flex:1,margin:5}}
                                             />
 
@@ -356,7 +408,7 @@ export class Weightlossintermidiate extends Component{
                                     <View style={{flex:1,flexDirection:'row'}}>
                                         <View style={{width:'25%',height:100,}}>
 
-                                            <Image source={{uri:'https://images.pexels.com/photos/1431283/pexels-photo-1431283.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'}}
+                                            <Image source={require('../../images/helto.jpg')}
                                                    style={{width: undefined, height: undefined,flex:1,margin:5}}
                                             />
 
@@ -383,7 +435,7 @@ export class Weightlossintermidiate extends Component{
                                     <View style={{flex:1,flexDirection:'row'}}>
                                         <View style={{width:'25%',height:100,}}>
 
-                                            <Image source={{uri:'https://images.pexels.com/photos/1431283/pexels-photo-1431283.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'}}
+                                            <Image source={require('../../images/helto.jpg')}
                                                    style={{width: undefined, height: undefined,flex:1,margin:5}}
                                             />
 
@@ -411,7 +463,7 @@ export class Weightlossintermidiate extends Component{
                                     <View style={{flex:1,flexDirection:'row'}}>
                                         <View style={{width:'25%',height:100,}}>
 
-                                            <Image source={{uri:'https://images.pexels.com/photos/1431283/pexels-photo-1431283.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'}}
+                                            <Image source={require('../../images/helto.jpg')}
                                                    style={{width: undefined, height: undefined,flex:1,margin:5}}
                                             />
 
@@ -440,7 +492,7 @@ export class Weightlossintermidiate extends Component{
                                     <View style={{flex:1,flexDirection:'row'}}>
                                         <View style={{width:'25%',height:100,}}>
 
-                                            <Image source={{uri:'https://images.pexels.com/photos/1431283/pexels-photo-1431283.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'}}
+                                            <Image source={require('../../images/helto.jpg')}
                                                    style={{width: undefined, height: undefined,flex:1,margin:5}}
                                             />
 
@@ -480,7 +532,7 @@ export class Weightlossintermidiate extends Component{
 
 
 
-                <TouchableHighlight style={{height:60,backgroundColor:'#f94d6d'}} onPress={()=>{this.props.navigation.navigate('Gif')}}>
+                <TouchableHighlight style={{height:60,backgroundColor:'#f94d6d'}} onPress={()=>{this.props.navigation.navigate('Gif');this.setState({deafult:1})}}>
                     <Text style={{flex: 1,
                         justifyContent: 'center',
                         alignItems: 'center',alignSelf: "center",top:10,
@@ -604,4 +656,5 @@ export default class App extends React.Component {
 
 
 
+export {likewi}
 

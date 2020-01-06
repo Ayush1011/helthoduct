@@ -41,6 +41,7 @@ import Buildyourbutt from "./Excersises/Buildyourbutt/buildyourbutt";
 import Chestbooster from "./Excersises/Chestbooster/Chestbooster";
 import Coreworkout from "./Excersises/Coreworkout/Coreworkout";
 import Links from "./Links";
+import Calories from "./calories";
 export class HomePage extends Component {
 
     static navigationOptions = {
@@ -578,9 +579,9 @@ const RootStack=createBottomTabNavigator(
                         borderColor:'#fff'
                     }
                 },
-                tabBarLabel:"Home",
+                tabBarLabel:"Exercise",
                 tabBarIcon: ({ tintColor }) => (
-                    <Icon name="home" size={25} color="#837A83" />
+                    <Icon name="running" size={25} color="#837A83" />
                 )
             },
 
@@ -617,7 +618,10 @@ const RootStack=createBottomTabNavigator(
                 )
             },
 
-        },      Links:{screen:Links,
+        },
+
+
+        calroie:{screen:Calories,
             navigationOptions: {
                 headerStyle: { Color: 'red',
                     backgroundColor: '#fff',
@@ -639,16 +643,76 @@ const RootStack=createBottomTabNavigator(
                         color:'#111'
                     }
                 },
-                tabBarLabel:"Links",
+                tabBarLabel:"calories",
 
 
                 tabBarIcon: ({ tintColor }) => (
-                    <Icon name="fingerprint" size={25} color="#837A83" />
+                    <Icon name="strava" size={25} color="#837A83" />
                 )
             },
 
-        }
+        },
+
+
+
+
+
+
+
+
+
+
+        Links:{screen:Links,
+            navigationOptions: {
+                headerStyle: { Color: 'red',
+                    backgroundColor: '#fff',
+                    borderBottomColor: '#fff',
+
+
+
+                },
+                headerTitleStyle: { color: '#111',fontFamily:'Roboto',right:0,
+                    marginLeft:'auto',
+
+
+                    fontSize:25},
+
+
+                tabBarOptions : {
+                    style: {
+                        backgroundColor: '#fff',
+                        color:'#111'
+                    }
+                },
+                tabBarLabel:"Visit",
+
+
+                tabBarIcon: ({ tintColor }) => (
+                    <Icon name="earlybirds" size={25} color="#837A83" />
+                )
+            },
+
+        },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     },
+
+
+
+
+
     {
         navigationOptions:{
             header:null,

@@ -26,6 +26,7 @@ import Bycyclecrunch from "./Bycyclecrunch";
 import Superman from "./Superman";
 
 
+let likewe=0
 
 export class Weightlosseasy extends Component{
 
@@ -53,11 +54,36 @@ export class Weightlosseasy extends Component{
             open:false,
             offset:0,
 
+            deafult:0
+
 
         }
     }
 
     ;
+
+
+
+    handlenext=()=>{
+        let myinterval = setInterval(() => {
+
+
+
+                likewe=this.state.deafult
+            },
+
+            1000);
+    }
+
+    componentDidMount() {
+        this.handlenext()
+        alert('Consult a physician before beginning any exercise program')
+
+
+
+
+    }
+
 
 
 
@@ -91,8 +117,42 @@ export class Weightlosseasy extends Component{
 
                     </View>
 
+
+                    <View style={{flex:.1,flexDirection:'row',marginTop:'-25%'}}>
+                        <View style={{flex:.1,}}>
+
+                        </View>
+                        <View style={{flex:.2,margin:15,flexDirection:'column'}}>
+                            <Text style={{fontSize:25,fontWeight: 'bold',color:'#fff',textAlign: 'center'}}>6.0</Text>
+                            <Text style={{fontSize:15,color:'#fff',textAlign: 'center'}}>Mins</Text>
+
+                        </View>
+                        <View style={{flex:.1,}}>
+
+                        </View>
+                        <View style={{flex:.2,margin:15,flexDirection:'column'}}>
+                            <Text style={{fontSize:25,fontWeight: 'bold',color:'#fff',textAlign: 'center'}}>74</Text>
+                            <Text style={{fontSize:15,color:'#fff',textAlign: 'center'}}>Kcal</Text>
+
+                        </View>
+                        <View style={{flex:.1,}}>
+
+                        </View>
+                        <View style={{flex:.2,margin:15,flexDirection:'column'}}>
+                            <Text style={{fontSize:25,fontWeight: 'bold',color:'#fff',textAlign: 'center'}}>12</Text>
+                            <Text style={{fontSize:15,color:'#fff',textAlign: 'center'}}>Action</Text>
+
+                        </View>
+                        <View style={{flex:.1,}}>
+
+                        </View>
+
+                    </View>
+
+
+
                     <View style={{flex:1,flexDirection:'column'}}>
-                        <Text style={{margin:'2%',marginLeft:'5%',fontSize:20}}>Introduction</Text>
+                        <Text style={{margin:'2%',marginLeft:'5%',fontSize:20,marginTop:'5%'}}>Introduction</Text>
 
                         <Text style={{margin:'5%'}}>Aside from dieting, exercising is one of the most common strategies employed by those trying to shed extra pounds. It burns calories, and this plays a key role in weight loss.
                             In addition to helping you lose weight, exercise has been linked to many other benefits, including improved mood, stronger bones, and a reduced risk of many chronic diseases  </Text>
@@ -437,7 +497,7 @@ export class Weightlosseasy extends Component{
 
 
 
-                <TouchableHighlight style={{height:60,backgroundColor:'#f94d6d'}} onPress={()=>{this.props.navigation.navigate('Gif')}}>
+                <TouchableHighlight style={{height:60,backgroundColor:'#f94d6d'}} onPress={()=>{this.props.navigation.navigate('Gif');this.setState({deafult:1})}}>
                     <Text style={{flex: 1,
                         justifyContent: 'center',
                         alignItems: 'center',alignSelf: "center",top:10,
@@ -559,5 +619,6 @@ export default class App extends React.Component {
 }
 
 
+export {likewe}
 
 

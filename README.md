@@ -9,10 +9,10 @@ git clone https://github.com/Ayush1011/helthoduct
 
 # Working of this application
 
-i)   Android Application for the Fitness enthusiast to gauge the Daily Routine and workout.
-ii)  Weekly and Daily report generation with an impressive admin panel.
-iii) Performed software development lifecycle including the Quality Analysis, Development and Production.
-iv)  Visit Application:-https://drive.google.com/file/d/1qEl2-WepQ60y_8u6FBe3WTpcX26oGVrX/view?usp=sharing  
+i)   Android Application for the Fitness enthusiast to gauge the Daily Routine and workout.  
+ii)  Weekly and Daily report generation with an impressive admin panel.  
+iii) Performed software development lifecycle including the Quality Analysis, Development and Production.  
+iv)  Visit Application:-https://drive.google.com/file/d/1qEl2-WepQ60y_8u6FBe3WTpcX26oGVrX/view?usp=sharing     
 
 
 # Made in

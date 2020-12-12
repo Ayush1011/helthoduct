@@ -1,4 +1,4 @@
-# helthoduct
+# Helthoduct
 
 # Clone this application
 git clone https://github.com/Ayush1011/helthoduct
@@ -16,10 +16,10 @@ iv)  Visit Application:-https://drive.google.com/file/d/1qEl2-WepQ60y_8u6FBe3WTp
 
 
 # Made in
-React Native
-Express js
-MySql
-firebase
+React Native  
+Express js   
+MySql   
+firebase  
 
 
 

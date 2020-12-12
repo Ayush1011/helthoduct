@@ -4,7 +4,7 @@
 git clone https://github.com/Ayush1011/helthoduct
 
 
-![heltoduct](https://media-exp1.licdn.com/dms/image/C512DAQFh63iwpRRTUQ/profile-treasury-image-shrink_480_480/0/1601802893813?e=1607864400&v=beta&t=Jh-ISXSn63xAXLQ9k_PouhGQYRfB0KBRcag1SrHqomc)
+![heltoduct](https://media-exp1.licdn.com/dms/image/C512DAQFh63iwpRRTUQ/profile-treasury-image-shrink_1920_1920/0/1601802893813?e=1607868000&v=beta&t=zvXz6RwsMbFdKj0iiPInjge_yvDITTG-d_UX-KO2-pE)
 
 
 # Working of this application

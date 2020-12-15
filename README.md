@@ -4,7 +4,7 @@
 git clone https://github.com/Ayush1011/helthoduct
 
 
-![heltoduct](https://media-exp1.licdn.com/dms/image/C512DAQFh63iwpRRTUQ/profile-treasury-image-shrink_1920_1920/0/1601802893813?e=1607868000&v=beta&t=zvXz6RwsMbFdKj0iiPInjge_yvDITTG-d_UX-KO2-pE)
+![heltoduct](https://firebasestorage.googleapis.com/v0/b/virtusa-58806.appspot.com/o/helto.jpeg?alt=media&token=9349ee52-1b84-44dc-830a-282b901c0754)
 
 
 # Working of this application

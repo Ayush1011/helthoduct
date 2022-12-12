@@ -13,7 +13,7 @@
     "accordion-collapse-react-native": "^0.1.11",
     "babel-preset-react-native": "^2.1.0",
     "body-parser": "^1.19.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "mysql": "^2.17.1",
     "native-base": "^2.13.8",
     "prop-types": "^15.7.2",
